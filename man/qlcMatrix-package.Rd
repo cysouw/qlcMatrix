@@ -11,8 +11,8 @@ This package contains various functions that extend the functionality of the \co
 \tabular{ll}{
 Package: \tab qlcMatrix\cr
 Type: \tab Package\cr
-Version: \tab 0.9.1\cr
-Date: \tab 2014-05-17\cr
+Version: \tab 0.9.2\cr
+Date: \tab 2014-05-18\cr
 License: \tab GPL-3\cr
 }
 This package contains various different kinds of function. 

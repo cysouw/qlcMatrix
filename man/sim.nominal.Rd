@@ -53,11 +53,11 @@ library(MASS)
 
 # similarities between farms
 s <- sim.obs(farms)
-plot(hclust(as.dist(1-s), method = "ward.D"))
+plot(hclust(as.dist(1-s), method = "ward"))
 
 # similarities between attributes (`variables`)
 s <- sim.att(farms)
-plot(hclust(as.dist(1-s), method = "ward.D"))
+plot(hclust(as.dist(1-s), method = "ward"))
 
 \dontrun{
 # a larger example with lots of missing data: the WALS-data as included here
@@ -66,7 +66,7 @@ plot(hclust(as.dist(1-s), method = "ward.D"))
 data(wals)
 system.time(s <- sim.att(wals$data))
 rownames(s) <- colnames(wals$data)
-plot(hclust(as.dist(1-s), method = "ward.D"), cex = 0.5)
+plot(hclust(as.dist(1-s), method = "ward"), cex = 0.5)
 
 # Note that using sparse=T speeds up computations because it 
 # ignores zero co-occurrences

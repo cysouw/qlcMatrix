@@ -53,10 +53,21 @@ Michael Cysouw
 
 \examples{
 # rowMax(X, ignore.zero = FALSE) is the same as apply(X, 1, max)
-X <- rSparseMatrix(1e4, 1e4, 1e5)
+# however, with large sparse matrices, the 'apply' approach will start eating away at memory
+# and things become slower.
+X <- rSparseMatrix(1e3, 1e3, 1e2)
+system.time(m1 <- rowMax(X, ignore.zero = FALSE))
+system.time(m2 <- apply(X, 1, max)) # slower
+all.equal(as.vector(m1), m2) # but same result
+
+# to see the effect even stronger, try something larger
+# depending on the amount of available memory, the 'apply' approach will give an error
+# "problem too large"
+\dontrun{
+X <- rSparseMatrix(1e6, 1e6, 1e6)
 system.time(m1 <- rowMax(X, ignore.zero = FALSE))
 system.time(m2 <- apply(X, 1, max))
-all.equal(as.vector(m1), m2)
+}
 
 # speed depends most strongly on the number of entries in the matrix
 # also some performance loss with size of matrix

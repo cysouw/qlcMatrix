@@ -959,7 +959,7 @@ sim.con <- function(
 	if (!is.na(pmatch(method,"colexification"))) {
 		W <- splitWordlist(
 			wordlist, doculects = doculects, concepts = concepts, counterparts = counterparts, 
-			splitstrings = FALSE, simplify = TRUE
+			splitstrings = FALSE, simplify = FALSE
 			)
 		sim <- tcrossprod(W$CW*1)
 	}

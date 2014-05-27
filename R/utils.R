@@ -99,11 +99,16 @@ unfold <- function(X, colGroups, rowGroups = NULL) {
 # returns sparse vector with maximum values. Optionally returns a sparse matrix with the position of these maxima in the original matrix
 # becomes very slow when number of entries in the table is larger than 1e5.
 
-# possible much faster using "rollup" in package "slam" !!!
+# possibly much faster using "rollup" in package "slam" !!!
 
 rowMax <- function(X, which = FALSE, ignore.zero = TRUE) {
-	m <- aggregate(x~i, data = summary(X), FUN = max)
-	maximum <- sparseVector(x = m$x, i = m$i, length = nrow(X))
+
+#   old approach, much slower
+#	m <- aggregate(x~i, data = summary(X), FUN = max)
+#	maximum <- sparseVector(x = m$x, i = m$i, length = nrow(X))
+
+	Y <- as.simple_triplet_matrix(drop0(X))
+	maximum <- as(rollup(Y, 2, FUN = max), "sparseVector")
 	
 	if(!ignore.zero) {
 		maximum@x[maximum@x<0] <- 0
@@ -121,18 +126,14 @@ rowMax <- function(X, which = FALSE, ignore.zero = TRUE) {
 	}
 }
 
-colMax <- function(X, which = FALSE, ignore.zero = TRUE) {
-	tmp <- rowMax(t(X), which = which, ignore.zero = ignore.zero)
-	if (which) {
-		return(list(max = tmp$max, which = t(tmp$which)))
-	} else {
-		return(tmp)
-	}
-}
-
 rowMin <- function(X, which = FALSE, ignore.zero = TRUE) {
-	m <- aggregate(x~i, data = summary(X), FUN = min)
-	minimum <- sparseVector(x = m$x, i = m$i, length = nrow(X))
+
+#   old approach, much slower
+#	m <- aggregate(x~i, data = summary(X), FUN = min)
+#	minimum <- sparseVector(x = m$x, i = m$i, length = nrow(X))
+
+	Y <- as.simple_triplet_matrix(drop0(X))
+	minimum <- as(rollup(Y, 2, FUN = min), "sparseVector")
 	
 	if(!ignore.zero) {
 		minimum@x[minimum@x > 0] <- 0
@@ -147,6 +148,15 @@ rowMin <- function(X, which = FALSE, ignore.zero = TRUE) {
 		return(list(min = minimum, which = W))
 		} else {
 			return(minimum)
+	}
+}
+
+colMax <- function(X, which = FALSE, ignore.zero = TRUE) {
+	tmp <- rowMax(t(X), which = which, ignore.zero = ignore.zero)
+	if (which) {
+		return(list(max = tmp$max, which = t(tmp$which)))
+	} else {
+		return(tmp)
 	}
 }
 

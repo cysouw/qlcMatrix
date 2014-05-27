@@ -30,42 +30,45 @@ sim.att <- function(D, method = "chuprov", sparse = TRUE) {
 			R <- as(as( R, "dgCMatrix"), "symmetricMatrix" )
 		}
 		
-		result <- N
+		result <- N # just to get the right sparsity structure
 		result@x <- sqrt( X2@x/(N@x * R@x) )
+	}
+
+	# The following options are highly similar, using the same base functions
+	get_wpmi_assoc <- function(X) {
+		r <- assocCol(X$OV, X$AV, method = wpmi)
+		g <- (X$AV*1) %*% r %*% t(X$AV*1)
+		g <- as(as( g, "dgCMatrix"), "symmetricMatrix" )
+		return(g)
+	}
+	get_N <- function(X,g) {
+		N <- crossprod(tcrossprod(X$OV*1,X$AV*1))
+		if ( length(g@x) != length(N@x) ) {
+			N <- N * (as(g,"nMatrix")*1)
+		}
+		return(N)
 	}
 
 	# G-test from Sokal and Rohlf (1981), also known as 'Dunning's G'
 	# related to Mutual Information by a factor N
 	if (!is.na(pmatch(method,"g-test"))) {
-		r <- assocCol(X$OV, X$AV, method = wpmi, sparse = sparse)
-		g <- (X$AV*1) %*% r %*% t(X$AV*1)
-		g <- as(as( g, "dgCMatrix"), "symmetricMatrix" )
+		g <- get_wpmi_assoc(X)		
 		g@x <- 2*g@x
 		result <- g
 	}
 	
 	# Mutual Information
 	if (!is.na(pmatch(method,"mutual information"))) {
-		r <- assocCol(X$OV, X$AV, method = wpmi)
-		g <- (X$AV*1) %*% r %*% t(X$AV*1)
-		g <- as(as( g, "dgCMatrix"), "symmetricMatrix" )
-		N <- crossprod(tcrossprod(X$OV*1,X$AV*1))
-		if ( length(g@x) != length(N@x) ) {
-			N <- N * (as(g,"nMatrix")*1)
-		}
+		g <- get_wpmi_assoc(X)
+		N <- get_N(X,g)
 		g@x <- g@x/N@x
 		result <- g
 	}
 	
 	# Variation of Information = Mutual information metric
 	if (!is.na(pmatch(method,"variation of information"))) {
-		r <- assocCol(X$OV, X$AV, method = wpmi)
-		g <- (X$AV*1) %*% r %*% t(X$AV*1)
-		g <- as(as( g, "dgCMatrix"), "symmetricMatrix" )
-		N <- crossprod(tcrossprod(X$OV*1,X$AV*1))
-		if ( length(g@x) != length(N@x) ) {
-			N <- N * (as(g,"nMatrix")*1)
-		}
+		g <- get_wpmi_assoc(X)
+		N <- get_N(X,g)
 		g@x <- g@x/N@x
 
 		O <- crossprod(X$OV*1)
@@ -73,14 +76,12 @@ sim.att <- function(D, method = "chuprov", sparse = TRUE) {
 		H1 <- as(H1, "symmetricMatrix")
 		H1@x <- H1@x * log(N@x) / N@x
 		
-		O2 <- O
-		O2@x <- O@x * log(O@x)
-
-		H2 <- (X$AV*1) %*% O2 %*% t(X$AV*1)
+		O@x <- O@x * log(O@x)
+		H2 <- (X$AV*1) %*% O %*% t(X$AV*1)
 		H2 <- as(H2, "symmetricMatrix")
 		H2@x <- H2@x / N@x
 		
-		H <- g
+		H <- g # just to get the right sparsity structure
 		H@x <- (H1@x - H2@x - g@x)
 		result <- H
 	}

@@ -103,7 +103,7 @@ unfold <- function(X, colGroups, rowGroups = NULL) {
 
 rowMax <- function(X, which = FALSE, ignore.zero = TRUE) {
 
-#   old approach, much slower
+# old approach, much slower
 #	m <- aggregate(x~i, data = summary(X), FUN = max)
 #	maximum <- sparseVector(x = m$x, i = m$i, length = nrow(X))
 
@@ -128,7 +128,7 @@ rowMax <- function(X, which = FALSE, ignore.zero = TRUE) {
 
 rowMin <- function(X, which = FALSE, ignore.zero = TRUE) {
 
-#   old approach, much slower
+# old approach, much slower
 #	m <- aggregate(x~i, data = summary(X), FUN = min)
 #	minimum <- sparseVector(x = m$x, i = m$i, length = nrow(X))
 

@@ -9,4 +9,5 @@ Description: This package contains various functions that extend the functionali
 License: GPL-3
 Encoding: UTF-8
 Depends: Matrix (>= 1.1-0), R (>= 2.10), slam (>= 0.1-32)
-Suggests: MASS
+Suggests: MASS, knitr
+VignetteBuilder: knitr

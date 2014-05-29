@@ -5,21 +5,46 @@
 
 # Transforming data into sparse matrices
 
+
+
+
 The basic functions of this package are almost trivial, but they allow for a highly flexible and efficient transformation of data into sparse matrices. The tree basic functions are `ttMatrix`, `pwMatrix`, and `jMatrix`. This vignette will present a gentle instroduction to these three functions.
 
 ### ttMatrix
 
 The principle of `ttMatrix` ("type-token Matrix") is that a sparse matrix is created from a vector. All unique elements in the vector are listed as rows ("types"), and the elements of the vector itself are listed as columns ("tokens"). The matrix shows which types are found in which position of the original vector. Take a simple character vector with repeating elements as an example, then `ttMatrix` will return the row names (`$rownames`) by default separately from the matrix (`$M`). The column names are of course identical to the input in `data`.
 
-```{r ttIntro}
+
+```r
 data <- c("a", "b", "a", "c", "b", "c")
 ttMatrix(data)
 ```
 
+```
+## $M
+## 3 x 6 sparse Matrix of class "ngCMatrix"
+##                 
+## [1,] | . | . . .
+## [2,] . | . . | .
+## [3,] . . . | . |
+## 
+## $rownames
+## [1] "a" "b" "c"
+```
+
 You can also include the row and column names into the matrix as output:
 
-```{r ttSimplify}
-ttMatrix(data, simplify = T)
+
+```r
+ttMatrix(data, simplify = TRUE)
+```
+
+```
+## 3 x 6 sparse Matrix of class "ngCMatrix"
+##   a b a c b c
+## a | . | . . .
+## b . | . . | .
+## c . . . | . |
 ```
 
 

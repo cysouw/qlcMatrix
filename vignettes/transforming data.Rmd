@@ -5,6 +5,11 @@
 
 # Transforming data into sparse matrices
 
+```{r setup, include = FALSE}
+library(qlcMatrix)
+```
+
+
 The basic functions of this package are almost trivial, but they allow for a highly flexible and efficient transformation of data into sparse matrices. The tree basic functions are `ttMatrix`, `pwMatrix`, and `jMatrix`. This vignette will present a gentle instroduction to these three functions.
 
 ### ttMatrix
@@ -19,7 +24,7 @@ ttMatrix(data)
 You can also include the row and column names into the matrix as output:
 
 ```{r ttSimplify}
-ttMatrix(data, simplify = T)
+ttMatrix(data, simplify = TRUE)
 ```
 
 

@@ -1,0 +1,31 @@
+<!--
+%\VignetteEngine{knitr::knitr}
+%\VignetteIndexEntry{Transforming data into sparse matrices}
+-->
+
+# Transforming data into sparse matrices
+
+```{r setup, include = FALSE}
+library(qlcMatrix)
+```
+
+
+The basic functions of this package are almost trivial, but they allow for a highly flexible and efficient transformation of data into sparse matrices. The tree basic functions are `ttMatrix`, `pwMatrix`, and `jMatrix`. This vignette will present a gentle instroduction to these three functions.
+
+### ttMatrix
+
+The principle of `ttMatrix` ("type-token Matrix") is that a sparse matrix is created from a vector. All unique elements in the vector are listed as rows ("types"), and the elements of the vector itself are listed as columns ("tokens"). The matrix shows which types are found in which position of the original vector. Take a simple character vector with repeating elements as an example, then `ttMatrix` will return the row names (`$rownames`) by default separately from the matrix (`$M`). The column names are of course identical to the input in `data`.
+
+```{r ttIntro}
+data <- c("a", "b", "a", "c", "b", "c")
+ttMatrix(data)
+```
+
+You can also include the row and column names into the matrix as output:
+
+```{r ttSimplify}
+ttMatrix(data, simplify = TRUE)
+```
+
+
+

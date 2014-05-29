@@ -1,7 +1,10 @@
+## ----setup, include = FALSE----------------------------------------------
+library(qlcMatrix)
+
 ## ----ttIntro-------------------------------------------------------------
 data <- c("a", "b", "a", "c", "b", "c")
 ttMatrix(data)
 
 ## ----ttSimplify----------------------------------------------------------
-ttMatrix(data, simplify = T)
+ttMatrix(data, simplify = TRUE)
 

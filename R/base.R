@@ -15,7 +15,7 @@ ttMatrix <- function(vector, collation.locale = "C", simplify = FALSE) {
 	}
 
 	# factorization
-	factor <- factor(vector, exclude = NULL) # remove non-used levels
+	factor <- factor(vector) # remove non-used levels
 	indices <- as.numeric(factor)
 	names <- levels(factor)
 

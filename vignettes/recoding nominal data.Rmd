@@ -36,76 +36,75 @@ recoding <- list(
   list(
     attribute = "size",
     values = c("large","small"),
-    recodingOf = "size"
+    recodingOf = "size",
     link = c(1,2,2,2)
     )
   )
 ```
 
 
-```{r mergesplit}
-recoding <- list(
-  attributes = c("size","gender","age"),
-  values = c(
-    "large","small",
-    "female","male",
-    "old","young"),
-  link = list(
-    size = c(1,2,2,2),
-    gender = c(1,2,1,2),
-    age = c(1,1,2,2)
-    )
-  )
-```
+# ```{r mergesplit}
+#recoding <- list(
+#  attributes = c("size","gender","age"),
+#  values = c(
+#    "large","small",
+#    "female","male",
+#    "old","young"),
+#  link = list(
+#    size = c(1,2,2,2),
+#    gender = c(1,2,1,2),
+#    age = c(1,1,2,2)
+#    )
+#  )
+#```
 
-```{r merge.split}
-recoding <- list(
-  # example of merging values
-  "size" = list(    
-    attributes = c("size"),
-    values = c("large","small"),
-    link = c(1,2,2,2)
-    ),
-  # example of splitting an attribute
-  "kind" = list(
-    attributes = c("gender","age"),
-    values = c("female","male","old","young"),
-    link = c(1,2,1,2,3,3,4,4)
-  )
-)
-
-    list(
-    old.attribute = "X5A.Voicing.and.Gaps.in.Plosive.Systems",
-    old values = c(
-      '1 Other',
-      '2 None missing in /p t k b d g/',
-      '3 Missing /p/',
-      '4 Missing /g/',
-      '5 Both missing'
-      ),
-    new.attribute = "Presence of /p/",
-    new.values = c(
-      "/p/ present",
-      "/p/ missing"
-      ),
-    link = c(1,1,2,1,2)
-    )
-      
-    list(
-    old.attribute = c(
-      "X31A.Sex.based.and.Non.sex.based.Gender.Systems",
-      "X32A.Systems.of.Gender.Assignment"),
-    new.attribute = "Gender Assignment",
-    values = c(
-      "No gender",
-      "Semantic Sex-based",
-      "Semantic Non-sex-based",
-      "Formal Sex-based",
-      "Formal Non-sex-based"
-      ),
-    link = c(1,1,2,1,2) 
-    )  
-```
+#```{r merge.split}
+#recoding <- list(
+#  # example of merging values
+#  "size" = list(    
+#    attributes = c("size"),
+##    values = c("large","small"),
+#    link = c(1,2,2,2)
+#    ),
+#  # example of splitting an attribute
+#  "kind" = list(
+#    attributes = c("gender","age"),
+#    values = c("female","male","old","young"),
+#    link = c(1,2,1,2,3,3,4,4)
+#  )
+#)
+#   list(
+#    old.attribute = "X5A.Voicing.and.Gaps.in.Plosive.Systems",
+#    old values = c(
+#      '1 Other',
+#      '2 None missing in /p t k b d g/',
+#      '3 Missing /p/',
+#      '4 Missing /g/',
+#      '5 Both missing'
+#      ),
+#    new.attribute = "Presence of /p/",
+#    new.values = c(
+#      "/p/ present",
+#      "/p/ missing"
+#      ),
+#    link = c(1,1,2,1,2)
+##    )
+#      
+#    list(
+#    old.attribute = c(
+#      "X31A.Sex.based.and.Non.sex.based.Gender.Systems",
+##      "X32A.Systems.of.Gender.Assignment"),
+#    new.attribute = "Gender Assignment",
+#    values = c(
+#      "No gender",
+#      "Semantic Sex-based",
+#      "Semantic Non-sex-based",
+#      "Formal Sex-based",
+#      "Formal Non-sex-based"
+#      ),
+#    link = c(1,1,2,1,2) 
+#    )  
+#```
 
 ### Merge attributes
 

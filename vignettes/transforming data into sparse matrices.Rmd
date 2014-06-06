@@ -3,12 +3,11 @@
 %\VignetteIndexEntry{Transforming data into sparse matrices}
 -->
 
-# Transforming data into sparse matrices
-
 ```{r setup, include = FALSE}
 library(qlcMatrix)
 ```
 
+# Transforming data into sparse matrices
 
 The basic functions of this package are almost trivial, but they allow for a highly flexible and efficient transformation of data into sparse matrices. The tree basic functions are `ttMatrix`, `pwMatrix`, and `jMatrix`. This vignette will present a gentle instroduction to these three functions.
 

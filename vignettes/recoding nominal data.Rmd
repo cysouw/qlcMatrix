@@ -1,0 +1,117 @@
+<!--
+%\VignetteEngine{knitr::knitr}
+%\VignetteIndexEntry{Transforming data into sparse matrices}
+-->
+
+```{r setup, include = FALSE}
+library(qlcMatrix)
+```
+
+# Recoding nominal data
+
+A common situation in comparative linguistic data collection is that data is encoded as nominal ('categorical') attributes. An attribute is conceived as a finite list of possibilities, viz. the values of the attribute. Although this is of course a completely noremal and widespread practice in data encoding, in comparative linguistics it is mostly not trivial to decide on the delimitation of the different values. There is often ample discussion about the best way to separate the attested variation into types (terms like 'types', 'categories' or 'values' will the considered as equivalent here), and in general there is often no optimal or preferred way how to define the different types.
+
+In practice then, different scholars will often like to interpret data differently. One common wish is to be able to recode data that has already been categorised into types by a different. Note that such a recoding of course will never be able to easily split types, because for that goal a complete reconsideration of all raw data is necessary, something that will not be further considered here.
+
+Given any given nominal data set (like for example the WALS data, as included in this package), there are still a few transformations that are often requested, and that are reasonably easy to perform with the matrix-approach as used in the `qlcMatrix` package: *merge values* and *split attributes*. A third kind recoding, *merge attributes* is also possible, but needs a bit more effort. Furthermore, the actual recoding will consist of just a fewlists and matrices, which allows for an easy way to share and publish the actual recoding decisions.
+
+As an example, consider the following toy data frame. Using the function `splitTable` this data frame is converted into two sparse matrices and three vectors with row names (see `help(splitTable)` for details of this conversion):
+
+```{r nominalData}
+data <- data.frame(
+    size = c("large","very small","small","large","very small","tiny"),
+    kind = c("young male","young female","old female","old male","old male","young female"),
+    row.names = paste("obs", 1:6, sep="")
+    )
+data
+D <- splitTable(data)
+```
+
+### Merge values
+
+The first kind of recoding to be exemplified here is to merge values. The first attribute of in our data has four values: `large`, `small`, `very small` and `tiny`. Suppose we would like to merge the values `small`, `very small` and `tiny` into one value value `small`. What we have to do is to define a new attribute with new values, and link the original values to our new values.
+
+```{r merge}
+recoding <- list(
+  list(
+    attribute = "size",
+    values = c("large","small"),
+    recodingOf = "size"
+    link = c(1,2,2,2)
+    )
+  )
+```
+
+
+```{r mergesplit}
+recoding <- list(
+  attributes = c("size","gender","age"),
+  values = c(
+    "large","small",
+    "female","male",
+    "old","young"),
+  link = list(
+    size = c(1,2,2,2),
+    gender = c(1,2,1,2),
+    age = c(1,1,2,2)
+    )
+  )
+```
+
+```{r merge.split}
+recoding <- list(
+  # example of merging values
+  "size" = list(    
+    attributes = c("size"),
+    values = c("large","small"),
+    link = c(1,2,2,2)
+    ),
+  # example of splitting an attribute
+  "kind" = list(
+    attributes = c("gender","age"),
+    values = c("female","male","old","young"),
+    link = c(1,2,1,2,3,3,4,4)
+  )
+)
+
+    list(
+    old.attribute = "X5A.Voicing.and.Gaps.in.Plosive.Systems",
+    old values = c(
+      '1 Other',
+      '2 None missing in /p t k b d g/',
+      '3 Missing /p/',
+      '4 Missing /g/',
+      '5 Both missing'
+      ),
+    new.attribute = "Presence of /p/",
+    new.values = c(
+      "/p/ present",
+      "/p/ missing"
+      ),
+    link = c(1,1,2,1,2)
+    )
+      
+    list(
+    old.attribute = c(
+      "X31A.Sex.based.and.Non.sex.based.Gender.Systems",
+      "X32A.Systems.of.Gender.Assignment"),
+    new.attribute = "Gender Assignment",
+    values = c(
+      "No gender",
+      "Semantic Sex-based",
+      "Semantic Non-sex-based",
+      "Formal Sex-based",
+      "Formal Non-sex-based"
+      ),
+    link = c(1,1,2,1,2) 
+    )  
+```
+
+### Merge attributes
+
+
+
+
+
+
+

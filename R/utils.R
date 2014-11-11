@@ -108,7 +108,7 @@ rowMax <- function(X, which = FALSE, ignore.zero = TRUE) {
 #	maximum <- sparseVector(x = m$x, i = m$i, length = nrow(X))
 
 	Y <- as.simple_triplet_matrix(drop0(X))
-	maximum <- as(rollup(Y, 2, FUN = max), "sparseVector")
+	maximum <- as(slam::rollup(Y, 2, FUN = max), "sparseVector")
 	
 	if(!ignore.zero) {
 		maximum@x[maximum@x<0] <- 0
@@ -133,7 +133,7 @@ rowMin <- function(X, which = FALSE, ignore.zero = TRUE) {
 #	minimum <- sparseVector(x = m$x, i = m$i, length = nrow(X))
 
 	Y <- as.simple_triplet_matrix(drop0(X))
-	minimum <- as(rollup(Y, 2, FUN = min), "sparseVector")
+	minimum <- as(slam::rollup(Y, 2, FUN = min), "sparseVector")
 	
 	if(!ignore.zero) {
 		minimum@x[minimum@x > 0] <- 0

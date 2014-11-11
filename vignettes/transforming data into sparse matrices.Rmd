@@ -1,7 +1,19 @@
-<!--
-%\VignetteEngine{knitr::knitr}
-%\VignetteIndexEntry{Transforming data into sparse matrices}
--->
+---
+title: 'Transforming data into sparse matrices'
+author: "Michael Cysouw"
+date: '`r Sys.Date()`'
+output:
+  rmarkdown::html_vignette:
+  md_document:
+    variant: markdown_github
+  pdf_document:
+    number_sections: yes
+    latex_engine: xelatex
+vignette: >
+  %\VignetteIndexEntry{Transforming data into sparse matrices}
+  \usepackage[utf8]{inputenc}
+  %\VignetteEngine{knitr::rmarkdown}
+---
 
 ```{r setup, include = FALSE}
 library(qlcMatrix)
@@ -16,15 +28,40 @@ The basic functions of this package are almost trivial, but they allow for a hig
 The principle of `ttMatrix` ("type-token Matrix") is that a sparse matrix is created from a vector. All unique elements in the vector are listed as rows ("types"), and the elements of the vector itself are listed as columns ("tokens"). The matrix shows which types are found in which position of the original vector. Take a simple character vector with repeating elements as an example, then `ttMatrix` will return the row names (`$rownames`) by default separately from the matrix (`$M`). The column names are of course identical to the input in `data`.
 
 ```{r ttIntro}
-data <- c("a", "b", "a", "c", "b", "c")
+data <- c("a", "b", "a", "c", "b", "c", "A")
 ttMatrix(data)
 ```
 
-You can also include the row and column names into the matrix as output:
+You can also include the row and column names into the matrix as output by using the option `simplify = TRUE`. Note that in many cases of large sparse matrices, the same row or column names will be repeated in different sparse matrices. In such situations it is preferable to store the row or column names separately. Simply duplicating them migth take a lot of space.
+
+Also note that the ordering of the rows (the "types") is crucial. This ordering is determined by the so-called `collation.locale` option, which defaults to "C"" (which means the numerical ordering of the Unicode Standard is used). This ordering is different from the default ordering on most systems, which might internally for example use the collation locale `en_US.UTF-8'. The difference can be discerned in the example below, as the capital letters are ordered after the lowercase letters in the US-english locale, but before in the "C" locale (compare with the output of the previous call).
 
 ```{r ttSimplify}
-ttMatrix(data, simplify = TRUE)
+ttMatrix(data, simplify = TRUE, collation.locale = "en_US.UTF-8")
 ```
 
+### pwMatrix
 
+The principle of `pwMatrix` ("part-whole Matrix") is so simple that it seems almost trivial. However, in combination with a bit matrix algebra the utility of this simple sparse Matrix is very high. First consider a simple vector of strings. Basically, `pwMatrix` looks at all parts of the strings (split into parts as determined by the separator `sep`). In the example below, The row and column names are added to the matrix by `simplify = TRUE`, and a gap has been added between the strings (like treating them as a sentence with boundaries).
 
+```{r pwIntro}
+strings <- c("this", "is", "that")
+(PW <- pwMatrix(strings, sep = "", simplify = TRUE, gap.length = 1, gap.symbol = "_") )
+```
+
+By itself, this part-whole Matrix is not very interesting. It becomes more interesting when we also consider the type-token Matrix of the "parts" (i.e. rownames) of the part-whole Matrix. The matrix product of these two matrices gives a sparse way to count how often each "part" occurs in each "whole". This is a quick and sparse way to count parts.
+
+```{r pwUsage}
+TT <- ttMatrix(rownames(PW), simplify = TRUE)
+printSpMatrix(TT, col.names = TRUE)
+(TT*1) %*% (PW*1)
+```
+
+Even more amazing is the following trick. Using a "upper-shift" matrix (i.e. a matrix with 1s on the diagonal one above the main diagonal), then the following simple matrix multiplication lists the number of adjacent combinations (i.e. how often is one letter followed by another in the strings? First element in the rows, second in the columns):
+
+```{r adjacency}
+S <- bandSparse( n = ncol(TT), k = 1)
+(TT*1) %*% (S*1) %*% t(TT*1)
+```
+
+This kind of computations start making a lot of sense once the number of "parts" start rising quickly, e.g. when looking at different words in sentences.

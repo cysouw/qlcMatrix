@@ -32,7 +32,7 @@ The method to be used for the calculation. Currently \code{res} (residuals), \co
 Variable that is needed for the calculations of the expected values. Only in exceptional situations this should be different from the default value (i.e. the number of rows of the matrix).
 }
   \item{sparse}{
-By default, nothing is computed when the observed co-occurrence of two columns is zero. This keeps the computations and the resulting matrix nicely sparse. However, for some measures (specifically the Pearson residuals `res') this leads to incorrect results. Mostly the error is neglegible, but if the correct behaviour is necessary, chosse \code{sparse = F}. Note that the result will then be a full matrix, so this is not feasable for large datasets.
+By default, nothing is computed when the observed co-occurrence of two columns is zero. This keeps the computations and the resulting matrix nicely sparse. However, for some measures (specifically the Pearson residuals `res') this leads to incorrect results. Mostly the error is negligible, but if the correct behavior is necessary, chose \code{sparse = F}. Note that the result will then be a full matrix, so this is not feasible for large datasets.
 }
 }
 \details{
@@ -75,7 +75,7 @@ When \code{Y = NULL}, then the result is a symmetric matrix, so a matrix of type
 \note{
 Care is taken in the implementation not to compute any association between columns that will end up with a value of zero anyway. However, very small association values will be computed. For further usage, these small values are often unnecessary, and can be removed for reasons of sparsity. Consider something like \code{X <- drop0(X, tol = value)} on the resulting \code{X} matrix (which removes all values between -value and +value). See examples below.
 
-It is important to realise, that by defauls noting is computed when the observed co-occurrence is zero. However, this leads to wrong results with \code{method = res}, as \code{(o-e)/sqrt(e)} will be a negative value when \code{o = 0}. In most practicaly situations this error will be small and not important. However, when needed, the option \code{sparse = F} will give the correct results (though the resulting matrix will not be sparse anymore). Note that with all other methods implemented here, the default behaviour leads to correct results (i.e. for \code{log(O)} nothing is calculated).
+It is important to realize, that by default noting is computed when the observed co-occurrence is zero. However, this leads to wrong results with \code{method = res}, as \code{(o-e)/sqrt(e)} will be a negative value when \code{o = 0}. In most practically situations this error will be small and not important. However, when needed, the option \code{sparse = F} will give the correct results (though the resulting matrix will not be sparse anymore). Note that with all other methods implemented here, the default behavior leads to correct results (i.e. for \code{log(O)} nothing is calculated).
 
 The current implementation will not lead to correct results with lots of missing data (that option is simply not yet implemented). See \code{\link{cosMissing}} for now.
 }

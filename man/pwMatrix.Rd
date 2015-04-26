@@ -5,7 +5,7 @@
 Construct `part-whole' (pw) Matrices from tokenized strings
 }
 \description{
-A part-whole Matrix is a sparse matrix representation of a vector of strings (`wholes') split into smaller parts by a specified separator. It basically summarises which strings consist of which parts. By itself, this is not a very interesting transformation, but it allows for quite fancy computations by simple matrix manipulations.
+A part-whole Matrix is a sparse matrix representation of a vector of strings (`wholes') split into smaller parts by a specified separator. It basically summarizes which strings consist of which parts. By itself, this is not a very interesting transformation, but it allows for quite fancy computations by simple matrix manipulations.
 }
 \usage{
 pwMatrix(strings, sep = "", gap.length = 0, gap.symbol = "·", simplify = FALSE)

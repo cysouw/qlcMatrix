@@ -51,13 +51,13 @@ For \code{sim.lang}:
 }
 For \code{sim.con}:
 \itemize{
-	\item{\code{colexification: }}{Simply count the number of languages in which two concepts have at least one complete identical translations. No normalisation is attempted, and \code{assoc.method} and \code{weight} are ignored (internally this just uses \code{tcrossprod} on the \code{CW (concepts x words)} sparse matrix). Because no splitting of strings is necessary, this method is very quick.}
+	\item{\code{colexification: }}{Simply count the number of languages in which two concepts have at least one complete identical translations. No normalization is attempted, and \code{assoc.method} and \code{weight} are ignored (internally this just uses \code{tcrossprod} on the \code{CW (concepts x words)} sparse matrix). Because no splitting of strings is necessary, this method is very quick.}
 	\item{\code{global: }}{Global bigram similarity, i.e. ignoring the separation into languages, and simply taking the bigram vector of all words per concept. Probably best combined with \code{weight = idf}.}
 	\item{\code{bigrams: }}{By default, compute the similarity between concepts by comparing bigraphs, i.e. language-specific bigrams. In that way, cross-linguistically recurrent partial similarities are uncovered. It is very interesting to compare this measure with \code{colexification} above.}
 }	
 For \code{sim.graph}:
 \itemize{
-	\item{\code{cooccurrence: }}{Currently the only method implemented. Computes the co-occurrence statstics for all pair of graphemes (e.g. between symbol x from language L1 and symbol y from language L2). See Prokic & Cysouw (2013) for an example using this approach.}
+	\item{\code{cooccurrence: }}{Currently the only method implemented. Computes the co-occurrence statistics for all pair of graphemes (e.g. between symbol x from language L1 and symbol y from language L2). See Prokic & Cysouw (2013) for an example using this approach.}
 }
 All these methods (except for \code{sim.con(method = "colexification")}) use either \code{\link{assocSparse}} or \code{\link{cosSparse}} for the computation of the similarities. For the different measures available, see the documentation there. Currently implemented are \code{res, poi, pmi, wpmi} for \code{assocSparse} and \code{idf, isqrt, none} for \code{cosWeight}. It is actually very easy to define your own measure.  
 

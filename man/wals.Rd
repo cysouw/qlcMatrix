@@ -9,7 +9,7 @@ The World Atlas of Language Structures (WALS) is a large database of structural 
 
 The first version of WALS was published as a book with CD-ROM in 2005 by Oxford University Press. The first online version was published in April 2008. The second online version was published in April 2011. The current dataset is WALS 2013, published on 14 November 2013.
 
-The included dataset \code{wals} takes a somewhat sensible selection from the complete WALS data. It excludes attributes ("features" in WALS-parlance) that are definitially duplicates of others (3, 25, 95, 96, 97), those attributes that only list languages that are incompatible with other attributes (132, 133, 134, 135, 139, 140, 141, 142), and the `additional' attributes that are marked as "B" through "Z". Further, it removes those languages that do not have any data left after removing those attributes. The result is a dataset with 2566 languages and 131 attributes.
+The included dataset \code{wals} takes a somewhat sensible selection from the complete WALS data. It excludes attributes ("features" in WALS-parlance) that are definitially duplicates of others (3, 25, 95, 96, 97), those attributes that only list languages that are incompatible with other attributes (132, 133, 134, 135, 139, 140, 141, 142), and the `additional' attributes that are marked as `B' through `Z'. Further, it removes those languages that do not have any data left after removing those attributes. The result is a dataset with 2566 languages and 131 attributes.
 
 }
 \usage{
@@ -26,7 +26,7 @@ The three-letter WALS-codes are used as rownames in both dataframes. Further, th
   \describe{
     \item{\code{name}}{a character vector giving a name for each language}
     \item{\code{genus}}{a factor with 522 levels with the genera according to M. Dryer}
-    \item{\code{family}}{a factor with 215 levels with the familes accoring to M. Dryer}
+    \item{\code{family}}{a factor with 215 levels with the families according to M. Dryer}
     \item{\code{longitude}}{a numeric vector with geo coordinates for all languages}
     \item{\code{latitude}}{a numeric vector with geo coordinates for all languages}
   }
@@ -35,7 +35,7 @@ The three-letter WALS-codes are used as rownames in both dataframes. Further, th
 All details about the meaning of the variables and much more meta-information is available at \url{http://wals.info}.
 }
 \source{
-The current data was downloaded from \url{http://wals.info} in May 2014. The data is licenced as \url{http://creativecommons.org/licenses/by-nc-nd/2.0/de/deed.en}. Some minor corrections on the metadata have been performed (naming of variables, addition of missing coordinates).
+The current data was downloaded from \url{http://wals.info} in May 2014. The data is licensed as \url{http://creativecommons.org/licenses/by-nc-nd/2.0/de/deed.en}. Some minor corrections on the metadata have been performed (naming of variables, addition of missing coordinates).
 }
 \references{
 Dryer, Matthew S. & Haspelmath, Martin (eds.) 2013. \emph{The World Atlas of Language Structures Online.} Leipzig: Max Planck Institute for Evolutionary Anthropology. 
@@ -43,7 +43,7 @@ Dryer, Matthew S. & Haspelmath, Martin (eds.) 2013. \emph{The World Atlas of Lan
 \examples{
 data(wals)
 
-# plot all locations of the WALS languages, looks like a worldmap
+# plot all locations of the WALS languages, looks like a world map
 plot(wals$meta[,4:5])
 
 # turn the large and mostly empty dataframe into sparse matrices

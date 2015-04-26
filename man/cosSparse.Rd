@@ -11,7 +11,7 @@
 Cosine similarity between columns (sparse matrices)
 }
 \description{
-\code{cosSparse} computes the cosine similarity between the columns of sparse matrices. Different normalisations and weightings can be specified. Performance-wise, this strongly improves over the approach taken in the \code{\link{corSparse}} function, though the results are almost identical for large sparse matrices. \code{cosMissing} adds the possibility to deal with large amounts of missing data.
+\code{cosSparse} computes the cosine similarity between the columns of sparse matrices. Different normalizations and weightings can be specified. Performance-wise, this strongly improves over the approach taken in the \code{\link{corSparse}} function, though the results are almost identical for large sparse matrices. \code{cosMissing} adds the possibility to deal with large amounts of missing data.
 }
 \usage{
 cosSparse(X, Y = NULL, norm = norm2, weight = NULL)
@@ -29,7 +29,7 @@ a second matrix in a format of the \code{Matrix} package. When \code{Y = NULL}, 
 sparse Matrices (typically pattern matrices) of the same size of X and Y, respectively, indicating the available information for each matrix.
 }
   \item{norm}{
-The function to be used for the normalisation of the columns. Currently \code{norm2} (euclidean norm) and \code{norm1} (manhattan norm) are available, but further methods can be easily specified by the user. See details for more information.
+The function to be used for the normalization of the columns. Currently \code{norm2} (euclidean norm) and \code{norm1} (manhattan norm) are available, but further methods can be easily specified by the user. See details for more information.
 }
   \item{weight}{
 The function to be used for the weighting of the rows. Currently \code{idf} (inverse document frequency) and \code{isqrt} (inverse square root) are available, but further methods can be easily specified by the user. See details for more information.
@@ -40,13 +40,13 @@ This measure is called a `cosine' similarity as it computes the cosine of the an
 
 The variant \code{cosMissing} can be used when the available information itself is also sparse. In such a situation, a zero in the data matrix X, Y can mean either `zero value' or `missing data'. To deal with the missing data, matrices indicating the available data can be specified. Note that this really only makes sense when the available data is sparse itself. When, say, 90\% of the data is available, the \code{availX} matrix becomes very large, and the results does not differ strongly from the regular \code{cosSparse}, i.e. ignoring the missing data.
 
-Different normalisations of the columns and weightings of the rows can be specified. 
+Different normalizations of the columns and weightings of the rows can be specified. 
 
-The predefined normalisations are defined as a function of the matrix x and a `summation function' s (to be specified as a sparse matrix or a vector). This slight complexity is needed to be able to deal with missing data. With complete data, then \code{s = rep(1,nrow(X))}, leads to \code{crossprod(X,s) == colSums(X)}.
+The predefined normalizations are defined as a function of the matrix x and a `summation function' s (to be specified as a sparse matrix or a vector). This slight complexity is needed to be able to deal with missing data. With complete data, then \code{s = rep(1,nrow(X))}, leads to \code{crossprod(X,s) == colSums(X)}.
 
   \itemize{
     \item{\code{norm2}: 
-euclidean norm. The default setting, and the same normalisation as used in the Pearson correlation. It is defined as \cr 
+euclidean norm. The default setting, and the same normalization as used in the Pearson correlation. It is defined as \cr 
 \code{norm2 <- function(x,s) \{ drop(crossprod(x^2,s)) ^ 0.5 \} }.
     }
 

@@ -21,7 +21,7 @@ a matrix (or data.frame) with observations as rows and nominal attributes as col
 The row names and column names of the data will by default be extracted from the input matrix. However, in special situations they can be added separately. Note that names of the attributes (`column names') are needed for the production of unique value names. In case of absent column names, new column names of the form `X1' are automatically generated.
 }
   \item{name.binder}{
-Character string to be added between attribute names and value names. Defaults to colon ":".
+Character string to be added between attribute names and value names. Defaults to colon `:'.
 }
   \item{split}{
 Character string to split values in each cell of the table, e.g. a comma or semicolon.

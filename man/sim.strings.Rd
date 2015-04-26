@@ -15,14 +15,14 @@ sim.strings(strings1, strings2 = NULL, sep = "", boundary = TRUE)
 Vector with strings to be compared, will be treated \code{as.character}. When only \code{strings1} is provided, all pairwise similarities between its elements are computed. When two different input vectors are provided, the pairwise similarities between all elements from the first and the second vector are computed.
 }
   \item{sep}{
-Seperator used to split the strings into parts. This will be passed to \code{\link{strsplit}} internally, so there is no finegrained control possible on the splitting. If it is important to get the splitting exactly right, consider pre-processing the splitting by inserting a special symbol on the split-positions, and then choosing here to split by this special symbol.
+Separator used to split the strings into parts. This will be passed to \code{\link{strsplit}} internally, so there is no fine-grained control possible on the splitting. If it is important to get the splitting exactly right, consider pre-processing the splitting by inserting a special symbol on the split-positions, and then choosing here to split by this special symbol.
 }
   \item{boundary}{
 In the default setting \code{boundary = T}, a special symbol is added to the front and to the end of each string, adding special bigrams for the initial and the final character. With words from real languages (which are mostly not very long) this has a strong impact.
 }
 }
 \details{
-The strings are converted into sparse matrices by \code{\link{splitStrings}}, and then \code{\link{assocSparse}} computes a cosine similarity on the bigram vectors. Only the option of bigrams is currently used, because for long lists of real words from a real language this seems to be an optimal tradoff between speed and useful similarity.
+The strings are converted into sparse matrices by \code{\link{splitStrings}}, and then \code{\link{assocSparse}} computes a cosine similarity on the bigram vectors. Only the option of bigrams is currently used, because for long lists of real words from a real language this seems to be an optimal tradeoff between speed and useful similarity.
 }
 \value{
 When either \code{length(strings1) == 1} or \code{length(strings2) == 1}, the result will be a normal vector with similarities between 0 and 1.
@@ -33,7 +33,7 @@ When both the input vectors are longer than 1, then the result will be a sparse 
 Michael Cysouw
 }
 \note{
-The overhead of converting the strings into sparse matrices makes this function not optimal for small datasets. For large datasets the time of the conversion is negligable compared to the actual similarity computation, and then this approach becomes very worthwhile, because fast, and based on sparse matrix computation, that can be sped up by multicore processing in the future.
+The overhead of converting the strings into sparse matrices makes this function not optimal for small datasets. For large datasets the time of the conversion is negligible compared to the actual similarity computation, and then this approach becomes very worthwhile, because fast, and based on sparse matrix computation, that can be sped up by multicore processing in the future.
 
 The result of \code{sim.strings(a)} and \code{sim.strings(a,a)} is identical, but the first version is more efficient, both as to processing time, as well as to the size of the resulting objects.
 }
@@ -95,7 +95,7 @@ sim2 <- 1- ( tmp / nchar(attr(tmp, "trafos")) )
 image( log(table(
 		round(as.dist(sim1) / 3, digits = 2) * 3,
 		round(as.dist(sim2) / 3, digits = 2) * 3 )),
-	xlab = "bigram similarity", ylab = "relative levenshtein similarity")
+	xlab = "bigram similarity", ylab = "relative Levenshtein similarity")
 
 % benchmarking?
 % s <- seq(500,10500,by=1000)

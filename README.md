@@ -10,7 +10,7 @@ The package is available at CRAN, so normally you should just install from withi
     install.packages("qlcMatrix")  
     library(qlcMatrix)  
 
-The version here at github is normally slightly ahead of the CRAN version, and you can install the most up-to-date version using:
+The version here at Github is normally slightly ahead of the CRAN version, and you can install the most up-to-date version using:
 
     install.packages("devtools")
     devtools::install_github("cysouw/qlcMatrix")

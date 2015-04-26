@@ -25,7 +25,7 @@ Third, there are three central functions needed to efficiently turn data from qu
 
 Fourth, there are some high-level convenience function that take specific data formats from quantitative language comparison and turn them into set of sparse matrices for efficient computations. They might also be useful for other data types, but various details decisions are specifically tailored to the envisioned data types. These functions are \code{\link{splitTable}} \code{\link{splitStrings}}, \code{\link{splitWordlist}}, and \code{\link{splitText}}.
 
-Finally, there are various shortcuts to directly compute similarity matrices from various kinds of data: \code{\link{sim.nominal}, \link{sim.words}, \link{sim.strings}, \link{sim.wordlist}}. These are specifally tailored towards specific kinds of data, though they might also be useful elswhere. Also, the code is mostly easy wrappers around the \code{split} and \code{cos/assoc} functions, so it should not be difficult to adapt these functions to other needs.
+Finally, there are various shortcuts to directly compute similarity matrices from various kinds of data: \code{\link{sim.nominal}, \link{sim.words}, \link{sim.strings}, \link{sim.wordlist}}. These are specifically tailored towards specific kinds of data, though they might also be useful elsewhere. Also, the code is mostly easy wrappers around the \code{split} and \code{cos/assoc} functions, so it should not be difficult to adapt these functions to other needs.
 }
 \author{
 Michael Cysouw <cysouw@mac.com>

@@ -2,7 +2,7 @@
 \alias{unfold}
 
 \title{
-Unfolding of block matrices (sparse matricex)
+Unfolding of block matrices (sparse matrices)
 }
 \description{
 Utility function for some matrix manipulations for sparse block matrices.

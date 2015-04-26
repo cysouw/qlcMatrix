@@ -18,7 +18,7 @@ Vectors of strings representing sentences. The names of the vectors should conta
 Method to be used as a co-occurrence statistic. See \code{\link{assocSparse}} for a detailed presentation of the available methods. It is possible to define your own statistic, when it can be formulated as a function of observed and expected frequencies.
 }
   \item{weight}{
-When \code{weight} is specified, the function \code{\link{cosSparse}} is used for the co-ocurrence statistics (with a Euclidean normalisation, i.e. \code{norm2}). The specified weight function will be used, currently \code{idf}, \code{sqrt}, and \code{none} are available. For more details, and for instructions how to formulate your own weight function, see the discussion at \code{\link{cosSparse}}. When \code{weight} is specified, any specification of \code{method} is ignored.
+When \code{weight} is specified, the function \code{\link{cosSparse}} is used for the co-occurrence statistics (with a Euclidean normalization, i.e. \code{norm2}). The specified weight function will be used, currently \code{idf}, \code{sqrt}, and \code{none} are available. For more details, and for instructions how to formulate your own weight function, see the discussion at \code{\link{cosSparse}}. When \code{weight} is specified, any specification of \code{method} is ignored.
   }
   \item{lowercase}{
 Should all words be turned into lowercase? See \code{\link{splitText}} for discussion how this is implemented.
@@ -27,7 +27,7 @@ Should all words be turned into lowercase? See \code{\link{splitText}} for discu
 When \code{best = T}, an additional sparse matrix is returned with a (simplistic) attempt to find the best translational equivalents between the texts.
   }
   \item{tol}{
-Tolerance: remove all values between \code{-tol} and \code{+tol} in the result. Low values can mostly be ignored for co-ocurrence statistics without any loss of information. However, what is considered `low' depends on the methods used to calculate the statistics. See discussion below.
+Tolerance: remove all values between \code{-tol} and \code{+tol} in the result. Low values can mostly be ignored for co-occurrence statistics without any loss of information. However, what is considered `low' depends on the methods used to calculate the statistics. See discussion below.
   }
 }
 \details{

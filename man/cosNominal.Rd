@@ -46,7 +46,7 @@ The approaches \code{assoc} and \code{cos} are described in detail in \code{\lin
 
 The \code{.col} methods should be used when similarities between the different values of nominal variables are to be computed. The \code{.row} methods should be used when similarities between the observations of nominal variables are to be computed.
 
-Note that the calculations of the \code{assoc} functionsreally only makes sense for binary data (i.e. matrices with only ones and zeros). Currently, all input is coerced to such data by \code{as(X, "nMatrix")*1}, meaning that all values that are not one or zero are turned into one (including negative values!).
+Note that the calculations of the \code{assoc} functions really only makes sense for binary data (i.e. matrices with only ones and zeros). Currently, all input is coerced to such data by \code{as(X, "nMatrix")*1}, meaning that all values that are not one or zero are turned into one (including negative values!).
 
 }
 \value{

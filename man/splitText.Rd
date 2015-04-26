@@ -19,7 +19,7 @@ read.text(file)
 vector of strings, typically sentences with wordforms separated by space (see \code{sep} below). names of the vector elements are typically IDs to link across texts (cf. the format as used in \code{\link{bibles}}).
 }
   \item{globalSentenceID}{
-Vector of all IDs that might possibly occur in the parallel texts, used to parallelise the texts. Can for example be constructed by using \code{union} on the localSentenceIDs.
+Vector of all IDs that might possibly occur in the parallel texts, used to parallelize the texts. Can for example be constructed by using \code{union} on the localSentenceIDs.
 }
   \item{localSentenceID}{
 Vector of the IDs for the actual sentences in the present text. Typically present as names of the text.

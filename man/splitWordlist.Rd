@@ -4,7 +4,7 @@
 Construct sparse matrices from comparative wordlists (aka `Swadesh list')
 }
 \description{
-A comparative wordlist (aka `Swadesh list') is a collection of wordforms from different languages, which are translations of a selected set of meanings. This function dismantles this datastructure into a set of psarse matrices.
+A comparative wordlist (aka `Swadesh list') is a collection of wordforms from different languages, which are translations of a selected set of meanings. This function dismantles this data structure into a set of sparse matrices.
 }
 \usage{
 splitWordlist(data,
@@ -76,7 +76,7 @@ Finally, when \code{splitstrings = F, simplify = T}, only the following subset o
 
 }
 \note{
-Note that the default behaviour probably overgenerates information (specifcally when \code{splitstrings = T}), and might be perfoming unnecessary computation for specific goals. In practice, it might be useful to tweak the underlying code (mainly by throwing out unnecessary steps) to optimise performance.
+Note that the default behavior probably overgenerates information (specifically when \code{splitstrings = T}), and might be performing unnecessary computation for specific goals. In practice, it might be useful to tweak the underlying code (mainly by throwing out unnecessary steps) to optimize performance.
 }
 \references{
 Cysouw, Michael & Jeff Good. 2013. Languoid, Doculect, Glossonym: Formalizing the notion “language”. \emph{Language Documentation and Conservation} 7. 331-359.

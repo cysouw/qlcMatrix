@@ -16,7 +16,7 @@ splitStrings(strings, sep = "", bigrams = TRUE, boundary = TRUE,
 Vector of strings to be separated into sparse matrices
 }
   \item{sep}{
-Seperator used to split the strings into parts. This will be passed to \code{\link{strsplit}} internally, so there is no fine-grained control possible over the splitting. If it is important to get the splitting exactly right, consider pre-processing the splitting by inserting a special symbol on the split-positions, and then choosing to split by this specific symbol.
+Separator used to split the strings into parts. This will be passed to \code{\link{strsplit}} internally, so there is no fine-grained control possible over the splitting. If it is important to get the splitting exactly right, consider pre-processing the splitting by inserting a special symbol on the split-positions, and then choosing to split by this specific symbol.
 }
   \item{bigrams}{
 By default, both unigrams and bigrams are computer. If bigrams are not needed, setting \code{bigrams = F} will save on resources. 	
@@ -49,7 +49,7 @@ By default, the output is a list of six elements:
   	Only present when \code{bigrams = T}. A vector with all unique bigrams.
   }
   \item{SW}{
-  	A sparse pattern matrix of class \code{ngCMatrix} specifying the distribution of segments (S) over the original strings (W, think 'words'). This matrix is only interesting in combination with the following matrices.
+  	A sparse pattern matrix of class \code{ngCMatrix} specifying the distribution of segments (S) over the original strings (W, think `words'). This matrix is only interesting in combination with the following matrices.
   }
   \item{US}{
   	A sparse pattern matrix of class \code{ngCMatrix} specifying the distribution of the unique unigrams (U) over the tokenized segments (S).
@@ -64,7 +64,7 @@ When \code{simplify = T} the output is a single sparse matrix of class \code{dgC
 Michael Cysouw
 }
 \note{
-Because of some internal idiosyncracies, the ordering of the bigrams is first by second element, and then by first element. This might change in future versions.
+Because of some internal idiosyncrasies, the ordering of the bigrams is first by second element, and then by first element. This might change in future versions.
 }
 \seealso{
 \code{\link{sim.strings}} is a convenience function to quickly compute pairwise strings similarities, based on \code{splitStrings}.

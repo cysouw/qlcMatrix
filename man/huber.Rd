@@ -18,7 +18,7 @@ Data from Huber & Reed (1992), containing a comparative vocabulary (a `wordlist'
   }
 }
 \details{
-The editors have attempted to use a harmonized orthography throughout all languages, approximately based on IPA, though there are still many language-specific idiosyncracies included. However, the translations into English and Spanish are written in their regular orthography, and not in the IPA-dialect as used for the other languages. In general, the `translations' into English and Spanish are simply lowercase versions of the concept-names, included here to more flexibly identify the meaning of words in the Colombian languages. In many cases these translations are somewhat clunky (e.g. `spring of water'), and are missing the proper orthography details (e.g. `Adams apple').
+The editors have attempted to use a harmonized orthography throughout all languages, approximately based on IPA, though there are still many language-specific idiosyncrasies included. However, the translations into English and Spanish are written in their regular orthography, and not in the IPA-dialect as used for the other languages. In general, the `translations' into English and Spanish are simply lowercase versions of the concept-names, included here to more flexibly identify the meaning of words in the Colombian languages. In many cases these translations are somewhat clunky (e.g. `spring of water'), and are missing the proper orthography details (e.g. `Adams apple').
 
 The book was digitized in the \href{http://www.quanthistling.info}{QuantHistLing project} and provided here as an example of dealing efficiently with reasonably large data. Care has been taken to faithfully represent the original transcription from the printed version.
 }

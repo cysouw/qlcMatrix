@@ -1,5 +1,5 @@
-\name{cor.sparse}
-\alias{cor.sparse}
+\name{corSparse}
+\alias{corSparse}
 
 \title{
 Pearson correlation between columns (sparse matrices)
@@ -9,7 +9,7 @@ Pearson correlation between columns (sparse matrices)
 This function computes the product-moment correlation coefficients between the columns of sparse matrices. Performance-wise, this improves over the approach taken in the \code{\link[stats]{cor}} function. However, because the resulting matrix is not-sparse, this function still cannot be used with very large matrices.
 }
 \usage{
-cor.sparse(X, Y = NULL, cov = FALSE)
+corSparse(X, Y = NULL, cov = FALSE)
 }
 
 \arguments{
@@ -68,7 +68,7 @@ For further usage, the many small coefficients are often unnecessary anyway, and
 # However, the calculations and the resulting matrix take up lots of memory
 
 X <- rSparseMatrix(1e4, 1e4, 1e5)
-system.time(M <- cor.sparse(X))
+system.time(M <- corSparse(X))
 print(object.size(M), units = "auto") # more than 750 Mb
 
 # Most values are low, so it often makes sense 
@@ -80,7 +80,7 @@ length(M@x) / prod(dim(M)) # down to less than 0.05\% non-zero entries
 }
 
 # comparison with other methods
-# cor.sparse is much faster than cor from the stats package
+# corSparse is much faster than cor from the stats package
 # but cosSparse is even quicker than both!
 
 X <- rSparseMatrix(1e3, 1e3, 1e4)
@@ -88,20 +88,20 @@ X2 <- as.matrix(X)
 
 # if there is a warning, try again with different random X
 system.time(McorRegular <- cor(X2)) 
-system.time(McorSparse <- cor.sparse(X))
+system.time(McorSparse <- corSparse(X))
 system.time(McosSparse <- cosSparse(X))
 
-# cor and cor.sparse give identical results
+# cor and corSparse give identical results
 
 all.equal(McorSparse, McorRegular)
 
-# cor.sparse and cosSparse are not identical, but close
+# corSparse and cosSparse are not identical, but close
 
 McosSparse <- as.matrix(McosSparse)
 dimnames(McosSparse) <- NULL
 all.equal(McorSparse, McosSparse) 
 
-# Actually, cosSparse and cor.sparse are *almost* identical!
+# Actually, cosSparse and corSparse are *almost* identical!
 
 cor(as.dist(McorSparse), as.dist(McosSparse))
 
@@ -109,10 +109,10 @@ cor(as.dist(McorSparse), as.dist(McosSparse))
 # Note: this takes some time to plot
 
 \dontrun{
-plot(as.dist(Mcor.sparse), as.dist(McosSparse))	
+plot(as.dist(McorSparse), as.dist(McosSparse))	
 }
 
-# So: consider using cosSparse instead of cor or cor.sparse.
+# So: consider using cosSparse instead of cor or corSparse.
 # With sparse matrices, this gives mostly the same results, 
 # but much larger matrices are possible
 # and the computations are quicker and more sparse

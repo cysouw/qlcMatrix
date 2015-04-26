@@ -8,18 +8,39 @@
 splitTable <- function(	data,
 						attributes = colnames(data),
 						observations = rownames(data),
-						name.binder = ":"
+						name.binder = ":",
+            split = NULL
 						) {
 
 	# assuming a data table with
 	#	- variables ("A"ttributes) as columns and 
 	#	- observations (O) as rows
 	#	- values (V) in the cells (different for each column)
+  # - optionally, multiple values can occur in each cell
+  #   separated by character indicated in "split"
 	
-	cls <- ncol(data)
+  # multiple values in one cell can be splitted
+  splitColumn <- function(column, split) {
+    parts <- strsplit(column, split)
+    all <- unique(unlist(parts))
+    matches <- sapply(parts, function(x){match(x, all)})
+    M <- sparseMatrix(i = unlist(matches),
+                      j = rep.int(1:length(matches),
+                                  sapply(matches,length)
+                                  )
+                      )
+    return(list( M = M,
+                 rownames = all
+                ))
+  }
 
-	# basic rewrite, the rest is cosmetic
-	tt <- apply(data,2,ttMatrix)
+  # basic rewrite, the rest is cosmetic
+  if (!is.null(split)) {
+    tt <- apply(data,2,function(x){splitColumn(x, split = split)})
+  } else {
+    tt <- apply(data,2,ttMatrix)
+  }
+  
 	OV <- tt[[1]]$M
 	for (i in tt[-1]) {
 		OV <- rBind(OV,i$M)
@@ -30,6 +51,8 @@ splitTable <- function(	data,
 	# http://www.r-bloggers.com/the-rbinding-race-for-vs-do-call-vs-rbind-fill/
 	# OV <- t(do.call(rBind,sapply(tt,function(x){x[[1]]})))
 
+  cls <- ncol(data)
+  
 	# index matrix of variables to values
 	nrValues <- sapply(tt,function(x){length(x$rownames)})
 	AV <- ttMatrix(rep.int(1:cls,nrValues))$M

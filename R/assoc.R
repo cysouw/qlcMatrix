@@ -13,7 +13,7 @@
 #
 # Note that results larger than 1e4 x 1e4 will become very slow, because the resulting matrix is not sparse anymore. 
 
-cor.sparse <- function(X, Y = NULL, cov = FALSE) {
+corSparse <- function(X, Y = NULL, cov = FALSE) {
 
 	X <- as(X,"dgCMatrix")
 	n <- nrow(X)

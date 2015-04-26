@@ -89,7 +89,7 @@ Michael Cysouw
 }
 
 \seealso{
-See \code{\link{assocCol}} and \code{\link{assocRow}} for this measure defined for nominal data. Also, see \code{\link{cor.sparse}} and \code{\link{cosSparse}} for other sparse association measures. 
+See \code{\link{assocCol}} and \code{\link{assocRow}} for this measure defined for nominal data. Also, see \code{\link{corSparse}} and \code{\link{cosSparse}} for other sparse association measures. 
 }
 \examples{
 # ----- reasonably fast with large very sparse matrices -----

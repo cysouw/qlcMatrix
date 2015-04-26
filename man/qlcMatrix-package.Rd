@@ -19,7 +19,7 @@ This package contains various different kinds of function.
 
 First, some general utility functions to deal with sparse matrices: (i) \code{\link{rowMax}} to compute and identify row-wise maxima and minima in sparse matrices, (ii) \code{\link{rKhatriRao}} to remove empty rows in a KhatriRao product (but still get the right rownames) and (iii) \code{\link{rSparseMatrix}} to produce random sparse matrices.
 
-Second, some general functions to compute associations between the columns of sparse matrices, with possibilities for extension for ad-hoc measures: \code{\link{cosSparse}}, \code{\link{cor.sparse}}, and \code{\link{assocSparse}}  There are special versions of these for nominal data  \code{\link{cosNominal}, \link{assocNominal}}. 
+Second, some general functions to compute associations between the columns of sparse matrices, with possibilities for extension for ad-hoc measures: \code{\link{cosSparse}}, \code{\link{corSparse}}, and \code{\link{assocSparse}}  There are special versions of these for nominal data \code{\link{cosNominal}, \link{assocNominal}}. 
 
 Third, there are three central functions needed to efficiently turn data from quantitative language comparison into sparse matrices. These basic functions are then used by high-level function in this package. Although these functions might seem almost trivial, they form the basis for many highly complex computations. They are \code{\link{ttMatrix}}, \code{\link{pwMatrix}} and \code{\link{jMatrix}}.
 

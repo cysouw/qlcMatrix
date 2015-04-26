@@ -11,7 +11,7 @@
 Cosine similarity between columns (sparse matrices)
 }
 \description{
-\code{cosSparse} computes the cosine similarity between the columns of sparse matrices. Different normalisations and weightings can be specified. Performance-wise, this strongly improves over the approach taken in the \code{\link{cor.sparse}} function, though the results are almost identical for large sparse matrices. \code{cosMissing} adds the possibility to deal with large amounts of missing data.
+\code{cosSparse} computes the cosine similarity between the columns of sparse matrices. Different normalisations and weightings can be specified. Performance-wise, this strongly improves over the approach taken in the \code{\link{corSparse}} function, though the results are almost identical for large sparse matrices. \code{cosMissing} adds the possibility to deal with large amounts of missing data.
 }
 \usage{
 cosSparse(X, Y = NULL, norm = norm2, weight = NULL)
@@ -89,11 +89,11 @@ When \code{Y = NULL}, then the result is a symmetric matrix, so a matrix of type
 Michael Cysouw
 }
 \note{
-For large sparse matrices, consider this as an alternative to \code{\link[stats]{cor}}. See \code{\link{cor.sparse}} for a  comparison of performance and results.
+For large sparse matrices, consider this as an alternative to \code{\link[stats]{cor}}. See \code{\link{corSparse}} for a  comparison of performance and results.
 }
 
 \seealso{
-\code{\link{cor.sparse}}, \code{\link{assocSparse}} for other sparse association measures. See also \code{\link{cosRow}, \link{cosCol}} for variants of cosSparse dealing with nominal data.
+\code{\link{corSparse}}, \code{\link{assocSparse}} for other sparse association measures. See also \code{\link{cosRow}, \link{cosCol}} for variants of cosSparse dealing with nominal data.
 }
 \examples{
 # functional upto limits of RAM of the hardware used

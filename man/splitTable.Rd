@@ -8,8 +8,9 @@ Construct sparse matrices from a nominal matrix/dataframe
 This function splits a matrix or dataframe into two sparse matrices: an incidence and an index matrix. The incidence matrix links the observations (rows) to all possible values that occur in the original matrix. The index matrix links the values to the attributes (columns). This encoding allows for highly efficient calculations on nominal data.
 }
 \usage{
-splitTable(data, attributes = colnames(data), observations = rownames(data),
-		name.binder = ":")
+splitTable(data, 
+    attributes = colnames(data), observations = rownames(data),
+		name.binder = ":", split = NULL)
 }
 
 \arguments{
@@ -22,6 +23,9 @@ The row names and column names of the data will by default be extracted from the
   \item{name.binder}{
 Character string to be added between attribute names and value names. Defaults to colon ":".
 }
+  \item{split}{
+Character string to split values in each cell of the table, e.g. a comma or semicolon.
+  }
 }
 \value{
 A list containing the various row and column names, and the two sparse pattern matrices of format \code{ngCMatrix}:

@@ -1,3 +1,3 @@
 exportPattern("^[[:alpha:]]+")
 import(Matrix)
-impoart(slam)
+import(slam)

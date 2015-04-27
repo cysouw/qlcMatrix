@@ -12,10 +12,10 @@ A selection of six bible texts as prepared by the \url{paralleltext.info} projec
 A list of five elements
   \describe{
     \item{\code{verses}}{a character vector with all 43904 verse numbers as occurring throughout all translations as collected in the paralleltext.info project. This vector is used to align all texts to each other. The verse-numbers are treated as characters so ordering and matching works as expected.}
-    \item{\code{eng}}{The English `Darby' Bible translation from 1890 by John Nelson Darby. Paralleltext.info code of this text is \href{http://paralleltext.info/data/eng-x-bible-darby-v1/}{eng-x-bible-darby-v1}.}
-	\item{\code{deu}}{The Bible in German. Schlachter Version von 1951. Genfer Bibelgesellschaft 1951. Paralleltext.info code of this text is \href{http://paralleltext.info/data/deu-x-bible-schlachter-v1/}{deu-x-bible-schlachter-v1}.}
-	\item{\code{tgl}}{The New Testament in Tagalog. Philippine Bible Society 1996. Paralleltext.info code of this text is \href{http://paralleltext.info/data/tgl-x-bible-1996-v1/}{tgl-x-bible-1996-v1}.}
-	\item{\code{aak}}{The New Testament in the Ankave language of Papua New Guinea. Wycliffe Bible Translators, Inc. 1990. Paralleltext.info code of this text is \href{http://paralleltext.info/data/aak-x-bible-aak-v1/}{aak-x-bible-aak-v1}.}
+    \item{\code{eng}}{The English `Darby' Bible translation from 1890 by John Nelson Darby. Paralleltext.info code of this text is \href{http://paralleltext.info/data/eng-x-bible-darby/}{eng-x-bible-darby}.}
+	\item{\code{deu}}{The Bible in German. Schlachter Version von 1951. Genfer Bibelgesellschaft 1951. Paralleltext.info code of this text is \href{http://paralleltext.info/data/deu-x-bible-schlachter/}{deu-x-bible-schlachter}.}
+	\item{\code{tgl}}{The New Testament in Tagalog. Philippine Bible Society 1996. Paralleltext.info code of this text is \href{http://paralleltext.info/data/tgl-x-bible-1996/}{tgl-x-bible-1996}.}
+	\item{\code{aak}}{The New Testament in the Ankave language of Papua New Guinea. Wycliffe Bible Translators, Inc. 1990. Paralleltext.info code of this text is \href{http://paralleltext.info/data/aak-x-bible-aak/}{aak-x-bible-aak}.}
   }
 }
 \details{

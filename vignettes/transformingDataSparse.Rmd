@@ -9,6 +9,9 @@ output:
   pdf_document:
     number_sections: yes
     latex_engine: xelatex
+%\VignetteEngine{knitr::knitr}
+%\VignetteIndexEntry{Transforming data into sparse matrices}
+%\usepackage[utf8]{inputenc}
 ---
 
 ```{r setup, include = FALSE}
@@ -38,7 +41,7 @@ ttMatrix(data, simplify = TRUE, collation.locale = "en_US.UTF-8")
 
 ### pwMatrix
 
-The principle of `pwMatrix` ("part-whole Matrix") is so simple that it seems almost trivial. However, in combination with a bit matrix algebra the utility of this simple sparse Matrix is very high. First consider a simple vector of strings. Basically, `pwMatrix` looks at all parts of the strings (split into parts as determined by the separator `sep`). In the example below, The row and column names are added to the matrix by `simplify = TRUE`, and a gap has been added between the strings (like treating them as a sentence with boundaries).
+The principle of `pwMatrix` ("part-whole Matrix") is so simple that it seems almost trivial. However, in combination with a bit matrix algebra the utility of this simple sparse Matrix is very impressive. First consider a simple vector of strings. Basically, `pwMatrix` looks at all parts of the strings (split into parts as determined by the separator `sep`). In the example below, The row and column names are added to the matrix by `simplify = TRUE`, and a gap has been added between the strings (like treating them as a sentence with boundaries).
 
 ```{r pwIntro}
 strings <- c("this", "is", "that")

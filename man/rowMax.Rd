@@ -30,7 +30,7 @@ By default, only the non-zero elements are included in the computations. However
 }
 }
 \details{
-The basic workhorse of these functions is the function \code{rollup} from the package \code{\link{slam}}.
+The basic workhorse of these functions is the function \code{rollup} from the package \code{slam}.
 }
 \value{
 By default, these functions returns a \code{\link[Matrix]{sparseVector}} with the non-zero maxima or minima. Use additionally \code{as.vector} to turn this into a regular vector.

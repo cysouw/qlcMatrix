@@ -9,10 +9,6 @@ output:
   pdf_document:
     number_sections: yes
     latex_engine: xelatex
-vignette: >
-  %\VignetteIndexEntry{Transforming data into sparse matrices}
-  \usepackage[utf8]{inputenc}
-  %\VignetteEngine{knitr::rmarkdown}
 ---
 
 ```{r setup, include = FALSE}

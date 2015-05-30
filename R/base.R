@@ -85,7 +85,8 @@ pwMatrix <- function(strings, sep = "", gap.length = 0, gap.symbol = "\u00B7", s
 						
 	# part-whole Matrix: segments x strings
 	M <- sparseMatrix(	i = indices,
-						j = rep.int(1:length(strings),strings.length)
+						j = rep.int(1:length(strings),strings.length),
+						dims = c(length(segments), length(strings))
 						)
 
 	if (simplify) {

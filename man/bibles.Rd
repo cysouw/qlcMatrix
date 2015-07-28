@@ -15,7 +15,7 @@ A list of five elements
     \item{\code{eng}}{The English `Darby' Bible translation from 1890 by John Nelson Darby. Paralleltext.info code of this text is \href{http://paralleltext.info/data/eng-x-bible-darby/}{eng-x-bible-darby}.}
 	\item{\code{deu}}{The Bible in German. Schlachter Version von 1951. Genfer Bibelgesellschaft 1951. Paralleltext.info code of this text is \href{http://paralleltext.info/data/deu-x-bible-schlachter/}{deu-x-bible-schlachter}.}
 	\item{\code{tgl}}{The New Testament in Tagalog. Philippine Bible Society 1996. Paralleltext.info code of this text is \href{http://paralleltext.info/data/tgl-x-bible-1996/}{tgl-x-bible-1996}.}
-	\item{\code{aak}}{The New Testament in the Ankave language of Papua New Guinea. Wycliffe Bible Translators, Inc. 1990. Paralleltext.info code of this text is \href{http://paralleltext.info/data/aak-x-bible-aak/}{aak-x-bible-aak}.}
+	\item{\code{aak}}{The New Testament in the Ankave language of Papua New Guinea. Wycliffe Bible Translators, Inc. 1990. Paralleltext.info code of this text is \href{http://paralleltext.info/data/aak-x-bible/}{aak-x-bible}.}
   }
 }
 \details{

@@ -11,13 +11,13 @@ This package contains various functions that extend the functionality of the \co
 \tabular{ll}{
 Package: \tab qlcMatrix\cr
 Type: \tab Package\cr
-Version: \tab 0.9.4\cr
-Date: \tab 2015-04-26\cr
+Version: \tab 0.9.5\cr
+Date: \tab 2015-07-28\cr
 License: \tab GPL-3\cr
 }
 This package contains various different kinds of function. 
 
-First, some general utility functions to deal with sparse matrices: (i) \code{\link{rowMax}} to compute and identify row-wise maxima and minima in sparse matrices, (ii) \code{\link{rKhatriRao}} to remove empty rows in a KhatriRao product (but still get the right rownames) and (iii) \code{\link{rSparseMatrix}} to produce random sparse matrices.
+First, some general utility functions to deal with sparse matrices: (i) \code{\link{rowMax}} to compute and identify row-wise maxima and minima in sparse matrices, (ii) \code{\link{rKhatriRao}} to remove empty rows in a KhatriRao product (but still get the right rownames) and (iii) \code{\link{rSparseMatrix}} to produce random sparse matrices. There are also some experimental basic methods for handling sparse arrays ("tensors"), most interestingly \code{\link{unfold}}.
 
 Second, some general functions to compute associations between the columns of sparse matrices, with possibilities for extension for ad-hoc measures: \code{\link{cosSparse}}, \code{\link{corSparse}}, and \code{\link{assocSparse}}  There are special versions of these for nominal data \code{\link{cosNominal}, \link{assocNominal}}. 
 

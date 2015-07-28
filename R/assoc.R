@@ -318,9 +318,9 @@ assocCol <- function(X, colGroupX, Y = NULL, colGroupY = NULL, method = res, spa
 
 		# Number of cases per block. To keep this sparse needs some tricks (unfold-refold)	
 		if (is.null(Y)) {			
-			N <- unfold(O, colGroupX)	
+			N <- unfoldBlockMatrix(O, colGroupX)	
 		} else {			
-			N <- unfold(O, colGroupY)
+			N <- unfoldBlockMatrix(O, colGroupY)
 		}
 		G <- crossprod(kronecker( Diagonal(nrow(colGroupX)), colGroupX ))
 		sums <- G %*% rowSums(N$U)

@@ -63,7 +63,7 @@ rSparseMatrix <- function(nrow, ncol, nnz,
 # Unfold blockmatrix, first by column groups, optionally also by rowgroups
 # ============================================================
 
-unfold <- function(X, colGroups, rowGroups = NULL) {
+unfoldBlockMatrix <- function(X, colGroups, rowGroups = NULL) {
 
 	if (is.vector(colGroups)) {
 		colGroups <- ttMatrix(colGroups)$M

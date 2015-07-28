@@ -1,6 +1,7 @@
 # qlcMatrix 0.9.5
 
 * finally adding a NEWS list
+
 ## adding some first sparse array functionality, building on spam
 * unfold() to unfold sparse arrays to matrices
 * rename earlier unfold() to unfoldBlockMatrix()

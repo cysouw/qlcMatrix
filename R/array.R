@@ -5,12 +5,24 @@
 
 # use names in line with matrix/Matrix
 
-sparseArray <- function(i, v, ... ) {
-  simple_sparse_array(i, v, ...)
+sparseArray <- function(i, v = NULL, ... ) {
+  if (is.null(v)) {
+    simple_sparse_array(i, v = rep.int(1, times = nrow(i)), ...)
+  } else {
+    simple_sparse_array(i, v, ...)
+  }
 }
 
 Array <- function(A) {
-  as.simple_sparse_array(A)
+  if (is.data.frame(A)) {
+    # assume 'long' format of factors, no values, so all values are "1"
+    sparseArray(i = data.matrix(A)
+                , dimnames = sapply(A, levels)
+                )
+  } else {
+    # assume A is an array
+    as.simple_sparse_array(A)
+  }
 }
 
 # turn "simple_triplet_matrix" from spam into "dgTMatrix"
@@ -33,6 +45,8 @@ as.Matrix <- function(M) {
 # =====
 # General function to unfold margins from sparse array
 # unfolded margins get added as last margin of new array
+#
+# Speed is not optimized
 # =====
 
 unfold <- function(x, MARGINS) {
@@ -81,17 +95,21 @@ unfold_to_matrix <- function(x, ROWS, COLS = NULL) {
 
   ndim <- length(dim(x))
 
-  if(!is.null(COLS) && length(c(ROWS,COLS)) != ndim) {
+  if (!is.null(COLS) && length(c(ROWS,COLS)) != ndim) {
     stop("ROWS and COLS must contain all margins of x")
   }
 
-  if(is.null(COLS)) {
+  if (is.null(COLS)) {
     COLS <- (1:ndim)[-ROWS]
   }
-
-  unfoldR <- unfold(x, ROWS)
-  unfoldC <- unfold(unfoldR, attr(unfoldR,"permutation")[COLS])
-
+  
+  if (length(ROWS) == 1) {
+    unfoldC <- unfold(x, COLS)
+  } else {
+    unfoldR <- unfold(x, ROWS)
+    unfoldC <- unfold(unfoldR, attr(unfoldR,"permutation")[COLS])
+  }
+  
   return(as.Matrix(as.simple_triplet_matrix(unfoldC)))
 }
 

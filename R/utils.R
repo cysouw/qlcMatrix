@@ -4,7 +4,13 @@
 
 # This is only important for the new rownames, as now only rownames are produced for the non-empty rows. That is more efficient than making all rownames, as in the offical version in the Matrix package. It is *extremely* tricky to get the names right: watch out with the order of the indices!
 
-rKhatriRao <- function(X, Y, rownamesX = rownames(X), rownamesY = rownames(Y), simplify = FALSE, binder = ":", FUN = "*") {
+rKhatriRao <- function(X, Y
+                       , rownamesX = rownames(X)
+                       , rownamesY = rownames(Y)
+                       , simplify = FALSE
+                       , binder = ":"
+                       , FUN = "*"
+                       ) {
 
 	# sparse KhatriRao
 	M <- KhatriRao(X, Y, FUN = FUN)
@@ -37,9 +43,9 @@ rKhatriRao <- function(X, Y, rownamesX = rownames(X), rownamesY = rownames(Y), s
 	}
 }
 
-# ============================================================
+# ====================================================
 # Construct random sparse matrices, useful for testing
-# ============================================================
+# ====================================================
 
 # code from Martin Maechler
 
@@ -59,9 +65,10 @@ rSparseMatrix <- function(nrow, ncol, nnz,
     }
 }
 
-# ============================================================
-# Unfold blockmatrix, first by column groups, optionally also by rowgroups
-# ============================================================
+# =====================================================
+# Unfold blockmatrix
+# first by column groups, optionally also by row groups
+# =====================================================
 
 unfoldBlockMatrix <- function(X, colGroups, rowGroups = NULL) {
 
@@ -72,7 +79,9 @@ unfoldBlockMatrix <- function(X, colGroups, rowGroups = NULL) {
 	}
 
 	U <- KhatriRao(colGroups,X)
-	L <- as(kronecker( t(rep(1,nrow(colGroups))), Diagonal(nrow(X)) ),"CsparseMatrix")
+	L <- as(kronecker( t(rep(1,nrow(colGroups)))
+	                   , Diagonal(nrow(X)) )
+	        ,"CsparseMatrix")
 		
 	if (is.null(rowGroups)) {
 		return( list( U=U, L=L ) )
@@ -84,8 +93,12 @@ unfoldBlockMatrix <- function(X, colGroups, rowGroups = NULL) {
 			rowGroups <- as(rowGroups, "dgCMatrix")
 		}
 
-		R <- as(kronecker( rep(1,nrow(rowGroups)), Diagonal(ncol(U))),"CsparseMatrix")
-		rowGroups <- kronecker( t(rep(1,nrow(colGroups))), rowGroups )
+		R <- as(kronecker( rep(1,nrow(rowGroups))
+		                   , Diagonal(ncol(U)))
+		        ,"CsparseMatrix")
+		
+		rowGroups <- kronecker( t(rep(1,nrow(colGroups)))
+		                        , rowGroups )
 		U <- t( KhatriRao(rowGroups , t(U)))
 
 		return( list( U=U, L=L, R=R ))
@@ -96,14 +109,15 @@ unfoldBlockMatrix <- function(X, colGroups, rowGroups = NULL) {
 # Maximum per row/column
 # ======================
 
-# returns sparse vector with maximum values. Optionally returns a sparse matrix with the position of these maxima in the original matrix
+# returns sparse vector with maximum values.
+# Optionally returns a sparse matrix 
+# with the position of these maxima in the original matrix
 # becomes very slow when number of entries in the table is larger than 1e5.
-
-# possibly much faster using "rollup" in package "slam" !!!
 
 rowMax <- function(X, which = FALSE, ignore.zero = TRUE) {
 
 # old approach, much slower
+# new approach much faster using "rollup" in package "slam" !!!
 #	m <- aggregate(x~i, data = summary(X), FUN = max)
 #	maximum <- sparseVector(x = m$x, i = m$i, length = nrow(X))
 

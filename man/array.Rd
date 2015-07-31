@@ -10,19 +10,19 @@ Convenient function linking sparse Arrays from the package \code{spam} to the sp
 }
 \usage{
 Array(A)
-sparseArray(i, v, ...)
+sparseArray(i, v = NULL, ...)
 
 as.Matrix(M)
 }
 \arguments{
   \item{A}{
-An array to be turned into a sparse Array using \code{as.simple_sparse_array}.
+An array to be turned into a sparse Array using \code{as.simple_sparse_array}. Can also be a \code{dataframe}, but see Details below about the treatment of data frames here.
 }
   \item{i}{
 Integer matrix of array indices passed to \code{simple_sparse_array}.
 }
   \item{v}{
-vector of values passed to \code{simple_sparse_array}
+vector of values passed to \code{simple_sparse_array}. If \code{NULL} (by default), all specified indices (i.e. all rows in \code{i}) are given the value 1.
 }
   \item{M}{
 Matrix of type \code{simple_triple_matrix} from the package \code{spam} to be turned into a \code{TsparseMatrix} from the packages \code{Matrix}.
@@ -32,7 +32,7 @@ Further arguments passed to \code{simple_sparse_array}.
   }
 }
 \details{
-\code{Array} turns an \code{array} into a sparse Array.
+\code{Array} turns an \code{array} into a sparse Array. There is a special behavior when a \code{dataframe} is supplied. Such a dataframe is treated as `long format`, i.e. the columns of the dataframe are treated as dimensions of the Array, and all rows of the dataframe are interpreted as entries. The coordinates are given by the ordering of the levels in the dataframe, and the dimnames are given by the levels.
 
 \code{sparseArray} constructs sparse Arrays from a matrix of indices and a vector of values. dim and dimnames can be added as in \code{\link{simple_sparse_array}}
 

@@ -1,6 +1,7 @@
-# =======================================================================
-# High-level functions to convert data into collection of sparse matrices
-# =======================================================================
+# ==================================================
+# High-level functions 
+# to convert data into collection of sparse matrices
+# ==================================================
 
 # split data table with nominal data into matrices
 # consider for future to do this via long-form ("reshape")

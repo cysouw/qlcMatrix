@@ -16,7 +16,9 @@ sparseArray <- function(i, v = NULL, ... ) {
 Array <- function(A) {
   if (is.data.frame(A)) {
     # assume 'long' format of factors, no values, so all values are "1"
-    sparseArray(i = data.matrix(A)
+    indices <- data.matrix(A)
+    attr(indices, "dimnames") <- NULL
+    sparseArray(i = indices
                 , dimnames = sapply(A, levels)
                 )
   } else {

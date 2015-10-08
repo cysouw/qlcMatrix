@@ -71,7 +71,7 @@ system.time(m2 <- apply(X, 1, max))
 # also some performance loss with size of matrix
 # up to 1e5 entries is still reasonably fast
 
-X <- rSparseMatrix(1e7, 1e7, 1e6)
+X <- rSparseMatrix(1e7, 1e7, 1e5)
 system.time(m <- rowMax(X))
 
 \dontrun{

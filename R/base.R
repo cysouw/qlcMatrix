@@ -7,42 +7,49 @@
 
 ttMatrix <- function(vector, collation.locale = "C", simplify = FALSE) {
 
-	# change locale for collation, defaults to pure unicode locale "C"
-	# setting NULL takes current locale on system
-	Sys.getlocale("LC_COLLATE") -> current.locale
-	if (!is.null(collation.locale)) {
-		Sys.setlocale("LC_COLLATE", collation.locale)
-	}
-
-	# factorization
-	factor <- factor(vector) # remove non-used levels
-	indices <- as.numeric(factor)
-	names <- levels(factor)
-
-	# just in case that there is missing data
-	indices <- na.omit(indices)
-	available <- which(!is.na(factor))
-	rows <- max(indices)
-	cols <- length(factor)
-
-	# make sparse matrix
-	M <- sparseMatrix(	i = indices,
-						j = available,
-						dims = c(rows,cols)
-						)
-
-	# change locale back to original
-	Sys.setlocale("LC_COLLATE", current.locale)
-	
-	if (simplify) {
-		rownames(M) <- names
-		colnames(M) <- vector
-		return(M)
-	} else {			
-		return(	list(	M = M, 
-						rownames = names
-						))
-	}
+  # just is case the complete vector is NA, return NULL
+  # which might occur in higher-level functions working on large datasets
+  if (sum(!is.na(vector)) == 0) {
+    return(NULL)
+  } else {
+    
+  	# change locale for collation, defaults to pure unicode locale "C"
+  	# setting NULL takes current locale on system
+  	Sys.getlocale("LC_COLLATE") -> current.locale
+  	if (!is.null(collation.locale)) {
+  		Sys.setlocale("LC_COLLATE", collation.locale)
+  	}
+  
+  	# factorization
+  	factor <- factor(vector) # remove non-used levels
+  	indices <- as.numeric(factor)
+  	names <- levels(factor)
+  
+  	# just in case that there is missing data
+  	indices <- na.omit(indices)
+  	available <- which(!is.na(factor))
+  	rows <- max(indices)
+  	cols <- length(factor)
+  
+  	# make sparse matrix
+  	M <- sparseMatrix(	i = indices,
+  						j = available,
+  						dims = c(rows,cols)
+  						)
+  
+  	# change locale back to original
+  	Sys.setlocale("LC_COLLATE", current.locale)
+  	
+  	if (simplify) {
+  		rownames(M) <- names
+  		colnames(M) <- vector
+  		return(M)
+  	} else {			
+  		return(	list(	M = M, 
+  						rownames = names
+  						))
+  	}
+  }
 }
 
 # make part-whole (pw) Matrix from tokenized strings

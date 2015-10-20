@@ -1,3 +1,6 @@
+# qlcMatrix 0.9.6
+
+
 # qlcMatrix 0.9.5
 
 * finally adding a NEWS list

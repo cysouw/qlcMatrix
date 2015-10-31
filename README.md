@@ -1,3 +1,6 @@
+![version](http://www.r-pkg.org/badges/version/qlcMatrix)
+![downloads](http://cranlogs.r-pkg.org/badges/qlcMatrix)
+
 qlcMatrix
 =========
 

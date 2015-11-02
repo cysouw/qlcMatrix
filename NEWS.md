@@ -1,8 +1,8 @@
 # qlcMatrix 0.9.6
-
+## bugs
+* corrected names of rKhatriRao for the complete symmetric case
 
 # qlcMatrix 0.9.5
-
 * finally adding a NEWS list
 
 ## adding some first sparse array functionality, building on spam

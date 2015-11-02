@@ -21,16 +21,16 @@ rKhatriRao <- function(X, Y
 	
 	# make names for the non-empty rows
 	nonzero <- Matrix(	selection,
-						nrow = nrow(Y),
-						ncol = nrow(X),
-						sparse = TRUE
-						)
-	nonzero <- as(nonzero,"TsparseMatrix")
+						          nrow = nrow(Y),
+						          ncol = nrow(X),
+						          sparse = TRUE
+					          	)
+	nonzero <- as(nonzero,"lgTMatrix")
 
 	rownamesM <- paste(	rownamesY[nonzero@i + 1],
-						rownamesX[nonzero@j + 1],	
-						sep = binder
-						)
+						          rownamesX[nonzero@j + 1],	
+					          	sep = binder
+						          )
 	
 	if (simplify) {
 		rownames(M) <- rownamesM

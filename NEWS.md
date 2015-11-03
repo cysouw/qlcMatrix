@@ -1,4 +1,7 @@
 # qlcMatrix 0.9.6
+
+* adding commandline execs
+
 ## bugs
 * corrected names of rKhatriRao for the complete symmetric case
 

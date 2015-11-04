@@ -1,5 +1,6 @@
 ![version](http://www.r-pkg.org/badges/version/qlcMatrix)
 ![downloads](http://cranlogs.r-pkg.org/badges/qlcMatrix)
+[![DOI](https://zenodo.org/badge/19068/cysouw/qlcMatrix.svg)](https://zenodo.org/badge/latestdoi/19068/cysouw/qlcMatrix)
 
 qlcMatrix
 =========

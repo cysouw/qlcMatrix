@@ -1,4 +1,4 @@
-![version](http://www.r-pkg.org/badges/version/qlcMatrix)
+[![version](http://www.r-pkg.org/badges/version/qlcMatrix)](https://cran.r-project.org/web/packages/qlcMatrix/index.html)
 ![downloads](http://cranlogs.r-pkg.org/badges/qlcMatrix)
 [![DOI](https://zenodo.org/badge/19068/cysouw/qlcMatrix.svg)](https://zenodo.org/badge/latestdoi/19068/cysouw/qlcMatrix)
 

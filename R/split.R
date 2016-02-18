@@ -217,7 +217,7 @@ splitText <- function(	text,
 	# link the localSentenceIDs "S" to the globalSentenceIDs "U"
 	if (!is.null(globalSentenceID)) {
 		tmp <- jMatrix(localSentenceID, globalSentenceID)
-		US <- tmp$M1
+		US <- t(tmp$M2) %*% tmp$M1
 		# relink
 		RS <- RS %*% t(US)
 	}

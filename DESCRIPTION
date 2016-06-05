@@ -8,7 +8,7 @@ Maintainer: Michael Cysouw <cysouw@mac.com>
 Description: Extension of the functionality of the Matrix package for using sparse matrices. Some of the functions are very general, while other are highly specific for special data format as used for quantitative language comparison (QLC).
 License: GPL-3
 Encoding: UTF-8
-Depends: Matrix (>= 1.1-0), R (>= 2.10), slam (>= 0.1-32)
+Depends: Matrix (>= 1.1-0), R (>= 2.10), slam (>= 0.1-32), sparsesvd
 Imports: methods, docopt
 Suggests: MASS, knitr
 VignetteBuilder: knitr

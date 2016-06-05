@@ -4,10 +4,10 @@
 Dimensionality Reduction for sparse matrices, based on Cholesky decomposition
 }
 \description{
-To inspect the structure of a large sparse matrix, it is often highly useful to reduce the matrix to a few major dimensions (cf. multidimensional scaling). This functions implements a rough approach to provide a few major dimensions. The function is actually just a simple wrapper around \code{\link{Cholesky}}.
+To inspect the structure of a large sparse matrix, it is often highly useful to reduce the matrix to a few major dimensions (cf. multidimensional scaling). This functions implements a rough approach to provide a few major dimensions. The function provides a simple wrapper around \code{\link[Matrix]{Cholesky}} and \code{\link[sparsesvd]{sparsesvd}}.
 }
 \usage{
-dimRed(sim, k = 2)
+dimRed(sim, k = 2, method = "svd")
 }
 \arguments{
   \item{sim}{
@@ -16,22 +16,29 @@ Sparse, symmetric, positive-definite matrix (typically a similarity matrix produ
   \item{k}{
 Number of dimensions to be returned, defaults to two.
 }
+  \item{method}{
+Method used for the decomposition. Currently implemted are \code{svd} and \code{cholesky}. 
+}
 }
 \details{
 Based on the Cholesky decomposition, the Matrix \code{sim} is decomposed into:
 \deqn{ L D L'}
-The D Matrix is a diagonal matrix, the values of which are returned here as \code{$D}. Only the first few columns of the L Matrix are returned (possibly after permutation, see the details at \code{\link{Cholesky}}).
+The D Matrix is a diagonal matrix, the values of which are returned here as \code{$D}. Only the first few columns of the L Matrix are returned (possibly after permutation, see the details at \code{\link[Matrix]{Cholesky}}).
+
+Based on the svd decomposition, the Matrix \code{sim} is decomposed into:
+\degn{ U D V}
+The U Matrix and the values from D are returned.
 }
 \value{
 A list of two elements is returned:
 \item{L }{: a sparse matrix of type \code{dgCMatrix} with \code{k} columns}
-\item{D }{: the diagional values from the Cholesky decomposition, cf. eigenvalues}
+\item{D }{: the diagional values from the Cholesky decomposition, or the eigenvalues from the svd decomposition}
 }
 \author{
 Michael Cysouw <cysouw@mac.com>
 }
 \seealso{
-See Also as \code{\link{Matrix::Cholesky}}
+See Also as \code{\link[Matrix]{Cholesky}} and \code{\link[sparsesvd]{sparsesvd}}
 }
 \examples{
 # some random points in two dimensions
@@ -71,17 +78,16 @@ data(iris)
 X <- t(as.matrix(iris[,1:4]))
 cols <- rainbow(3)[iris$Species]
 
-sL <- cosSparse(X, norm = normL)
-s1 <- cosSparse(X, norm = norm1)
+s <- cosSparse(X, norm = norm1)
 d <- dist(t(X), method = "manhattan")
 
-cL <- as.matrix(dimRed(sL)$L)
-c1 <- as.matrix(dimRed(s1)$L)
+svd <- as.matrix(dimRed(s, method = "svd")$L)
+chol <- as.matrix(dimRed(s, method = "cholesky")$L)
 mds <- cmdscale(d)
 
 par(mfrow = c(1,3))
-  plot(mds, col = cols, main = "cmdscale from euclidean distances")
-  plot(cL, col = cols, main = "dimRed from cosSparse with normL")
-  plot(c1, col = cols, main = "dimRed from cosSparse with norm1")
+  plot(mds, col = cols, main = "cmdscale\nfrom euclidean distances")
+  plot(svd, col = cols, main = "dimRed with svd\nfrom cosSparse with norm1")
+  plot(chol, col = cols, main = "dimRed with cholesky\nfrom cosSparse with norm1")
 par(mfrow = c(1,1))
 }

@@ -1,5 +1,7 @@
 # qlcMatrix 0.9.6
 
+* adding dimRed() function for sparse dimensionality Reduction based on Cholesky()
+* adding normalized Laplacian norm for cosSparse
 * adding commandline execs
 
 ## bugs

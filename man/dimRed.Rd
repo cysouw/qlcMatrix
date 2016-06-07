@@ -26,7 +26,7 @@ Based on the Cholesky decomposition, the Matrix \code{sim} is decomposed into:
 The D Matrix is a diagonal matrix, the values of which are returned here as \code{$D}. Only the first few columns of the L Matrix are returned (possibly after permutation, see the details at \code{\link[Matrix]{Cholesky}}).
 
 Based on the svd decomposition, the Matrix \code{sim} is decomposed into:
-\degn{ U D V}
+\deqn{ U D V}
 The U Matrix and the values from D are returned.
 }
 \value{

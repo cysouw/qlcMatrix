@@ -1,5 +1,6 @@
 # qlcMatrix 0.9.6
 
+* changed internal gap symbol in pwMatrix to \u2043
 * adding dimRed() function for sparse dimensionality Reduction based on Cholesky()
 * adding normalized Laplacian norm for cosSparse
 * adding commandline execs

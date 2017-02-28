@@ -57,7 +57,7 @@ ttMatrix <- function(vector, collation.locale = "C", simplify = FALSE) {
 # gap is needed for not obtaining overlap for ngrams.
 # gap.length = 1 is sufficient for bigrams, gap.length = 2 for 3-grams, etc.
 
-pwMatrix <- function(strings, sep = "", gap.length = 0, gap.symbol = "\u00B7", simplify = FALSE) {
+pwMatrix <- function(strings, sep = "", gap.length = 0, gap.symbol = "\u2043", simplify = FALSE) {
 
 	# just to be sure that we are dealing with strings
 	strings <- as.character(strings)

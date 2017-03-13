@@ -87,7 +87,7 @@ splitStrings <- function(	strings,
 							bigrams = TRUE,
 							boundary = TRUE,
 							bigram.binder = "",
-							gap.symbol = "\u00B7",
+							gap.symbol = "\u2043",
 							left.boundary = "#",
 							right.boundary = "#",
 							simplify = FALSE

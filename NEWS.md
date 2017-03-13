@@ -1,5 +1,6 @@
 # qlcMatrix 0.9.6
 
+* adding option to pass arguments from sim.strings to splitStrings
 * changed internal gap symbol in pwMatrix to \u2043
 * adding dimRed() function for sparse dimensionality Reduction based on Cholesky()
 * adding normalized Laplacian norm for cosSparse

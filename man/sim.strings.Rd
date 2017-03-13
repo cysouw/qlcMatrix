@@ -8,7 +8,7 @@ String similarity by cosine similarity between bigram vectors
 Efficient computation of pairwise string similarities using a cosine similarity on bigram vectors.
 }
 \usage{
-sim.strings(strings1, strings2 = NULL, sep = "", boundary = TRUE)
+sim.strings(strings1, strings2 = NULL, sep = "", boundary = TRUE, ...)
 }
 \arguments{
   \item{strings1, strings2}{
@@ -19,6 +19,9 @@ Separator used to split the strings into parts. This will be passed to \code{\li
 }
   \item{boundary}{
 In the default setting \code{boundary = T}, a special symbol is added to the front and to the end of each string, adding special bigrams for the initial and the final character. With words from real languages (which are mostly not very long) this has a strong impact.
+}
+  \item{...}{
+Further arguments passed to \code{\link{splitStrings}}.
 }
 }
 \details{

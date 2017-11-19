@@ -64,10 +64,10 @@ plot(hclust(as.dist(1-s), method = "ward.D"))
 
 # use the split option for multi-valued cells
 farms2 <- as.matrix(farms)
-farms2[1,1] <- "M1,M2"
+farms2[1,1] <- "M1,M5"
 
-s <- sim.obs(farms2)
-plot(hclust(as.dist(1-s)), method = "ward.D")
+s <- sim.obs(farms2, split = ",")
+plot(hclust(as.dist(1-s), method = "ward.D"))
 
 \dontrun{
 # a larger example with lots of missing data: the WALS-data as included here

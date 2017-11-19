@@ -9,8 +9,8 @@ Similarity-measures for nominal variables
 Nominal variables can be encoded as a combination of a sparse incidence and index matrix, as discussed at \code{\link{splitTable}}. The present two functions are easy-to-use shortcuts to use those sparse matrices to computes pairwise similarities, either between observations (\code{sim.obs}) or attributes (\code{sim.att}).
 }
 \usage{
-sim.att(D, method = "chuprov", sparse = TRUE)
-sim.obs(D, method = "hamming", sparse = TRUE)
+sim.att(D, method = "chuprov", sparse = TRUE, ...)
+sim.obs(D, method = "hamming", sparse = TRUE, ...)
 }
 \arguments{
   \item{D}{
@@ -21,6 +21,9 @@ method to be used for similarity computation. See Details below.
   }
   \item{sparse}{
 All methods try to be as sparse as possible. Specifically, when there are no observed co-occurrence, then nothing is computed. This might lead to slight deviations in the results for some methods. Set \code{sparse=F} to force computation for all cells. This leads to non-sparse results, so use with caution with large datasets.
+  }
+  \item{...}{
+Arguments passed internally to \code{\link{splitTable}}, especially useful for multi-valued cells, using the option \code{split}.
   }
 }
 \details{
@@ -53,11 +56,18 @@ library(MASS)
 
 # similarities between farms
 s <- sim.obs(farms)
-plot(hclust(as.dist(1-s), method = "ward"))
+plot(hclust(as.dist(1-s), method = "ward.D"))
 
 # similarities between attributes (`variables`)
 s <- sim.att(farms)
-plot(hclust(as.dist(1-s), method = "ward"))
+plot(hclust(as.dist(1-s), method = "ward.D"))
+
+# use the split option for multi-valued cells
+farms2 <- as.matrix(farms)
+farms2[1,1] <- "M1,M2"
+
+s <- sim.obs(farms2)
+plot(hclust(as.dist(1-s)), method = "ward.D")
 
 \dontrun{
 # a larger example with lots of missing data: the WALS-data as included here
@@ -66,7 +76,7 @@ plot(hclust(as.dist(1-s), method = "ward"))
 data(wals)
 system.time(s <- sim.att(wals$data))
 rownames(s) <- colnames(wals$data)
-plot(hclust(as.dist(1-s), method = "ward"), cex = 0.5)
+plot(hclust(as.dist(1-s), method = "ward.D"), cex = 0.5)
 
 # Note that using sparse=T speeds up computations because it 
 # ignores zero co-occurrences

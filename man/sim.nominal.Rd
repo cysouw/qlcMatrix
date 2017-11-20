@@ -23,7 +23,7 @@ method to be used for similarity computation. See Details below.
 All methods try to be as sparse as possible. Specifically, when there are no observed co-occurrence, then nothing is computed. This might lead to slight deviations in the results for some methods. Set \code{sparse=F} to force computation for all cells. This leads to non-sparse results, so use with caution with large datasets.
   }
   \item{...}{
-Arguments passed internally to \code{\link{splitTable}}, especially useful for multi-valued cells, using the option \code{split}.
+Arguments passed internally to \code{\link{splitTable}}, especially useful for multi-valued cells, using the option \code{split}. Note that \code{method = hamming} will give unexpected results for the comparison of cells that both are multi-valued. Consider using \code{method = weighted} instead.
   }
 }
 \details{

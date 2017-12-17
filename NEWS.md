@@ -1,5 +1,6 @@
 # qlcMatrix 0.9.6
 
+* adding experimental distSparse function
 * adding option to pass arguments from sim.obs and sim.att to splitTable
 * adding option to pass arguments from sim.strings to splitStrings
 * changed internal gap symbol in pwMatrix to \u2043

@@ -64,7 +64,7 @@ corSparse <- function(X, Y = NULL, cov = FALSE) {
 	# Alternatively take 1-norm
 	norm1 <- function(x,s) { drop(crossprod(abs(x),s)) }
 	# Alternatively, the norm for a normalized Laplacian
-	normL <- function(x,s) { abs(drop(crossprod(x,s))) ^ (1/2) } 
+	normL <- function(x,s) { abs(drop(crossprod(x,s))) ^ 0.5 } 
 
 cosSparse <- function(X, Y = NULL, norm = norm2 , weight = NULL) {
 

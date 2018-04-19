@@ -1,14 +1,14 @@
 Package: qlcMatrix
 Type: Package
 Title: Utility Sparse Matrix Functions for Quantitative Language Comparison
-Version: 0.9.5
-Date: 2015-10-08
+Version: 0.9.6
+Date: 2018-04-19
 Author: Michael Cysouw
 Maintainer: Michael Cysouw <cysouw@mac.com>
 Description: Extension of the functionality of the Matrix package for using sparse matrices. Some of the functions are very general, while other are highly specific for special data format as used for quantitative language comparison (QLC).
 License: GPL-3
 Encoding: UTF-8
-Depends: Matrix (>= 1.1-0), R (>= 2.10), slam (>= 0.1-32), sparsesvd
+Depends: Matrix (>= 1.1-0), R (>= 3.2), slam (>= 0.1-32), sparsesvd
 Imports: methods, docopt
 Suggests: MASS, knitr
 VignetteBuilder: knitr

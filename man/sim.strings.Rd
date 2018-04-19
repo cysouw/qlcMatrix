@@ -40,6 +40,15 @@ The overhead of converting the strings into sparse matrices makes this function 
 
 The result of \code{sim.strings(a)} and \code{sim.strings(a,a)} is identical, but the first version is more efficient, both as to processing time, as well as to the size of the resulting objects.
 }
+\note{
+There is a bash-executable \code{simstrings} distributed with this package (based on the \code{docopt} package) that let you use this function directly in a bash-terminal. The easiest way to use this executable is to softlink the executable to some directory in your bash PATH, for example \code{/usr/local/bin} or simply \code{~/bin}. To softlink the function \code{sim.strings} to this directory, use something like the following in your bash terminal:
+
+\code{ln -is `Rscript -e 'cat(system.file("exec/simstrings", package="qlcMatrix"))'` ~/bin}
+
+From within R your can also use the following (again, optionally changing the linked-to directory from \code{~/bin} to anything more suitable on your system):
+
+\code{file.symlink(system.file("exec/simstrings", package="qlcMatrix"), "~/bin")}
+}
 \seealso{
 \code{\link{splitStrings}, \link{cosSparse}} on which this function is based. Compare with \code{\link[utils:adist]{adist}} from the utils package. On large datasets, \code{sim.strings} seems to be about a factor 30 quicker. The package \code{stringdist} offers many more string comparison methods.
 }

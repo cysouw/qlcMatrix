@@ -5,10 +5,12 @@
 * adding option to pass arguments from sim.strings to splitStrings
 * changed internal gap symbol in pwMatrix to \u2043
 * adding dimRed() function for sparse dimensionality Reduction based on Cholesky()
-* adding normalized Laplacian norm for cosSparse
+* adding normalized Laplacian norm 'normL' for cosSparse
 * adding commandline execs
 
 ## bugs
+* removed outdated links
+* replacing rBind with rbind as of R 3.2
 * corrected names of rKhatriRao for the complete symmetric case
 
 # qlcMatrix 0.9.5

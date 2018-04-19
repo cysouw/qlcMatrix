@@ -6,6 +6,7 @@
 \alias{none}
 \alias{norm2}
 \alias{norm1}
+\alias{normL}
 
 \title{
 Cosine similarity between columns (sparse matrices)
@@ -54,6 +55,11 @@ euclidean norm. The default setting, and the same normalization as used in the P
 Manhattan, or taxi-cab norm, defined as \cr 
 \code{norm1 <- function(x,s) \{ abs(drop(crossprod(x,s))) \} }.
     }
+    
+    \item{\code{normL}:
+normalized Laplacian norm, used in spectral clustering of a graph, defined as \cr 
+\code{normL <- function(x,s) \{ abs(drop(crossprod(x,s))) ^ 0.5 \} }.
+    }
   }
  
 The predefined weightings are defined as a function of the frequency of a row (s) and the number of columns (N):
@@ -63,20 +69,18 @@ The predefined weightings are defined as a function of the frequency of a row (s
 inverse document frequency, used typically in distributional semantics to down-weight high frequent rows. It is defined as \cr 
 \code{idf <- function(s,N) \{ log(N/(1+s)) \} }.
     }
+    
     \item{\code{isqrt}:
 inverse square root, an alternative to idf, defined as \cr 
 \code{isqrt <- function(s,N) \{ s^-0.5 \} }.
     }
+    
     \item{\code{none}}:
 no weighting. This is only included for use inside later high-level functions (e.g. \code{\link{sim.words}}). Normally, \code{weight = NULL} gives identical results, but is slightly quicker. \cr
 \code{none <- function(s,N) \{ s \} }
   }
 
-It is trivial to define further norms of weighting functions. For example, one might define the following norm:
-
-\code{normL <- function(x,s) \{ abs(drop(crossprod(x,s))) ^ (1/2) \} }\cr
-
-When used on a symmetric pattern Matrix X, using this norm will result in a matrix that is known in spectral clustering as a `normalized Laplacian' of the graph X.
+Further norms of weighting functions can be defined at will.
 }
 
 \value{

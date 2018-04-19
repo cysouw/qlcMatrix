@@ -44,13 +44,13 @@ splitTable <- function(	data,
   
 	OV <- tt[[1]]$M
 	for (i in tt[-1]) {
-		OV <- rBind(OV,i$M)
+		OV <- rbind(OV,i$M)
 	}
 	OV <- t(OV)
 	
 	# the following approach is slow... strange...
 	# http://www.r-bloggers.com/the-rbinding-race-for-vs-do-call-vs-rbind-fill/
-	# OV <- t(do.call(rBind,sapply(tt,function(x){x[[1]]})))
+	# OV <- t(do.call(rbind,sapply(tt,function(x){x[[1]]})))
 
   cls <- ncol(data)
   

@@ -108,9 +108,9 @@ which(best["went",])
 
 # A final speed check:
 # split all 4 texts, and simplify them into one matrix
-# They have all the same columns, so they can be rBind
+# They have all the same columns, so they can be rbind
 system.time(all <- sapply(bibles[-1], function(x){splitText(x, bibles$verses, simplify = TRUE)}))
-all <- do.call(rBind, all)
+all <- do.call(rbind, all)
 
 # then try a single co-occerrence measure on all pairs from these 72K words
 # (so we are doing about 2.6e9 comparisons here!)

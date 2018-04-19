@@ -22,16 +22,29 @@
 # =====
 
 DOC <- "
-Usage: 
-  sim.strings [-h -d -s SEPARATOR -r DECIMALS <STRINGS>...]
+USAGE: 
+  simstrings [-h -d -s SEPARATOR -r DECIMALS <STRINGS>...]
 
-Using the function sim.strings() from the R-package qlcMatrix. Efficient computation of pairwise string similarities using a cosine similarity on bigram vectors. Details at http://www.rdocumentation.org/packages/qlcMatrix/functions/sim.strings.html
+DESCRIPTION:
+  Using the function sim.strings() from the R-package qlcMatrix:
+  Efficient computation of pairwise string similarities using a cosine 
+  similarity on bigram vectors. Note that the algorithm is efficient, but there
+  is an overhead beacuse of the startup of R and loading packages.
+  
+  The STRINGS argument should be space-separated. Piping through is supported, see examples.
+  Details at http://www.rdocumentation.org/packages/qlcMatrix/functions/sim.strings.html
 
-Options:
+OPTIONS:
   -h, --help      Showing this help text
   -d, --distance  Return distances instead of similarities
-  -s SEPARATOR    Separator, defaults to nothing, use 'S' to get space [default: ]
+  -s SEPARATOR    Separator, defaults to nothing (i.e. separation at Unicode codepoints);
+                  use 'S' to get space [default: ]
   -r DECIMALS     Round result to decimals [default: 3]
+
+EXAMPLES
+
+  simstrings abcd abdd abbb
+  ls | simstrings
 "
 
 # ==============
@@ -67,9 +80,9 @@ if (distance) {
 result <- round(result, digits = r)
 
 
-# =============
-# Return output
-# =============
+# =======================
+# Return output to stdout
+# =======================
 
 write.table(result
 	, file = ""

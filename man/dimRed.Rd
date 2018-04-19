@@ -57,15 +57,15 @@ red <- as.matrix(dimRed(s)$L)
 
 par(mfrow = c(1,3))
 
-  plot(coor, type = "n", axes = F, xlab = "", ylab = "")
+  plot(coor, type = "n", axes = FALSE, xlab = "", ylab = "")
   text(coor, labels = 1:30)
   title("Original coordinates")
   
-  plot(mds, type = "n", axes = F, xlab = "", ylab = "")
+  plot(mds, type = "n", axes = FALSE, xlab = "", ylab = "")
   text(mds, labels = 1:30)
   title("MDS from euclidean distances")
   
-  plot(red, type = "n", axes = F, xlab = "", ylab = "")
+  plot(red, type = "n", axes = FALSE, xlab = "", ylab = "")
   text(red, labels = 1:30)
   title("dimRed from cosSparse similarity")
 

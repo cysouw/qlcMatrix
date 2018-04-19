@@ -8,8 +8,8 @@ A (possibly large) vector of strings is separated into sparse pattern matrices, 
 }
 \usage{
 splitStrings(strings, sep = "", bigrams = TRUE, boundary = TRUE,
-	bigram.binder = "", gap.symbol = "\u2043", left.boundary = "#", right.boundary = "#",
-	simplify = FALSE)
+	bigram.binder = "", gap.symbol = "\u2043", left.boundary = "#",
+	right.boundary = "#", simplify = FALSE)
 }
 \arguments{
   \item{strings}{
@@ -28,7 +28,7 @@ Should a start symbol and a stop symbol be added to each string? This will only 
 Only when \code{bigrams = T}. What symbol(s) should occur between the two parts of the bigram?
 }
   \item{gap.symbol}{
-Only when \code{bigram = T}. What symbol should be included to separate the strings? It defaults to U+2043 ( '\u2043' ) on the assumption that this character will not often be included in data. See \code{\link{pwMatrix}} for some more explanation about the necessity of this gap symbol.
+Only when \code{bigram = T}. What symbol should be included to separate the strings? It defaults to U+2043 \code{HYPHEN BULLET} on the assumption that this character will not often be included in data. See \code{\link{pwMatrix}} for some more explanation about the necessity of this gap symbol.
 }
   \item{left.boundary, right.boundary}{
 Symbols to be used as boundaries, only used when \code{boundary = T}.

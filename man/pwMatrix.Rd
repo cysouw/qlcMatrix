@@ -8,7 +8,7 @@ Construct `part-whole' (pw) Matrices from tokenized strings
 A part-whole Matrix is a sparse matrix representation of a vector of strings (`wholes') split into smaller parts by a specified separator. It basically summarizes which strings consist of which parts. By itself, this is not a very interesting transformation, but it allows for quite fancy computations by simple matrix manipulations.
 }
 \usage{
-pwMatrix(strings, sep = "", gap.length = 0, gap.symbol = "⁃", simplify = FALSE)
+pwMatrix(strings, sep = "", gap.length = 0, gap.symbol = "\u2043", simplify = FALSE)
 }
 
 \arguments{
@@ -22,7 +22,7 @@ The separator to be used. Defaults to space \code{sep = " "}. If separation in i
 This adds the specified number of gap symbols between each pair of strings. This is only important for generating higher ngram-statistics later on, when no ordering of the strings is implied. For example, when the strings are alphabetically ordered words, any bigram-statistics should not count the bigrams consisting of the last character of the a word with the first character of the next word. 
 }
   \item{gap.symbol}{
-The gap symbol to insert (see gap.length above). It defaults to U+2043 `HYPHEN BULLET' ( ⁃ ) on the assumption that this character will not often be included in data.
+The gap symbol to insert (see gap.length above). It defaults to U+2043 \code{HYPHEN BULLET} on the assumption that this character will not often be included in data.
 }
   \item{simplify}{
  by default, the row and column names are not included into the matrix to keep the matrix as lean as possible. The row names (`parts') are returned separately. Using \code{simplify = T} the row and column names will be added into the matrix. Note that the column names are simply the vector that went into the function.

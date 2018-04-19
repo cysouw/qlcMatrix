@@ -60,16 +60,18 @@ rownames(Y) <- 1:nrow(Y)
 # but almost all rows are empty
 
 system.time(M <- KhatriRao(X, Y))
-sum(rowSums(M)==0)/nrow(M) # 99.9\% empty rows
-
 \dontrun{
+sum(rowSums(M)==0)/nrow(M) # 99.9\% empty rows
+}
+
 # To produce all row names takes a long time
 # with 1e8 row names it took half an hour on my laptop
 # so: don't try the following, except on a very large machine!
+\dontrun{
 system.time(M <- KhatriRao(X, Y, make.dimnames = TRUE))
 }
 
-# Using the current special version works just fine and is very quick
+# Using the current special version works just fine and is reasonably quick
 system.time(M <- rKhatriRao(X, Y))
 
 }

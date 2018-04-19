@@ -12,3 +12,4 @@ Depends: Matrix (>= 1.1-0), R (>= 3.2), slam (>= 0.1-32), sparsesvd
 Imports: methods, docopt
 Suggests: MASS, knitr
 VignetteBuilder: knitr
+RoxygenNote: 6.0.1

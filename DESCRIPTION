@@ -1,7 +1,7 @@
 Package: qlcMatrix
 Type: Package
 Title: Utility Sparse Matrix Functions for Quantitative Language Comparison
-Version: 0.9.6
+Version: 0.9.7
 Date: 2018-04-19
 Author: Michael Cysouw
 Maintainer: Michael Cysouw <cysouw@mac.com>

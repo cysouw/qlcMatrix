@@ -1,8 +1,8 @@
 # qlcMatrix, version 0.9.8
 
 New submission
-Package was archived on CRAN
-Archived on 2023-11-29 as issues were not corrected in time.
+because package was archived on CRAN
+Archived on 2023-11-29 because issues were not corrected in time.
 
 ## Test environments
 * local macOS X 14.2.1, R version 4.3.2
@@ -12,9 +12,9 @@ Archived on 2023-11-29 as issues were not corrected in time.
 ## R CMD check results
 There were no ERRORs or WARNINGs. 
 
-One NOTEs:
+One NOTEs remaining:
 
-- a NOTE about the archived version as mentioned at the start
+- a NOTE about the archived version as mentioned at the start. This submission is supposed to fix those issues.
 
 ## Downstream Dependencies
 checked via revdepcheck::revdep_check() on local macOS X 14.2.1

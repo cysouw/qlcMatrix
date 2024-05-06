@@ -5,13 +5,13 @@
 A selection of bible-texts
 }
 \description{
-A selection of six bible texts as prepared by the \url{paralleltext.info} project.
+A selection of six bible texts as prepared by the paralleltext project.
 }
 \usage{data(bibles)}
 \format{
 A list of five elements
   \describe{
-    \item{\code{verses}}{a character vector with all 43904 verse numbers as occurring throughout all translations as collected in the paralleltext.info project. This vector is used to align all texts to each other. The verse-numbers are treated as characters so ordering and matching works as expected.}
+    \item{\code{verses}}{a character vector with all 43904 verse numbers as occurring throughout all translations as collected in the paralleltext project. This vector is used to align all texts to each other. The verse-numbers are treated as characters so ordering and matching works as expected.}
     \item{\code{eng}}{The English `Darby' Bible translation from 1890 by John Nelson Darby.
     }
 	  \item{\code{deu}}{The Bible in German. Schlachter Version von 1951. Genfer Bibelgesellschaft 1951.
@@ -27,11 +27,10 @@ Basically, all verse-numbering is harmonized, the text is unicode normalized, tr
 
 The Bible texts are provided as named vectors of strings, each containing one verse. The names of the vector are codes for the verses. See Mayer & Cysouw (2014) for more information about the verse IDs and other formatting issues.
 }
-\source{
-All data is taken from \url{paralleltext.info}. For further information and links to the original versions, please check the detailed meta-information for all texts as provided on the webpage.
-}
+
 \references{
-Mayer, Thomas and Michael Cysouw. 2014. Creating a massively parallel Bible corpus. \emph{Proceedings of LREC 2014}.}
+Mayer, Thomas and Michael Cysouw. 2014. Creating a massively parallel Bible corpus. \emph{Proceedings of LREC 2014}.
+}
 \examples{
 # ----- load data -----
 

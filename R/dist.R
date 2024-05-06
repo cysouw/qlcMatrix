@@ -1,4 +1,10 @@
-# sparse distance metrics. Sparsity is strange for distance metricis, because low values (close to zero) are the most interesting ones, so distance metrics are normally not sparse.
+# =======================
+# sparse distance metrics
+# =======================
+
+# Sparsity is strange for distance metrics
+# because low values (close to zero) are the most interesting ones
+# so distance metrics are normally not sparse.
 
 distSparse <- function(M, method = "euclidean", diag = FALSE) {
   

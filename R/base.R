@@ -136,7 +136,7 @@ jcrossprod <- function(X, Y, rownamesX = rownames(X), rownamesY = rownames(Y)) {
 	J <- jMatrix(rownamesX, rownamesY)
 
 	if (is(X,"nMatrix") & is(Y,"nMatrix")) {
-		M <- crossprod( J$M1 %*% X, J$M2 %*% Y )
+		M <- crossprod( J$M1 %&% X, J$M2 %&% Y )
 	} else {
 		M <- crossprod( (J$M1*1) %*% X, (J$M2*1) %*% Y )
 	}
@@ -148,7 +148,7 @@ tjcrossprod <- function(X, Y, colnamesX = colnames(X), colnamesY = colnames(Y)) 
 	J <- jMatrix(colnamesX, colnamesY)
 
 	if (is(X,"nMatrix") & is(Y,"nMatrix")) {
-		M <- tcrossprod( X %*% t(J$M1), Y %*% t(J$M2) )
+		M <- tcrossprod( X %&% t(J$M1), Y %&% t(J$M2) )
 	} else {
 		M <- tcrossprod( X %*% t(J$M1*1), Y %*% t(J$M2*1) )
 	}

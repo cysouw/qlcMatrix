@@ -2,7 +2,11 @@
 # Special "reduced" KhatriRao version in which empty rows are removed.
 # ============================================================
 
-# This is only important for the new rownames, as now only rownames are produced for the non-empty rows. That is more efficient than making all rownames, as in the offical version in the Matrix package. It is *extremely* tricky to get the names right: watch out with the order of the indices!
+# This is only important for the new rownames, because now only rownames are 
+# produced for the non-empty rows. That is more efficient than producing all 
+# rownames, as in the offical KhatriRao implementation in the Matrix package.
+# It is *extremely* tricky to get the names right: 
+# watch out with the order of the indices!
 
 rKhatriRao <- function(X, Y
                        , rownamesX = rownames(X)
@@ -117,10 +121,11 @@ unfoldBlockMatrix <- function(X, colGroups, rowGroups = NULL) {
 rowMax <- function(X, which = FALSE, ignore.zero = TRUE) {
 
 # old approach, much slower
-# new approach much faster using "rollup" in package "slam" !!!
 #	m <- aggregate(x~i, data = summary(X), FUN = max)
 #	maximum <- sparseVector(x = m$x, i = m$i, length = nrow(X))
 
+# new approach much faster using "rollup" in package "slam" !!!
+  
 	Y <- as.simple_triplet_matrix(drop0(X))
 	maximum <- as(slam::rollup(Y, 2, FUN = max), "sparseVector")
 	

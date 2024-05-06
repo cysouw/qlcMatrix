@@ -58,7 +58,8 @@ splitTable <- function(	data,
 	nrValues <- sapply(tt,function(x){length(x$rownames)})
 	AV <- ttMatrix(rep.int(1:cls,nrValues))$M
 	
-	# we need some variable names to make value names, but entity names might be NULL
+	# we need some variable names to make value names, 
+	# but entity names might be NULL
 
 	if (is.null(attributes)) {
 		attributes <- paste("X", 1:cls, sep="")
@@ -123,7 +124,7 @@ splitStrings <- function(	strings,
 		}
 		
 		S <- bandSparse(n = dim(US)[2], k = -1)
-		tmp <- rKhatriRao(US %*% S, US, unigrams, unigrams, binder = bigram.binder)
+		tmp <- rKhatriRao(US %&% S, US, unigrams, unigrams, binder = bigram.binder)
 		BS <- tmp$M
 		bisymbols <- tmp$rownames
 
@@ -203,7 +204,8 @@ splitText <- function(	text,
 						lowercase = TRUE
 						) {
 
-	# make RunningWords x Verses, i.e. all words of the text in the order as they appear as rows, linked to the localSentenceIDs as columns.	
+	# make RunningWords x Verses, i.e. all words of the text in the order 
+  # as they appear as rows, linked to the localSentenceIDs as columns.	
 	tmp <- pwMatrix(text, sep = sep, gap.length = 0)
 	RS <- tmp$M
 	runningWords <- tmp$rownames
@@ -217,9 +219,9 @@ splitText <- function(	text,
 	# link the localSentenceIDs "S" to the globalSentenceIDs "U"
 	if (!is.null(globalSentenceID)) {
 		tmp <- jMatrix(localSentenceID, globalSentenceID)
-		US <- t(tmp$M2) %*% tmp$M1
+		US <- t(tmp$M2) %&% tmp$M1
 		# relink
-		RS <- RS %*% t(US)
+		RS <- RS %&% t(US)
 	}
 	
 	# remove upper/lowercase distinction for better statistics
@@ -305,8 +307,8 @@ splitWordlist <- function(	data,
 	words <- sapply(strsplit(words,binder),head)[2,]
 
 	# relink	
-	DW <- DL %*% t(WL)
-	CW <- CL %*% t(WL)
+	DW <- DL %&% t(WL)
+	CW <- CL %&% t(WL)
 	
 	if (splitstrings) {
 	
@@ -331,7 +333,7 @@ splitWordlist <- function(	data,
 			# and prepare full output (rather long!)
 			
 			# link to segments to doculects
-			DS <- DW %*% t(S$SW)
+			DS <- DW %&% t(S$SW)
 	
 			# Graphemes x Segments
 			tmp <- rKhatriRao(	DS, S$US, 

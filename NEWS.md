@@ -1,5 +1,9 @@
 # qlcMatrix 0.9.8
 
+## bugs
+* corrected behavior of multiplying two nMatrices in accordance with the corrected implementation from the Matrix package using %&% instead of %*%
+* various minor corrections for CRAN compliancy.
+
 # qlcMatrix 0.9.7
 
 ## changes

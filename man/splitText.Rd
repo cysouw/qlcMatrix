@@ -40,7 +40,7 @@ file name (or full path) for a file to be read.
 \details{
 The function \code{splitText} is actually just a nice examples of how \code{\link{pwMatrix}}, \code{\link{jMatrix}}, and \code{\link{ttMatrix}} can be used to work with parallel texts. 
 
-The function \code{read.text} is a convenience function to read parallel texts as prepared in the \url{paralleltext.info} project.
+The function \code{read.text} is a convenience function to read parallel texts.
 }
 \value{
 When \code{simplify = F}, a list is returned with the following elements:

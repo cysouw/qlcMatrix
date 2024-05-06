@@ -47,7 +47,7 @@ When \code{cov = T}, the result is a covariance matrix (i.e. a non-normalized co
 \author{
 Michael Cysouw
 
-Slightly extended and optimized, based on the code from a discussion at \href{http://stackoverflow.com/questions/5888287/running-cor-or-any-variant-over-a-sparse-matrix-in-r}{stackoverflow}.
+Slightly extended and optimized, based on the code from a discussion at \href{https://stackoverflow.com/questions/5888287/running-cor-or-any-variant-over-a-sparse-matrix-in-r}{stackoverflow}.
 }
 
 \note{

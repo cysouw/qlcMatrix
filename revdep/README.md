@@ -1,63 +1,30 @@
-# Setup
+# Platform
 
-## Platform
+|field    |value                                    |
+|:--------|:----------------------------------------|
+|version  |R version 4.3.2 (2023-10-31)             |
+|os       |macOS Sonoma 14.2.1                      |
+|system   |aarch64, darwin20                        |
+|ui       |RStudio                                  |
+|language |(EN)                                     |
+|collate  |en_US.UTF-8                              |
+|ctype    |en_US.UTF-8                              |
+|tz       |Europe/Berlin                            |
+|date     |2024-05-06                               |
+|rstudio  |2024.04.0+735 Chocolate Cosmos (desktop) |
+|pandoc   |3.1.13 @ /opt/homebrew/bin/pandoc        |
 
-|setting  |value                        |
-|:--------|:----------------------------|
-|version  |R version 3.4.3 (2017-11-30) |
-|system   |x86_64, darwin15.6.0         |
-|ui       |RStudio (1.1.383)            |
-|language |(EN)                         |
-|collate  |en_US.UTF-8                  |
-|tz       |Europe/Berlin                |
-|date     |2018-04-19                   |
+# Dependencies
 
-## Packages
+|package   |old |new   |Δ  |
+|:---------|:---|:-----|:--|
+|qlcMatrix |NA  |0.9.8 |*  |
 
-|package   |*  |version |date       |source                      |
-|:---------|:--|:-------|:----------|:---------------------------|
-|knitr     |   |1.20    |2018-02-20 |cran (@1.20)                |
-|qlcMatrix |*  |0.9.7   |2018-04-19 |local (cysouw/qlcMatrix@NA) |
-|slam      |*  |0.1-42  |2017-12-21 |cran (@0.1-42)              |
-|sparsesvd |*  |0.1-4   |2018-02-15 |cran (@0.1-4)               |
+# Revdeps
 
-# Check results
+## Failed to check (1)
 
-4 packages
-
-|package      |version | errors| warnings| notes|
-|:------------|:-------|------:|--------:|-----:|
-|DCD          |0.1.0   |      1|        0|     0|
-|DiffNet      |1.0-0   |      0|        0|     0|
-|qlcVisualize |0.1.0   |      0|        0|     0|
-|scrubr       |0.1.1   |      0|        0|     0|
-
-## DCD (0.1.0)
-Maintainer: Raghvendra Mall <rmall@hbku.edu.qa>
-
-1 error  | 0 warnings | 0 notes
-
-```
-checking package dependencies ... ERROR
-Packages required but not available: ‘Rdpack’ ‘ROCR’ ‘WGCNA’
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-```
-
-## DiffNet (1.0-0)
-Maintainer: Raghvendra Mall <rmall@hbku.edu.qa>
-
-0 errors | 0 warnings | 0 notes
-
-## qlcVisualize (0.1.0)
-Maintainer: Michael Cysouw <cysouw@mac.com>
-
-0 errors | 0 warnings | 0 notes
-
-## scrubr (0.1.1)
-Maintainer: Scott Chamberlain <myrmecocystus@gmail.com>  
-Bug reports: https://github.com/ropenscilabs/scrubr/issues
-
-0 errors | 0 warnings | 0 notes
+|package  |version |error |warning |note |
+|:--------|:-------|:-----|:-------|:----|
+|cliqueMS |1.16.0  |1     |        |     |
 

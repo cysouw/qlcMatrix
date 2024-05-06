@@ -1,4 +1,5 @@
 \name{qlcMatrix-package}
+\alias{qlcMatrix-package}
 \alias{qlcMatrix}
 \docType{package}
 \title{
@@ -11,8 +12,8 @@ This package contains various functions that extend the functionality of the \co
 \tabular{ll}{
 Package: \tab qlcMatrix\cr
 Type: \tab Package\cr
-Version: \tab 0.9.7\cr
-Date: \tab 2018-04-19\cr
+Version: \tab 0.9.8\cr
+Date: \tab 2024-05-06\cr
 License: \tab GPL-3\cr
 }
 This package contains various different kinds of function. 

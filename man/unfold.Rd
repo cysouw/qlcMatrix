@@ -39,13 +39,13 @@ Unfolding basically works by interspercing margins subsequently. E.g. margin A o
 \code{unfold_to_matrix} and \code{tenmat} return a sparse matrix of class \code{dgTMatrix}.
 }
 \references{
-see \url{http://www.cs.cornell.edu/cv/SummerSchool/Unfold.pdf} for some notes on tensor unfolding. The Matlab Tensor Toolbox can be found at \url{http://www.sandia.gov/~tgkolda/TensorToolbox/index-2.6.html}. A newer Matlab implementation is \url{http://www.tensorlab.net}.
+see some old notes by Charles Van Loon that inspired this implementation at \url{https://web.archive.org/web/20210505120659/http://www.cs.cornell.edu/cv/SummerSchool/unfold.pdf}. The Matlab Tensor Toolbox can be found at \url{https://www.tensortoolbox.org}. A different Matlab implementation is \url{https://www.tensorlab.net}.
 }
 \author{
 Michael Cysouw <cysouw@mac.com>
 }
 \examples{
-# example from \url{http://www.cs.cornell.edu/cv/SummerSchool/Unfold.pdf}
+# example from Charles Van Loon:
 x <- array(c(111, 211, 311, 411, 121, 221, 321, 
     421, 131, 231, 331, 431, 112, 212, 312, 412, 
     122, 222, 322, 422, 132, 232, 332, 432), dim = c(4, 3, 2))

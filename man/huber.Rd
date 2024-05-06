@@ -23,7 +23,7 @@ The editors have attempted to use a harmonized orthography throughout all langua
 The book was digitized in the QuantHistLing project and provided here as an example of dealing efficiently with reasonably large data. Care has been taken to faithfully represent the original transcription from the printed version.
 }
 \source{
-Huber, Randall Q. & Robert B. Reed. 1992. \emph{Vocabulario Comparativo: Palabras Selectas de Lenguas Indigenas de Colombia.} Bogota: Instituto Linguistico de Verano. available online at \url{http://www.sil.org/americas/COLOMBIA/show_work.asp?id=928474518886}. Copyright 2014 SIL International.}
+Huber, Randall Q. & Robert B. Reed. 1992. \emph{Vocabulario Comparativo: Palabras Selectas de Lenguas Indigenas de Colombia.} Bogota: Instituto Linguistico de Verano. available online at \url{https://colombia.sil.org/es/resources/archives/18886}. Copyright 2014 SIL International.}
 \examples{
 data(huber)
 head(huber)

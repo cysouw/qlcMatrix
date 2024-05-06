@@ -40,10 +40,10 @@ When \code{weight} is specified, the similarities are computed using \code{\link
 The option \code{best = T} uses \code{\link{rowMax}} and \code{\link{colMax}}. This approach to get the `best' translation is really crude, but it works reasonably well with one-to-one and many-to-one situations. This option takes rather a lot more time to finish, as row-wise maxima for matrices is not trivial to optimize. Consider raising \code{tol}, as this removes low values that won't be important for the maxima anyway. See examples below.
 	
 Guidelines for the value of \code{tol} are difficult to give, as it depends on the method used, but also on the distribution of the data (i.e. the number of sentences, and the frequency distribution of the words in the text). Some suggestions:
-\describe{
-	\item{}{when \code{weight} is specified, results range between -1 and +1. Then \code{tol = 0.1} should never lead to problems, but often even \code{tol = 0.3} or higher will lead to identical results.
+\itemize{
+	\item{when \code{weight} is specified, results range between -1 and +1. Then \code{tol = 0.1} should never lead to problems, but often even \code{tol = 0.3} or higher will lead to identical results.
 	}
-	\item{}{when \code{weight} is not specified (i.e. \code{assocSparse} will be used), then results range between \code{-inf} and \code{+inf}, so the tolerance is more problematic. In general, \code{tol = 2} seems to be unproblematic. Higher tolerance, e.g. \code{tol = 10} can be used to find the `obvious' translations, but you will loose some of the more incidental co-occurrences.
+	\item{when \code{weight} is not specified (i.e. \code{assocSparse} will be used), then results range between \code{-inf} and \code{+inf}, so the tolerance is more problematic. In general, \code{tol = 2} seems to be unproblematic. Higher tolerance, e.g. \code{tol = 10} can be used to find the `obvious' translations, but you will loose some of the more incidental co-occurrences.
 	}
   }
 }

@@ -23,7 +23,7 @@ A list of five elements
   }
 }
 \details{
-For details on the formatting, see \url{paralleltext.info}. Basically, all verse-numbering is harmonized, the text is unicode normalized, translations that capture multiple verses are included in the first of those verses, with the others left empty. Empty verses are thus a sign of combined translations. Verses that are not translated simply do not occur in the original files. Most importantly, the text are tokenized as to wordform, i.e. all punctuation and other non-word-based symbols are separated by spaces. In this way, space can be used for a quick wordform-based tokenization. The addition of spaces has been manually corrected to achieve a high precision of language-specific wordform tokenization.
+Basically, all verse-numbering is harmonized, the text is unicode normalized, translations that capture multiple verses are included in the first of those verses, with the others left empty. Empty verses are thus a sign of combined translations. Verses that are not translated simply do not occur in the original files. Most importantly, the text are tokenized as to wordform, i.e. all punctuation and other non-word-based symbols are separated by spaces. In this way, space can be used for a quick wordform-based tokenization. The addition of spaces has been manually corrected to achieve a high precision of language-specific wordform tokenization.
 
 The Bible texts are provided as named vectors of strings, each containing one verse. The names of the vector are codes for the verses. See Mayer & Cysouw (2014) for more information about the verse IDs and other formatting issues.
 }

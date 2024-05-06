@@ -45,19 +45,19 @@ sim.graph(wordlist,
 The following methods are currently implemented (all methods can be abbreviated):
 
 For \code{sim.lang}:
-\itemize{
-	\item{\code{global}:} {Global bigram similarity, i.e. ignoring the separation into concepts, and simply taking the bigram vector of all words per language. Probably best combined with \code{weight = idf}.}
-	\item{\code{parallel}:} {By default, computes a parallel bigram similarity, i.e. splitting the bigram vectors per language and per concepts, and then simply making one long vector per language from all individual concept-bigram vectors. This approach seems to be very similar (if not slightly better) than the widespread `average Levenshtein' distance.}
+\describe{
+	\item{\code{global}:}{Global bigram similarity, i.e. ignoring the separation into concepts, and simply taking the bigram vector of all words per language. Probably best combined with \code{weight = idf}.}
+	\item{\code{parallel}:}{By default, computes a parallel bigram similarity, i.e. splitting the bigram vectors per language and per concepts, and then simply making one long vector per language from all individual concept-bigram vectors. This approach seems to be very similar (if not slightly better) than the widespread `average Levenshtein' distance.}
 }
 For \code{sim.con}:
-\itemize{
-	\item{\code{colexification}:} {Simply count the number of languages in which two concepts have at least one complete identical translations. No normalization is attempted, and \code{assoc.method} and \code{weight} are ignored (internally this just uses \code{tcrossprod} on the \code{CW (concepts x words)} sparse matrix). Because no splitting of strings is necessary, this method is very quick.}
-	\item{\code{global}:} {Global bigram similarity, i.e. ignoring the separation into languages, and simply taking the bigram vector of all words per concept. Probably best combined with \code{weight = idf}.}
-	\item{\code{bigrams}:} {By default, compute the similarity between concepts by comparing bigraphs, i.e. language-specific bigrams. In that way, cross-linguistically recurrent partial similarities are uncovered. It is very interesting to compare this measure with \code{colexification} above.}
+\describe{
+	\item{\code{colexification}:}{Simply count the number of languages in which two concepts have at least one complete identical translations. No normalization is attempted, and \code{assoc.method} and \code{weight} are ignored (internally this just uses \code{tcrossprod} on the \code{CW (concepts x words)} sparse matrix). Because no splitting of strings is necessary, this method is very quick.}
+	\item{\code{global}:}{Global bigram similarity, i.e. ignoring the separation into languages, and simply taking the bigram vector of all words per concept. Probably best combined with \code{weight = idf}.}
+	\item{\code{bigrams}:}{By default, compute the similarity between concepts by comparing bigraphs, i.e. language-specific bigrams. In that way, cross-linguistically recurrent partial similarities are uncovered. It is very interesting to compare this measure with \code{colexification} above.}
 }	
 For \code{sim.graph}:
-\itemize{
-	\item{\code{cooccurrence}:} {Currently the only method implemented. Computes the co-occurrence statistics for all pair of graphemes (e.g. between symbol x from language L1 and symbol y from language L2). See Prokic & Cysouw (2013) for an example using this approach.}
+\describe{
+	\item{\code{cooccurrence}:}{Currently the only method implemented. Computes the co-occurrence statistics for all pair of graphemes (e.g. between symbol x from language L1 and symbol y from language L2). See Prokic & Cysouw (2013) for an example using this approach.}
 }
 All these methods (except for \code{sim.con(method = "colexification")}) use either \code{\link{assocSparse}} or \code{\link{cosSparse}} for the computation of the similarities. For the different measures available, see the documentation there. Currently implemented are \code{res, poi, pmi, wpmi} for \code{assocSparse} and \code{idf, isqrt, none} for \code{cosWeight}. It is actually very easy to define your own measure.  
 

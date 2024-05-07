@@ -61,7 +61,7 @@ all.equal(as.vector(m1), m2) # but same result
 # to see the effect even stronger, try something larger
 # depending on the amount of available memory, the 'apply' approach will give an error
 # "problem too large"
-\donttest{
+\dontrun{
 X <- rSparseMatrix(1e6, 1e6, 1e6)
 system.time(m1 <- rowMax(X, ignore.zero = FALSE))
 system.time(m2 <- apply(X, 1, max))
@@ -81,7 +81,7 @@ system.time(M <- rowMax(X)) # about ten times as slow
 
 # apply is not feasably on such large matrices
 # Error: problem too large...
-\donttest{
+\dontrun{
 m <- apply(X, 1, max) 
 }
 }

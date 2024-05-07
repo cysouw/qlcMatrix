@@ -83,13 +83,11 @@ s <- cosSparse(X, norm = norm1)
 d <- dist(t(X), method = "manhattan")
 
 svd <- as.matrix(dimRed(s, method = "svd")$L)
-chol <- as.matrix(dimRed(s, method = "cholesky")$L)
 mds <- cmdscale(d)
 
 oldpar<-par("mfrow")
-par(mfrow = c(1,3))
+par(mfrow = c(1,2))
   plot(mds, col = cols, main = "cmdscale\nfrom euclidean distances")
   plot(svd, col = cols, main = "dimRed with svd\nfrom cosSparse with norm1")
-  plot(chol, col = cols, main = "dimRed with cholesky\nfrom cosSparse with norm1")
 par(mfrow = oldpar)
 }

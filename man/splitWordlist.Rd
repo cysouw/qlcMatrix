@@ -125,7 +125,11 @@ sim <- tcrossprod(H$CW*1)
 diag(sim) <- 0
 sim <- drop0(sim, tol = 5)
 sim <- sim[rowSums(sim) > 0, colSums(sim) > 0]
+
+\dontrun{
+# this might lead to errors on some platforms because of non-ASCII symbols
 plot( hclust(as.dist(-sim), method = "average"), cex = .5)
+}
 
 # ----- investigate regular sound correspondences -----
 

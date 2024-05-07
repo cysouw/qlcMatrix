@@ -147,8 +147,8 @@ GD <- H$GS \%*\% H$SW \%*\% t(H$DW)
 colnames(GD) <- H$doculects
 correspondences <- G[GD[,"bora"],GD[,"muinane"]]
 
-\donttest{
-# this might lead to errors because of non-ASCII symbols
+\dontrun{
+# this might lead to errors on some platforms because of non-ASCII symbols
 heatmap(as.matrix(correspondences))
 }
 }

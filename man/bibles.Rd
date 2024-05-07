@@ -56,9 +56,8 @@ suppressWarnings( chisq.test(cooc)$residuals )
 # the function 'sim.words' does such computations efficiently 
 # for all 15000 x 15000 pairs of words at the same time
 
-\dontrun{
 system.time( sim <- sim.words(bibles$eng, lowercase = FALSE) )
 sim["father", "mother"]
-  }
+
 }
 \keyword{datasets}

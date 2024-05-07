@@ -26,8 +26,8 @@ sim.att <- function(D, method = "chuprov", sparse = TRUE, ...) {
 			X2 <- as( X2 , "symmetricMatrix" )
 			R <- as( R , "symmetricMatrix" )		
 		} else {
-			X2 <- as(as( X2, "dgCMatrix"), "symmetricMatrix" )
-			R <- as(as( R, "dgCMatrix"), "symmetricMatrix" )
+			X2 <- as(as( X2, "dMatrix"), "symmetricMatrix" )
+			R <- as(as( R, "dMatrix"), "symmetricMatrix" )
 		}
 		
 		result <- N # just to get the right sparsity structure
@@ -38,7 +38,7 @@ sim.att <- function(D, method = "chuprov", sparse = TRUE, ...) {
 	get_wpmi_assoc <- function(X) {
 		r <- assocCol(X$OV, X$AV, method = wpmi)
 		g <- (X$AV*1) %*% r %*% t(X$AV*1)
-		g <- as(as( g, "dgCMatrix"), "symmetricMatrix" )
+		g <- as(as( g, "dMatrix"), "symmetricMatrix" )
 		return(g)
 	}
 	get_N <- function(X,g) {

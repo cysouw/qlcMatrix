@@ -51,9 +51,6 @@ var2 <- sample(3, 1000, TRUE)
 M1 <- ttMatrix(var1, simplify = TRUE)
 M2 <- ttMatrix(var2, simplify = TRUE)
 
-% # Note that the transpose is smaller than the regular output
-% object.size(M1) > object.size(t(M1)) # TRUE
-
 # Then taking  the `residuals' from assocSparse ...
 x <- as.matrix(assocSparse(t(M1), t(M2), method = res))
 

@@ -103,21 +103,26 @@ For large sparse matrices, consider this as an alternative to \code{\link[stats]
 # functional upto limits of RAM of the hardware used
 # consider removing small values of result to improve sparsity
 
-\dontrun{
-
-X <- rSparseMatrix(1e6, 1e6, 1e7)
-print(object.size(X), units = "auto") # 118 Mb
-system.time(M <- cosSparse(X)) # might take half a minute, depending on hardware
-print(object.size(M), units = "auto") # 587 Mb
+X <- rSparseMatrix(1e7, 1e7, 1e7)
+print(object.size(X), units = "auto") # 150 Mb
+system.time(M <- cosSparse(X)) # reasonable fast on modern hardware
+print(object.size(M), units = "auto") # 170 Mb
 M <- drop0(M, tol = 0.1) # remove small values
-print(object.size(M), units = "auto") # reduced to 141 Mb
-}
+print(object.size(M), units = "auto") # 160 Mb
 
-# Compare various weightings.
+# Compare various weightings
+
 # with random data from a normal distribution there is almost no difference
 #
 # data from a normal distribution
-# X <- rSparseMatrix(1e2, 1e2, 1e3) 
+X <- rSparseMatrix(1e2, 1e2, 1e3) 
+
+w0 <- cosSparse(X, norm = norm2, weight = NULL)@x
+wi <- cosSparse(X, norm = norm2, weight = idf)@x
+ws <- cosSparse(X, norm = norm2, weight = isqrt)@x
+
+pairs(~ w0 + wi + ws, 
+  labels=c("no weighting","inverse\ndocument\nfrequency","inverse\nsquare root"))
 
 # with heavily skewed data there is a strong difference!
 X <- rSparseMatrix(1e2, 1e2, 1e3,

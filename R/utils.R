@@ -20,7 +20,7 @@ rKhatriRao <- function(X, Y
 	M <- KhatriRao(X, Y, FUN = FUN)
 
 	# remove empty rows
-	selection <- rowSums(M, sparseResult = TRUE) > 0
+	selection <- rowSums(abs(M), sparseResult = TRUE) > 0
 	M <- M[selection@i,]
 	
 	# make names for the non-empty rows
@@ -29,7 +29,7 @@ rKhatriRao <- function(X, Y
 						          ncol = nrow(X),
 						          sparse = TRUE
 					          	)
-	nonzero <- as(nonzero,"lgTMatrix")
+	nonzero <- as(nonzero,"generalMatrix")
 
 	rownamesM <- paste(	rownamesY[nonzero@i + 1],
 						          rownamesX[nonzero@j + 1],	
@@ -79,7 +79,7 @@ unfoldBlockMatrix <- function(X, colGroups, rowGroups = NULL) {
 	if (is.vector(colGroups)) {
 		colGroups <- ttMatrix(colGroups)$M
 	} else {
-		colGroups <- as(colGroups, "dgCMatrix")
+		colGroups <- as(colGroups, "dMatrix")
 	}
 
 	U <- KhatriRao(colGroups,X)
@@ -94,7 +94,7 @@ unfoldBlockMatrix <- function(X, colGroups, rowGroups = NULL) {
 		if (is.vector(rowGroups)) {
 			rowGroups <- ttMatrix(rowGroups)$M
 		} else {
-			rowGroups <- as(rowGroups, "dgCMatrix")
+			rowGroups <- as(rowGroups, "dMatrix")
 		}
 
 		R <- as(kronecker( rep(1,nrow(rowGroups))

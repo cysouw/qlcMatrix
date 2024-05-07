@@ -64,8 +64,6 @@ mds <- isoMDS( as.dist(1-sim) )$points
 plot(mds, type = "n", ann = FALSE, axes = FALSE)
 text(mds, labels = example, cex = .7)
 
-\dontrun{
-
 # ----- large example -----
 
 # This similarity is meant to be used for large lists of wordforms.
@@ -89,7 +87,7 @@ sort(sim, decreasing = TRUE)[1:10]
 # ----- comparison with Levinshtein -----
 
 # don't try this with 'adist' from the utils package, it will take long!
-# for a comparison, only take 2000 randomly selected strings: about a factor 30 slower
+# for a comparison, only take 2000 randomly selected strings: about a factor 20 slower
 w <- sample(words, 2000)
 system.time( sim1 <- sim.strings(w) )
 system.time( sim2 <- adist(w) )
@@ -109,10 +107,4 @@ image( log(table(
 		round(as.dist(sim2) / 3, digits = 2) * 3 )),
 	xlab = "bigram similarity", ylab = "relative Levenshtein similarity")
 
-% benchmarking?
-% s <- seq(500,10500,by=1000)
-% t <- sapply(s,function(x){system.time(sim.strings(sample(words,x)))[3]})
-% plot(log(s),log(t))
-% lm(log(t[-c(1:5)])~log(s[-c(1:5)]))
-}
 }

@@ -103,8 +103,6 @@ data(huber)
 sel <- c(1:3, 1255:1258)
 splitWordlist(huber[sel,], simplify = TRUE)
 
-\dontrun{
-
 # ----- split complete data -----
 
 # splitting the complete wordlist is a lot of work !
@@ -148,6 +146,9 @@ G <- drop0(G, tol = 1)
 GD <- H$GS \%*\% H$SW \%*\% t(H$DW)
 colnames(GD) <- H$doculects
 correspondences <- G[GD[,"bora"],GD[,"muinane"]]
+
+\donttest{
+# this might lead to errors because of non-ASCII symbols
 heatmap(as.matrix(correspondences))
 }
 }

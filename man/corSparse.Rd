@@ -61,7 +61,6 @@ For further usage, the many small coefficients are often unnecessary anyway, and
 }
 
 \examples{
-\dontrun{
 
 # reasonably fast (though not instantly!) with
 # sparse matrices up to a resulting matrix size of 1e8 cells.
@@ -75,13 +74,13 @@ print(object.size(M), units = "auto") # more than 750 Mb
 # to remove low values to keep results sparse
 
 M <- drop0(M, tol = 0.4)
-print(object.size(M), units = "auto") # normally reduces size by half or more
-length(M@x) / prod(dim(M)) # down to less than 0.05\% non-zero entries
-}
+print(object.size(M), units = "auto") # normally reduces size to about a quarter
+length(M@x) / prod(dim(M)) # down to less than 0.01\% non-zero entries
 
 # comparison with other methods
 # corSparse is much faster than cor from the stats package
 # but cosSparse is even quicker than both!
+# do not try the regular cor-method with larger matrices than 1e3x1e3
 
 X <- rSparseMatrix(1e3, 1e3, 1e4)
 X2 <- as.matrix(X)
@@ -104,13 +103,6 @@ all.equal(McorSparse, McosSparse)
 # Actually, cosSparse and corSparse are *almost* identical!
 
 cor(as.dist(McorSparse), as.dist(McosSparse))
-
-# Visually it looks completely identical
-# Note: this takes some time to plot
-
-\dontrun{
-plot(as.dist(McorSparse), as.dist(McosSparse))	
-}
 
 # So: consider using cosSparse instead of cor or corSparse.
 # With sparse matrices, this gives mostly the same results, 

@@ -91,10 +91,11 @@ data(huber)
 # the rest does not really influence the time needed
 system.time( sim <- sim.lang(huber, method = "p") )
 
-\dontrun{
-
+\donttest{
 # a simple distance-based UPGMA tree
+# note non-ASCII characters in data might lead to plot errors
 plot(hclust(as.dist(-sim), method = "average"), cex = .7)
+}
 
 # ----- similarity between concepts -----
 
@@ -109,12 +110,13 @@ adj <- c(1,5,13,14,28,35,40,48,67,89,105,106,120,131,137,146,148,
 	294,300,309,341,353,355,359)
 
 # show them as trees
+oldpar<-par("mfrow")
 par(mfrow = c(1,2)) 
-plot(hclust(as.dist(-simB[adj,adj]), method = "ward"), 
+plot(hclust(as.dist(-simB[adj,adj]), method = "ward.D2"), 
 	cex = .5, main = "bigrams")
-plot(hclust(as.dist(-simC[adj,adj]), method = "ward"), 
+plot(hclust(as.dist(-simC[adj,adj]), method = "ward.D2"), 
 	cex = .5, main = "colexification")
-par(mfrow = c(1,1))
+par(mfrow = oldpar)
 
 # ----- similarity between graphemes -----
 
@@ -130,6 +132,9 @@ system.time( X <- sim.graph(huber) )
 X$GG <- drop0(X$GG, tol = 1)
 colnames(X$GG) <- rownames(X$GG)
 correspondences <- X$GG[X$GD[,"bora"],X$GD[,"muinane"]]
+
+\donttest{
+# note non-ASCII characters in data might lead to plot errors
 heatmap(as.matrix(correspondences))
 }
 }

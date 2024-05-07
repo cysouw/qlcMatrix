@@ -56,18 +56,17 @@ Y <- rSparseMatrix(1e4, 1e3, 1e4)
 rownames(X) <- 1:nrow(X)
 rownames(Y) <- 1:nrow(Y)
 
-# the basic KhatriRao product is very fast
+# the basic KhatriRao product from the Matrix package is very fast
 # but almost all rows are empty
 
 system.time(M <- KhatriRao(X, Y))
-\dontrun{
 sum(rowSums(M)==0)/nrow(M) # 99.9\% empty rows
-}
 
-# To produce all row names takes a long time
-# with 1e8 row names it took half an hour on my laptop
-# so: don't try the following, except on a very large machine!
-\dontrun{
+# To produce all row names takes a long time with KhatriRao from Matrix
+# with the current example with 1e8 row names it took a minute on my laptop
+# so: don't try the following, except on a large machine!
+
+\donttest{
 system.time(M <- KhatriRao(X, Y, make.dimnames = TRUE))
 }
 

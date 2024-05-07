@@ -69,7 +69,6 @@ farms2[1,1] <- "M1,M5"
 s <- sim.obs(farms2, split = ",")
 plot(hclust(as.dist(1-s), method = "ward.D"))
 
-\dontrun{
 # a larger example with lots of missing data: the WALS-data as included here
 # computations go reasonably quick
 # (on 2566 observations and 131 attributes with 630 different values in total)
@@ -80,17 +79,9 @@ plot(hclust(as.dist(1-s), method = "ward.D"), cex = 0.5)
 
 # Note that using sparse=T speeds up computations because it 
 # ignores zero co-occurrences
-# This leads to small errors in the computation of Chuprov's T
-system.time( # faster
-	chup.sparse <- sim.att(wals$data,  method = "chuprov", sparse = TRUE)
+system.time(
+	chup.sparse <- sim.att(wals$data,method = "chuprov", sparse = TRUE)
 )
-system.time( # slower
-	chup.full <- sim.att(wals$data, method = "chuprov", sparse = FALSE)
-)
-
-# The sparse approach is almost identical to the full approach.
-# sparse sligtly underestimates the real values for Chuprov's T 
-plot(as.dist(chup.sparse), as.dist(chup.full))
 
 # some more similarities on the attributes
 g <- sim.att(wals$data, method = "g") # Dunning's G
@@ -119,5 +110,5 @@ i <- sim.obs(sel, "pmi")
 
 pairs(~ as.dist(w) + as.dist(h) + as.dist(r) + as.dist(p) + as.dist(m) + as.dist(i),
 	labels = c("weighted","hamming","residuals","poisson","weighted PMI","PMI"))
-}
+
 }

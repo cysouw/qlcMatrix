@@ -98,7 +98,7 @@ X <- rSparseMatrix(1e6, 1e6, 1e6, NULL)
 system.time(M <- assocSparse(X, method = poi))
 length(M@x) / prod(dim(M)) # only one in 1e6 cells non-zero
 
-\dontrun{
+\donttest{
 
 # ----- reaching limits of sparsity -----
 
@@ -148,17 +148,5 @@ d <- assocSparse(X, method = div); diag(d) <- 0
 pairs(~w@x+p@x+r@x+d@x+m@x, 
   labels=c("weighted pointwise\nmutual information","poisson","residuals","division",
            "pointwise\nmutual\ninformation"), cex = 0.7)
-
-% The following is only true for non-zero/one matrices!
-%
-% # pmi has radically different with very small observed values: 
-% # because log(0) = -Inf we get asymptotic behaviour around Observed=zero
-%
-% par(mfrow = c(1,3))
-% O <- crossprod(X)@x
-% plot(O, p, xlab = "observed", ylab = "poisson")
-% plot(O, r, xlab = "observed", ylab = "residuals")
-% plot(O, m, xlab = "observed", ylab = "pointwise mutual information")
-% par(mfrow = c(1,1))
 
 }

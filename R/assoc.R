@@ -22,13 +22,13 @@
 
 corSparse <- function(X, Y = NULL, cov = FALSE) {
 
-	X <- as(X,"dgCMatrix")
+	X <- as(X,"dMatrix")
 	n <- nrow(X)
 	muX <- colMeans(X)
 	
 	if (!is.null(Y)) {
 		stopifnot( nrow(X) == nrow(Y) )
-		Y <- as(Y,"dgCMatrix")
+		Y <- as(Y,"dMatrix")
 		muY <- colMeans(Y)
 		covmat <- ( as.matrix(crossprod(X,Y)) - n*tcrossprod(muX,muY) ) / (n-1)
 		sdvecX <- sqrt( (colSums(X^2) - n*muX^2) / (n-1) )
@@ -75,14 +75,16 @@ corSparse <- function(X, Y = NULL, cov = FALSE) {
 
 cosSparse <- function(X, Y = NULL, norm = norm2 , weight = NULL) {
 
-	X <- as(X,"dgCMatrix")
+	X <- as(X,"dMatrix")
+	nX <- X@Dimnames
 	if (!is.null(Y)) {
 		stopifnot( nrow(X) == nrow(Y) )
-		Y <- as(Y,"dgCMatrix")
+		Y <- as(Y,"dMatrix")
+		nY <- Y@Dimnames
 	}
 
 	if (!is.null(weight)) {	
-		Nx <- ncol(X)
+	  Nx <- ncol(X)
 		Sx <- rowSums(abs(X))
 		Wx <- Diagonal( x = match.fun(weight)(Sx,Nx) )
 		X <- Wx %*% X
@@ -97,9 +99,11 @@ cosSparse <- function(X, Y = NULL, norm = norm2 , weight = NULL) {
 	S <- rep(1,nrow(X))			
 	N <- Diagonal( x = match.fun(norm)(X,S)^-1 )
 	X <- X %*% N
+	X@Dimnames <- nX
 	if (!is.null(Y)) {
 		N <- Diagonal( x = match.fun(norm)(Y,S)^-1 )
 		Y <- Y %*% N
+		Y@Dimnames <- nY
 		return(crossprod(X,Y))	
 	} else {
 		return(crossprod(X))
@@ -109,10 +113,10 @@ cosSparse <- function(X, Y = NULL, norm = norm2 , weight = NULL) {
 
 cosMissing <- function(X, availX, Y = NULL, availY = NULL, norm = norm2 , weight = NULL) {
 
-	X <- as(X,"dgCMatrix")
+	X <- as(X,"dMatrix")
 	if (!is.null(Y)) {
 		stopifnot( nrow(X) == nrow(Y) )
-		Y <- as(Y,"dgCMatrix")
+		Y <- as(Y,"dMatrix")
 	}
 
 	if (!is.null(weight)) {	
@@ -148,13 +152,13 @@ cosRow <- function(X, rowGroup, Y = NULL, norm = norm2 , weight = NULL) {
 	if (is.vector(rowGroup)) { 
 		rowGroup <- t(ttMatrix(rowGroup)$M*1) 
 	} else {
-		rowGroup <- as(rowGroup,"dgCMatrix")
+		rowGroup <- as(rowGroup,"dMatrix")
 	}
 
-	X <- as(X,"dgCMatrix")
+	X <- as(X,"dMatrix")
 	if (!is.null(Y)) {
 		stopifnot( nrow(X) == nrow(Y) )
-		Y <- as(Y,"dgCMatrix")
+		Y <- as(Y,"dMatrix")
 	}
 
 	if (!is.null(weight)) {	
@@ -190,11 +194,11 @@ cosRow <- function(X, rowGroup, Y = NULL, norm = norm2 , weight = NULL) {
 
 cosCol <- function(X, colGroupX, Y = NULL, colGroupY = NULL, norm = norm2 ) {
 	
-	X <- as(X,"dgCMatrix")
+	X <- as(X,"dMatrix")
 	if (is.vector(colGroupX)) {
 		colGroupX <- ttMatrix(colGroupX)$M * 1 
 	} else {
-		colGroupX <- as(colGroupX,"dgCMatrix")
+		colGroupX <- as(colGroupX,"dMatrix")
 	}
 
 	S <- rep(1,nrow(X))
@@ -205,11 +209,11 @@ cosCol <- function(X, colGroupX, Y = NULL, colGroupY = NULL, norm = norm2 ) {
 	if (!is.null(Y)) {
 		stopifnot( nrow(X) == nrow(Y) )
 		stopifnot(!is.null(colGroupY))
-		Y <- as(Y,"dgCMatrix")
+		Y <- as(Y,"dMatrix")
 		if (is.vector(colGroupY)) { 
 			colGroupY <- ttMatrix(colGroupY)$M * 1 
 		} else {
-			colGroupX <- as(colGroupX,"dgCMatrix")
+			colGroupX <- as(colGroupX,"dMatrix")
 		}	
 
 		Freq <- tcrossprod(Y,colGroupY)
@@ -298,12 +302,12 @@ assocSparse <- function(X, Y = NULL, method = res, N = nrow(X), sparse = TRUE) {
 
 assocCol <- function(X, colGroupX, Y = NULL, colGroupY = NULL, method = res, sparse = TRUE) {
 
-	X <- as(X,"dgCMatrix")
+	X <- as(X,"dMatrix")
 	
 	if (is.vector(colGroupX)) { 
 		colGroupX <- ttMatrix(colGroupX)$M*1 
 	} else {
-		colGroupX <- as(colGroupX,"dgCMatrix")	
+		colGroupX <- as(colGroupX,"dMatrix")	
 	}	
 	Gx <- crossprod(colGroupX)
 	
@@ -320,12 +324,12 @@ assocCol <- function(X, colGroupX, Y = NULL, colGroupY = NULL, method = res, spa
 		stopifnot( nrow(X) == nrow(Y) )
 		stopifnot(!is.null(colGroupY))
 
-		Y <- as(Y,"dgCMatrix")
+		Y <- as(Y,"dMatrix")
 		
 		if (is.vector(colGroupY)) { 
 			colGroupY <- ttMatrix(colGroupY)$M*1
 		} else {
-			colGroupY <- as(colGroupY,"dgCMatrix")
+			colGroupY <- as(colGroupY,"dMatrix")
 		}		
 		Gy <- crossprod(colGroupY)
 
@@ -386,12 +390,12 @@ assocCol <- function(X, colGroupX, Y = NULL, colGroupY = NULL, method = res, spa
 
 assocRow <- function(X, rowGroup, Y = NULL, method = res) {
 
-	X <- as(X,"dgCMatrix")
+	X <- as(X,"dMatrix")
 	
 	if (is.vector(rowGroup)) {
 		rowGroup <- t(ttMatrix(rowGroup)$M*1)
 	} else {
-		rowGroup <- as(rowGroup,"dgCMatrix")
+		rowGroup <- as(rowGroup,"dMatrix")
 	}
 	W <- Diagonal( x = rowSums(tcrossprod(rowGroup))^-0.5 )
 
@@ -400,7 +404,7 @@ assocRow <- function(X, rowGroup, Y = NULL, method = res) {
 		E <- crossprod(t(rowGroup) %*% W %*% X)
 	} else {
 		stopifnot( nrow(X) == nrow(Y) )
-		Y <- as(Y,"dgCMatrix")
+		Y <- as(Y,"dMatrix")
 		O <- crossprod(X,Y)
 		E <- crossprod(t(rowGroup) %*% W %*% X, t(rowGroup) %*% W %*% Y)
 	}

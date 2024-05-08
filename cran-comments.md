@@ -24,8 +24,8 @@ No problems found
 - I removed many "\dontrun" because with more modern computers many calculations dropped below 5 sec.
 - I changed most remaining examples of "\dontrun" into "\donttest". 
 - Only real examples of errors remain as "\dontrun": either examples of limits to the computations, or a few graphics that raise errors on some platforms because of Unicode non-compliance.
-- On the CRAN-devel-builder it took a bit more time, which resulted in automatic rejection. To alleviate this, I encapsulated more examples in "\donttest"
-- However, I simply don't get all numbers away! As soon as I change some examples, other examples report longer elapsed time. Very strange.
+- On the CRAN-devel-builder it took a bit more time, which resulted in automatic rejection. To alleviate this, I went back and encapsulated many more examples in "\donttest"
+- However, as soon as I exclude some examples, examples of other functions start to report longer elapsed time. Very strange. Unfortunately, I had to exclude way more examples than I wanted to get inside the allowed elapsed time.
 
 ### minor corrections:
 

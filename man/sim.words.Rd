@@ -78,6 +78,7 @@ sim <- sim.words(eng, deu, method = res)
 # sorted co-occurrences for the english word "your" in German:
 sort(sim["your",], decreasing = TRUE)[1:10]
 
+\donttest{
 # ----- complete example of co-occurrences -----
 
 # running the complete bibles takes a bit more time (but still manageable)
@@ -90,7 +91,6 @@ sort(sim["your",], decreasing = TRUE)[1:10]
 
 # ----- look for 'best' translations -----
 
-\donttest{
 # note that selecting the 'best' takes even more time
 system.time(sim2 <- sim.words(bibles$eng, bibles$deu, method = res, best = TRUE))
 

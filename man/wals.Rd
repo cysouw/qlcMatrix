@@ -35,12 +35,14 @@ The three-letter WALS-codes are used as rownames in both dataframes. Further, th
 All details about the meaning of the variables and much more meta-information is available at \url{https://wals.info}.
 }
 \source{
-The current data was downloaded from \url{https://wals.info} in May 2014. The data is licensed as \url{http://creativecommons.org/licenses/by-nc-nd/2.0/de/deed.en}. Some minor corrections on the metadata have been performed (naming of variables, addition of missing coordinates).
+The current data was downloaded from \url{https://wals.info} in May 2014. The data is licensed as \url{https://creativecommons.org/licenses/by-nc-nd/2.0/de/deed.en}. Some minor corrections on the metadata have been performed (naming of variables, addition of missing coordinates).
 }
 \references{
 Dryer, Matthew S. & Haspelmath, Martin (eds.) 2013. \emph{The World Atlas of Language Structures Online.} Leipzig: Max Planck Institute for Evolutionary Anthropology. 
-(Available online at http://wals.info, Accessed on 2013-11-14.) }
+(Available online at https://wals.info, Accessed on 2013-11-14.) }
 \examples{
+
+\donttest{
 data(wals)
 
 # plot all locations of the WALS languages, looks like a world map
@@ -63,6 +65,6 @@ system.time(sim <- sim.att(wals$data, method = "chuprov"))
 # some structure visible
 rownames(sim) <- colnames(wals$data)
 plot(hclust(as.dist(1-sim), method = "ward"), cex = 0.5)
-
+}
 }
 \keyword{datasets}

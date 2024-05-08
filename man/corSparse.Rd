@@ -63,10 +63,10 @@ For further usage, the many small coefficients are often unnecessary anyway, and
 \examples{
 
 # reasonably fast (though not instantly!) with
-# sparse matrices up to a resulting matrix size of 1e8 cells.
+# sparse matrices 1e4x1e4 up to a resulting matrix size of 1e8 cells.
 # However, the calculations and the resulting matrix take up lots of memory
 
-X <- rSparseMatrix(1e4, 1e4, 1e5)
+X <- rSparseMatrix(1e3, 1e3, 1e4)
 system.time(M <- corSparse(X))
 print(object.size(M), units = "auto") # more than 750 Mb
 

@@ -59,6 +59,7 @@ x2 <- chisq.test(var1, var2)$residuals
 class(x2) <- "matrix"
 all.equal(x, x2, check.attributes = FALSE) # TRUE
 
+\donttest{
 # A second quick example: consider a small piece of English text:
 text <- "Once upon a time in midwinter, when the snowflakes were 
 falling like feathers from heaven, a queen sat sewing at her window, 
@@ -94,4 +95,5 @@ sort(freqB, decreasing = TRUE)
 # to the transition probabilities between the characters. 
 P <- assocSparse(t(M), t(N))
 plot(hclust(as.dist(-P), method = "ward.D"))
+}
 }

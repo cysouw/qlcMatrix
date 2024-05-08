@@ -69,6 +69,22 @@ farms2[1,1] <- "M1,M5"
 s <- sim.obs(farms2, split = ",")
 plot(hclust(as.dist(1-s), method = "ward.D"))
 
+# select only the 168 language from wals with more than 80 datapoints
+data(wals)
+sel <- wals$data[apply(wals$data,1,function(x){sum(!is.na(x))})>80,]
+
+# compare different similarities
+w <- sim.obs(sel, "weighted")
+h <- sim.obs(sel, "hamming")
+r <- sim.obs(sel, "res")
+p <- sim.obs(sel, "poi")
+m <- sim.obs(sel, "wpmi")
+i <- sim.obs(sel, "pmi")
+
+pairs(~ as.dist(w) + as.dist(h) + as.dist(r) + as.dist(p) + as.dist(m) + as.dist(i),
+	labels = c("weighted","hamming","residuals","poisson","weighted PMI","PMI"))
+
+\donttest{
 # a larger example with lots of missing data: the WALS-data as included here
 # computations go reasonably quick
 # (on 2566 observations and 131 attributes with 630 different values in total)
@@ -96,19 +112,5 @@ pairs(~ as.dist(chup.sparse) + as.dist(m) + as.dist(g) + as.dist(v),
 # time is not a problem, but the data is so sparse
 # that for many language-pairs there is no shared data
 system.time( s <- sim.obs(wals$data))
-
-# select only the 168 language with more than 80 datapoints
-sel <- wals$data[apply(wals$data,1,function(x){sum(!is.na(x))})>80,]
-
-# compare different similarities
-w <- sim.obs(sel, "weighted")
-h <- sim.obs(sel, "hamming")
-r <- sim.obs(sel, "res")
-p <- sim.obs(sel, "poi")
-m <- sim.obs(sel, "wpmi")
-i <- sim.obs(sel, "pmi")
-
-pairs(~ as.dist(w) + as.dist(h) + as.dist(r) + as.dist(p) + as.dist(m) + as.dist(i),
-	labels = c("weighted","hamming","residuals","poisson","weighted PMI","PMI"))
-
+}
 }

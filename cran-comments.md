@@ -19,11 +19,17 @@ No problems found
 
 ## Actions taken after package review:
 
-- I have corrected the DESCRIPTION-file
-- There are indeed literature references in the Rd-files of this package, but they are very specific to individual functions. It does not seem fitting to elevate them to the main DESCRIPTION file.
-- I removed most "\dontrun" because with more modern computers many calculations dropped below 5 sec.
+### dontrun/donttest
+
+- I removed many "\dontrun" because with more modern computers many calculations dropped below 5 sec.
 - I changed most remaining examples of "\dontrun" into "\donttest". 
 - Only real examples of errors remain as "\dontrun": either examples of limits to the computations, or a few graphics that raise errors on some platforms because of Unicode non-compliance.
-- there are two remaining example sections with slightly over 5 seconds runtime on my computer. On the CRAN win-builder it took a bit more time. I hope this is acceptable, otherwise I will encapsulate more examples in "\dontrun""
+- On the CRAN-devel-builder it took a bit more time, which resulted in automatic rejection. To alleviate this, I encapsulated more examples in "\donttest"
+- However, I simply don't get all numbers away! As soon as I change some examples, other examples report longer elapsed time. Very strange.
+
+### minor corrections:
+
 - I removed unexecutable code (forgotten leftover from earlier attempts)
 - I changed resetting of user's options to a more resilient approach: oldpar<-par("mfrow")...par(mfrow=oldpar)
+- I have corrected the DESCRIPTION-file
+- There are indeed literature references in the Rd-files of this package, but they are very specific to individual functions. It does not seem fitting to elevate them to the main DESCRIPTION file.

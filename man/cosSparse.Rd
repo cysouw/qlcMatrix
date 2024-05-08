@@ -100,15 +100,22 @@ For large sparse matrices, consider this as an alternative to \code{\link[stats]
 \code{\link{corSparse}}, \code{\link{assocSparse}} for other sparse association measures. See also \code{\link{cosRow}, \link{cosCol}} for variants of cosSparse dealing with nominal data.
 }
 \examples{
-# functional upto limits of RAM of the hardware used
+# reasonable fast on modern hardware
+
+\donttest{
+# try different sizes to find limits on local machine
+system.time(X <- rSparseMatrix(1e8, 1e8, 1e6))
+system.time(M <- cosSparse(X))
+}
+
 # consider removing small values of result to improve sparsity
 
-X <- rSparseMatrix(1e7, 1e7, 1e7)
-print(object.size(X), units = "auto") # 150 Mb
-system.time(M <- cosSparse(X)) # reasonable fast on modern hardware
-print(object.size(M), units = "auto") # 170 Mb
+X <- rSparseMatrix(1e5, 1e5, 1e6)
+print(object.size(X), units = "auto") # 12 Mb
+system.time(M <- cosSparse(X))
+print(object.size(M), units = "auto") # 59 Mb
 M <- drop0(M, tol = 0.1) # remove small values
-print(object.size(M), units = "auto") # 160 Mb
+print(object.size(M), units = "auto") # 14 Mb
 
 # Compare various weightings
 

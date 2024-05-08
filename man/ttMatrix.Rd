@@ -93,5 +93,5 @@ sort(freqB, decreasing = TRUE)
 # then the association between N and M is related 
 # to the transition probabilities between the characters. 
 P <- assocSparse(t(M), t(N))
-plot(hclust(as.dist(-P), method = "ward"))
+plot(hclust(as.dist(-P), method = "ward.D"))
 }

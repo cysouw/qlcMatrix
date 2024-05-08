@@ -58,11 +58,12 @@ From within R your can also use the following (again, optionally changing the li
 example <- c("still","till","stable","stale","tale","tall","ill","all")
 ( sim <- round( sim.strings(example), digits = 3) )
 
+\donttest{
+
 # show similarity in non-metric MDS
-library(MASS)
-mds <- isoMDS( as.dist(1-sim) )$points
+mds <- MASS::isoMDS( as.dist(1-sim) )$points
 plot(mds, type = "n", ann = FALSE, axes = FALSE)
-text(mds, labels = example, cex = .7)
+text(mds, labels = example)
 
 # ----- large example -----
 
@@ -106,5 +107,5 @@ image( log(table(
 		round(as.dist(sim1) / 3, digits = 2) * 3,
 		round(as.dist(sim2) / 3, digits = 2) * 3 )),
 	xlab = "bigram similarity", ylab = "relative Levenshtein similarity")
-
+}
 }

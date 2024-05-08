@@ -47,6 +47,7 @@ The term `attribute' is used in instead of the more common term `variable' to al
 	More methods to use such split tables can be found at \code{\link{sim.nominal}}.
 }
 \examples{
+
 # start with a simple example from the MASS library
 # compare the original data with the encoding as sparse matrices
 library(MASS)
@@ -72,6 +73,7 @@ O[1:10,1:10]
 system.time( N <- crossprod(tcrossprod(W$OV*1, W$AV*1)) )
 N[1:10,1:10]
 
+
 # compute the number of available datapoints per observation (language) in WALS
 # once the sparse matrices W are computed, such calculations are much quicker than 'apply'
 system.time( avail1 <- rowSums(W$OV) )
@@ -79,6 +81,4 @@ system.time( avail2 <- apply(wals$data,1,function(x){sum(!is.na(x))}))
 names(avail2) <- NULL
 all.equal(avail1, avail2)
 
-# Very unequal availability of data over languages in WALS
-hist(avail1)
 }

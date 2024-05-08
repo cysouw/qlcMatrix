@@ -95,11 +95,11 @@ R[	c("father","father's","son","son's"),
 # For example: best co-occurrences for the english word "mine"
 sort(R["mine",], decreasing = TRUE)[1:10]
 
+\donttest{
 # To get a quick-and-dirty translation matrix:
 # adding maxima from both sides work quite well
 # but this takes some time
 
-\donttest{
 cm <- colMax(R, which = TRUE, ignore.zero = FALSE)$which
 rm <- rowMax(R, which = TRUE, ignore.zero = FALSE)$which
 best <- cm + rm
@@ -107,7 +107,6 @@ best <- as(best, "nMatrix")
 
 which(best["your",])
 which(best["went",])
-}
 
 # A final speed check:
 # split all 4 texts, and simplify them into one matrix
@@ -127,5 +126,5 @@ print(object.size(S), units = "auto")
 # this leads to a factor 10 reduction in size:
 S <- drop0(S, tol = 0.2)
 print(object.size(S), units = "auto")
-
+}
 }

@@ -77,11 +77,11 @@ M <- drop0(M, tol = 0.4)
 print(object.size(M), units = "auto") # normally reduces size to about a quarter
 length(M@x) / prod(dim(M)) # down to less than 0.01\% non-zero entries
 
+\donttest{
 # comparison with other methods
 # corSparse is much faster than cor from the stats package
 # but cosSparse is even quicker than both!
 # do not try the regular cor-method with larger matrices than 1e3x1e3
-
 X <- rSparseMatrix(1e3, 1e3, 1e4)
 X2 <- as.matrix(X)
 
@@ -91,22 +91,19 @@ system.time(McorSparse <- corSparse(X))
 system.time(McosSparse <- cosSparse(X))
 
 # cor and corSparse give identical results
-
 all.equal(McorSparse, McorRegular)
 
 # corSparse and cosSparse are not identical, but close
-
 McosSparse <- as.matrix(McosSparse)
 dimnames(McosSparse) <- NULL
 all.equal(McorSparse, McosSparse) 
 
 # Actually, cosSparse and corSparse are *almost* identical!
-
 cor(as.dist(McorSparse), as.dist(McosSparse))
 
 # So: consider using cosSparse instead of cor or corSparse.
 # With sparse matrices, this gives mostly the same results, 
 # but much larger matrices are possible
 # and the computations are quicker and more sparse
-
+}
 }

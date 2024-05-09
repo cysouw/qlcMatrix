@@ -1,0 +1,30 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: qlcMatrix
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Michael
+    family-names: Cysouw
+    email: cysouw@mac.com
+    orcid: 'https://orcid.org/0000-0003-3168-4946'
+    affiliation: Philipps Universität Marburg
+repository-code: 'https://github.com/cysouw/qlcMatrix'
+abstract: >-
+  Utility Sparse Matrix Functions for Quantitative Language
+  Comparison in R. Extension of the functionality of the
+  'Matrix' package in R for using sparse matrices. Some of
+  the functions are very general, while other are highly
+  specific for special data format as used for quantitative
+  language comparison.
+keywords:
+  - linguistics
+  - language comparison
+  - sparse matrix
+license: GPL-3.0
+version: v0.9.8
+date-released: '2024-05-07'

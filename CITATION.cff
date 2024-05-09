@@ -2,7 +2,8 @@
 # Visit https://bit.ly/cffinit to generate yours today!
 
 cff-version: 1.2.0
-title: qlcMatrix
+title: qlcMatrix. Utility Sparse Matrix Functions for Quantitative Language
+  Comparison in R.
 message: >-
   If you use this software, please cite it using the
   metadata from this file.
@@ -15,8 +16,7 @@ authors:
     affiliation: Philipps Universität Marburg
 repository-code: 'https://github.com/cysouw/qlcMatrix'
 abstract: >-
-  Utility Sparse Matrix Functions for Quantitative Language
-  Comparison in R. Extension of the functionality of the
+  Extension of the functionality of the
   'Matrix' package in R for using sparse matrices. Some of
   the functions are very general, while other are highly
   specific for special data format as used for quantitative

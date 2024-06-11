@@ -6,7 +6,7 @@ title: qlcMatrix. Utility Sparse Matrix Functions for Quantitative Language
   Comparison in R.
 message: >-
   If you use this software, please cite it using the
-  metadata from this file.
+  metadata from the CITATION file.
 type: software
 authors:
   - given-names: Michael

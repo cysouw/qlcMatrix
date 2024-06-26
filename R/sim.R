@@ -177,14 +177,14 @@ sim.words <- function(text1, text2 = NULL, method = res, weight = NULL,
 
 # quick string comparison based on cosine similarity between bigrams
 
-sim.strings <- function(strings1, strings2 = NULL, sep = "", boundary = TRUE, ...) {
+sim.strings <- function(strings1, strings2 = NULL, sep = "", ngrams = 2, boundary = TRUE, ...) {
 
-	S1 <- splitStrings(strings1, sep = sep, boundary = boundary, simplify = TRUE, ...)
+	S1 <- splitStrings(strings1, sep = sep, n = ngrams, boundary = boundary, simplify = TRUE, ...)
 
 	if (is.null(strings2)) {
 		sim <- cosSparse(S1)
 	} else {
-		S2 <- splitStrings(strings2, sep = sep, boundary = boundary, simplify = TRUE, ...)
+		S2 <- splitStrings(strings2, sep = sep, n = ngrams, boundary = boundary, simplify = TRUE, ...)
 		M <- jMatrix( rownames(S1), rownames(S2) )
 		sim <- cosSparse( (M$M1*1) %*% S1, (M$M2*1) %*% S2 )
 	}
@@ -225,15 +225,16 @@ sim.graph <- function(
 sim.lang <- function(
 		wordlist, 
 		doculects = "DOCULECT", concepts = "CONCEPT", counterparts = "COUNTERPART",
-		method = "parallel", assoc.method =  res, weight = NULL, sep = ""
+		method = "parallel", assoc.method =  res, weight = NULL, ngrams = 2, sep = ""
 		) {	
 			
 	W <- splitWordlist(
-		wordlist, doculects = doculects, concepts = concepts, counterparts = counterparts, sep = sep
+		wordlist, doculects = doculects, concepts = concepts, counterparts = counterparts, 
+		ngrams = ngrams, sep = sep
 		)	
 
 	if (!is.na(pmatch(method,"global"))) {
-		BD <- (W$BS*1) %*% (W$SW*1) %*% t(W$DW*1)
+		BD <- (W$NS*1) %*% (W$SW*1) %*% t(W$DW*1)
 		if (!is.null(weight)) {
 			sim <- cosSparse( BD, weight =  weight )
 		} else {
@@ -241,7 +242,7 @@ sim.lang <- function(
 		}
 	}	
 	if (!is.na(pmatch(method,"parallel"))) {
-		BW <- (W$BS*1) %*% (W$SW*1)
+		BW <- (W$NS*1) %*% (W$SW*1)
 		CBxW <- KhatriRao(BW, (W$CW*1))
 		CBxD <- CBxW %*% t(W$DW*1)
 		if (!is.null(weight)) {
@@ -264,7 +265,7 @@ sim.con <- function(
 	if (!is.na(pmatch(method,"colexification"))) {
 		W <- splitWordlist(
 			wordlist, doculects = doculects, concepts = concepts, counterparts = counterparts, 
-			splitstrings = FALSE, simplify = FALSE
+			ngrams = NULL, simplify = FALSE
 			)
 		sim <- tcrossprod(W$CW*1)
 	}
@@ -273,7 +274,7 @@ sim.con <- function(
 			wordlist, doculects = doculects, concepts = concepts, counterparts = counterparts, 
 			sep = sep
 			)
-		BC <- (W$BS*1) %*% (W$SW*1) %*% t(W$CW*1)
+		BC <- (W$NS*1) %*% (W$SW*1) %*% t(W$CW*1)
 		if (!is.null(weight)) {
 			sim <- cosSparse( BC, weight =  weight )
 		} else {

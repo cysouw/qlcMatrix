@@ -15,7 +15,7 @@ WARNING: All these methods are really very crude! If they seem to give expected 
 \usage{
 sim.lang(wordlist, 
 	doculects = "DOCULECT", concepts = "CONCEPT", counterparts = "COUNTERPART",
-	method = "parallel", assoc.method =  res, weight = NULL, sep = "")
+	method = "parallel", assoc.method = res, weight = NULL, ngrams = 2, sep = "")
 
 sim.con(wordlist,
 	doculects = "DOCULECT", concepts = "CONCEPT", counterparts = "COUNTERPART",
@@ -27,18 +27,22 @@ sim.graph(wordlist,
 }
 \arguments{
 	\item{wordlist}{
-		Dataframe or matrix containing the wordlist data. Should have at least columns corresponding to languages (DOCULECT), meanings (CONCEPT) and translations (COUNTERPART). 
+	Dataframe or matrix containing the wordlist data. Should have at least columns corresponding to languages (DOCULECT), meanings (CONCEPT) and translations (COUNTERPART). 
 	}
 	\item{doculects, concepts, counterparts}{
-		The name (or number) of the column of \code{wordlist} in which the respective information is to be found. The defaults are set to coincide with the naming of the example dataset included in this package. See \code{\link{huber}}.
+	The name (or number) of the column of \code{wordlist} in which the respective information is to be found. The defaults are set to coincide with the naming of the example dataset included in this package. See \code{\link{huber}}.
 	}
 	\item{method}{
-		Specific approach for the computation of the similarities. See Details below.
+	Specific approach for the computation of the similarities. See Details below.
 	}
 	\item{assoc.method, weight}{
-		Measures to be used internally (passed on to \code{assocSparse} or \code{cosSparse}). See Details below.
+	Measures to be used internally (passed on to \code{\link{assocSparse}} or \code{\link{cosSparse}}). See Details below.
 	}
-	\item{sep}{Separator to be used to split strings. See \code{link{splitStrings}} for details.
+	\item{ngrams}{
+	Size of ngrams to be used (passed on to \code{\link{splitStrings}})
+	}
+	\item{sep}{
+	Separator to be used to split strings. See \code{\link{splitStrings}} for details.
 	}
 }
 \details{

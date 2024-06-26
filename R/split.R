@@ -85,7 +85,7 @@ splitTable <- function(	data,
 
 splitStrings <- function(	strings,
 							sep = "",
-							bigrams = TRUE,
+							n = 2,
 							boundary = TRUE,
 							bigram.binder = "",
 							gap.symbol = "\u2043",
@@ -93,7 +93,7 @@ splitStrings <- function(	strings,
 							right.boundary = "#",
 							simplify = FALSE
 							) {
-	if (bigrams) {
+	if (n > 1) {
 		gap.length <- 1
 		originals <- strings
 		if (boundary) {
@@ -104,7 +104,7 @@ splitStrings <- function(	strings,
 	}
 
 	# SW: Segments x Strings ("Words")
-	tmp <- pwMatrix(strings, sep=sep, gap.length=gap.length, gap.symbol=gap.symbol)
+	tmp <- pwMatrix(strings, sep = sep, gap.length = gap.length, gap.symbol = gap.symbol)
 	SW <- tmp$M
 	segments <- tmp$rownames
 
@@ -113,8 +113,8 @@ splitStrings <- function(	strings,
 	US <- tmp$M
 	unigrams <- tmp$rownames
 
-	# Bisymbols x Segments
-	if (bigrams) {
+	# N-symbols x Segments
+	if (n > 1) {
 		
 		# remove gap character from US and symbols
 		if (length(strings) > 1) {
@@ -123,10 +123,14 @@ splitStrings <- function(	strings,
 			US <- US[-gap.char,]
 		}
 		
-		S <- bandSparse(n = dim(US)[2], k = -1)
-		tmp <- rKhatriRao(US %&% S, US, unigrams, unigrams, binder = bigram.binder)
-		BS <- tmp$M
-		bisymbols <- tmp$rownames
+	  NS <- US
+	  ngrams <- unigrams
+	  for (i in 2:n) {
+		  S <- bandSparse(n = dim(US)[2], k = -(i-1))
+		  tmp <- rKhatriRao(US %&% S, NS, unigrams, ngrams, binder = bigram.binder)
+		  NS <- tmp$M
+		  ngrams <- tmp$rownames
+	  }
 
 		# remove boundary from US and symbols
 		if (boundary) {
@@ -137,17 +141,17 @@ splitStrings <- function(	strings,
 		
 	# various forms of output
 		if (simplify) {
-			result <- (BS*1) %*% (SW*1)
-			rownames(result) <- bisymbols
+			result <- (NS*1) %*% (SW*1)
+			rownames(result) <- ngrams
 			colnames(result) <- originals
 			return(result)
 		} else {
 			return(list(	segments = segments,
 		 					unigrams = unigrams,
-							bigrams = bisymbols,
+							ngrams = ngrams,
 							SW = SW, # Segments x Words
 							US = US, # Unigrams x Segments
-							BS = BS # Bigrams x Segments
+							NS = NS # Ngrams x Segments
 							))
 		}
 	} else {
@@ -275,7 +279,7 @@ splitWordlist <- function(	data,
 							doculects = "DOCULECT", 
 							concepts = "CONCEPT",
 							counterparts = "COUNTERPART",
-							splitstrings = TRUE,
+							ngrams = 2,
 							sep =  "",
 							bigram.binder = "",
 							grapheme.binder = "_",
@@ -304,29 +308,29 @@ splitWordlist <- function(	data,
 	WL <- tmp$M
 	words <- tmp$rownames
 	# split counterparts again from doculects
-	words <- sapply(strsplit(words,binder),head)[2,]
+	words <- sapply(strsplit(words, binder), head)[2,]
 
 	# relink	
 	DW <- DL %&% t(WL)
 	CW <- CL %&% t(WL)
 	
-	if (splitstrings) {
+	if (!is.null(ngrams)) {
 	
 		# split strings
-		S <- splitStrings(words, sep = sep, bigram.binder = bigram.binder)
+		S <- splitStrings(words, sep = sep, n = ngrams, bigram.binder = bigram.binder)
 	
 		# return results
 		if (simplify) {
 			
-			BW <- (S$BS*1) %*% (S$SW*1)
+			NW <- (S$NS*1) %*% (S$SW*1)
 			
 			# only use column names once because of size
 			rownames(DW) <- doculects
 			rownames(CW) <- concepts
-			rownames(BW) <- S$bigrams
-			colnames(BW) <- words
+			rownames(NW) <- S$ngrams
+			colnames(NW) <- words
 					
-			return(list(DW = DW, CW = CW, BW = BW))
+			return(list(DW = DW, CW = CW, NW = NW))
 			
 		} else {
 			# separate characters to languages
@@ -343,14 +347,14 @@ splitWordlist <- function(	data,
 			GS <- tmp$M
 			graphemes <- tmp$rownames
 	
-			# another KhatriRao to turn bisymbols into 
-			# language-specific Bigraphs x Segments
-			tmp <- rKhatriRao(	DS, S$BS, 
-								doculects, S$bigrams, 
+			# another KhatriRao to turn N-symbols into 
+			# language-specific N-graphs x Segments
+			tmp <- rKhatriRao(	DS, S$NS, 
+								doculects, S$ngrams, 
 								binder = grapheme.binder
 								)
 			TS <- tmp$M
-			digraphs <- tmp$rownames
+			ngraphs <- tmp$rownames
 	
 			return(list(	doculects = doculects,
 							concepts = concepts,
@@ -358,18 +362,18 @@ splitWordlist <- function(	data,
 						
 							segments = S$segments,
 							unigrams = S$unigrams,
-							bigrams = S$bigrams, 
+							ngrams = S$ngrams, 
 							graphemes = graphemes,
-							digraphs = digraphs,
+							ngraphs = ngraphs,
 	
 							DW = DW, # Doculects x Words
 							CW = CW, # Concepts x Words
 
 							SW = S$SW,	# Segments x Words
 							US = S$US,	# Unigrams x Segments
-							BS = S$BS,	# Bigrams x Segments
+							NS = S$NS,	# Ngrams x Segments
 							GS = GS, 	# Graphemes x Segments
-							TS = TS 	# Digraphs x Segments	
+							TS = TS 	# N-graphs x Segments	
 							))
 		}
 	} else {

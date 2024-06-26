@@ -5,10 +5,10 @@
 String similarity by cosine similarity between bigram vectors
 }
 \description{
-Efficient computation of pairwise string similarities using a cosine similarity on bigram vectors.
+Efficient computation of pairwise string similarities using a cosine similarity on ngram vectors.
 }
 \usage{
-sim.strings(strings1, strings2 = NULL, sep = "", boundary = TRUE, ...)
+sim.strings(strings1, strings2 = NULL, sep = "", ngrams = 2, boundary = TRUE, ...)
 }
 \arguments{
   \item{strings1, strings2}{
@@ -16,6 +16,9 @@ Vector with strings to be compared, will be treated \code{as.character}. When on
 }
   \item{sep}{
 Separator used to split the strings into parts. This will be passed to \code{\link{strsplit}} internally, so there is no fine-grained control possible on the splitting. If it is important to get the splitting exactly right, consider pre-processing the splitting by inserting a special symbol on the split-positions, and then choosing here to split by this special symbol.
+}
+  \item{ngrams}{
+Size of the ngrams to be used for the comparison. By default bigrams are used, which seems to be a good compromise between speed and accuracy for the comparison of word-sized strings. For longer strings higher ngrams should be used.
 }
   \item{boundary}{
 In the default setting \code{boundary = T}, a special symbol is added to the front and to the end of each string, adding special bigrams for the initial and the final character. With words from real languages (which are mostly not very long) this has a strong impact.
@@ -25,7 +28,7 @@ Further arguments passed to \code{\link{splitStrings}}.
 }
 }
 \details{
-The strings are converted into sparse matrices by \code{\link{splitStrings}}, and then \code{\link{assocSparse}} computes a cosine similarity on the bigram vectors. Only the option of bigrams is currently used, because for long lists of real words from a real language this seems to be an optimal tradeoff between speed and useful similarity.
+The strings are converted into sparse matrices by \code{\link{splitStrings}}, and then \code{\link{assocSparse}} computes a cosine similarity on the ngram vectors. By default the option of bigrams is used, because for long lists of real words from a real language this seems to be an optimal tradeoff between speed and useful similarity. When longer strings are to be compared (e.g. sentences of even longer texts) higher ngram values are to be preferred.
 }
 \value{
 When either \code{length(strings1) == 1} or \code{length(strings2) == 1}, the result will be a normal vector with similarities between 0 and 1.

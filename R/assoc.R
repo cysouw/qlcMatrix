@@ -276,7 +276,7 @@ assocSparse <- function(X, Y = NULL, method = res, N = nrow(X), sparse = TRUE) {
 
 	# this is the easy non-sparse method. 
 	# Note that the result will be non-sparse, 
-	# so this is not feasable for very large datasets
+	# so this is not feasible for very large data sets
 	} else {
 		if (is.null(Y)) {
 			E <- tcrossprod(Fx)/N
@@ -368,8 +368,8 @@ assocCol <- function(X, colGroupX, Y = NULL, colGroupY = NULL, method = res, spa
 		result@x <- match.fun(method)(O@x,E@x)	
 
 	# in a non-sparse way: this is much more elegant!
-	# But the result is not sparse, so this is not feasable
-	# for very large datasets.
+	# But the result is not sparse, so this is not feasible
+	# for very large data sets.
 	} else {
 		if (is.null(Y)) {
 			E <- crossprod(X %*% Gx %*% Fx)

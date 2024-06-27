@@ -2,7 +2,8 @@
 
 ## changes
 * adding possibility to compute higher ngrams in splitStrings
-* this opened up the possibility to use higher ngrams in sim.strings, sim.lang and sim.wordlist
+* this opens up the possibility to use higher ngrams in sim.strings, sim.lang and sim.wordlist
+* more cleanup of unnecessary nMatrix to dMatrix conversions
 
 # qlcMatrix 0.9.8
 

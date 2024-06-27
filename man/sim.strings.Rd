@@ -2,13 +2,14 @@
 \alias{sim.strings}
 
 \title{
-String similarity by cosine similarity between bigram vectors
+String similarity using ngram vectors
 }
 \description{
-Efficient computation of pairwise string similarities using a cosine similarity on ngram vectors.
+Efficient computation of pairwise string similarities using a similarity on ngram vectors.
 }
 \usage{
-sim.strings(strings1, strings2 = NULL, sep = "", ngrams = 2, boundary = TRUE, ...)
+sim.strings(strings1, strings2 = NULL, sep = "", ngrams = 2, 
+            assoc.method = res, weight = NULL, boundary = TRUE, ...)
 }
 \arguments{
   \item{strings1, strings2}{
@@ -20,6 +21,9 @@ Separator used to split the strings into parts. This will be passed to \code{\li
   \item{ngrams}{
 Size of the ngrams to be used for the comparison. By default bigrams are used, which seems to be a good compromise between speed and accuracy for the comparison of word-sized strings. For longer strings higher ngrams should be used.
 }
+	\item{assoc.method, weight}{
+Measures to be used internally (passed on to \code{\link{assocSparse}} or \code{\link{cosSparse}}). See Details below.
+}
   \item{boundary}{
 In the default setting \code{boundary = T}, a special symbol is added to the front and to the end of each string, adding special bigrams for the initial and the final character. With words from real languages (which are mostly not very long) this has a strong impact.
 }
@@ -28,7 +32,9 @@ Further arguments passed to \code{\link{splitStrings}}.
 }
 }
 \details{
-The strings are converted into sparse matrices by \code{\link{splitStrings}}, and then \code{\link{assocSparse}} computes a cosine similarity on the ngram vectors. By default the option of bigrams is used, because for long lists of real words from a real language this seems to be an optimal tradeoff between speed and useful similarity. When longer strings are to be compared (e.g. sentences of even longer texts) higher ngram values are to be preferred.
+The strings are converted into sparse matrices by \code{\link{splitStrings}} and a similarity in computed on the ngram vectors. By default bigrams are used, because for long lists of real words from a real language this seems to be an optimal tradeoff between speed and useful similarity. When longer strings are to be compared (e.g. sentences of even longer texts) higher ngram values are to be preferred.
+
+When \code{weight = NULL}, then \code{assocSparse} is used with the internal method as specified in \code{assoc.method}. When \code{weight} is specified, then \code{cosSparse} is used with an Euclidean norm and the weighting as specified in \code{weight}. When \code{weight} is specified, and specification of \code{assoc.method} is ignored.
 }
 \value{
 When either \code{length(strings1) == 1} or \code{length(strings2) == 1}, the result will be a normal vector with similarities between 0 and 1.
@@ -59,7 +65,7 @@ From within R your can also use the following (again, optionally changing the li
 # ----- simple example -----
 
 example <- c("still","till","stable","stale","tale","tall","ill","all")
-( sim <- round( sim.strings(example), digits = 3) )
+( sim <- round( sim.strings(example, weight = "none"), digits = 3) )
 
 \donttest{
 

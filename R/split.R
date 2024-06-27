@@ -239,7 +239,7 @@ splitText <- function(	text,
 
 	if (!lowercase) {
 		if (simplify) {
-			R <- (WR*1) %*% (RS*1)
+			R <- (WR) %*% (RS)
 			rownames(R) <- wordforms
 			return(R)
 		} else {
@@ -253,7 +253,7 @@ splitText <- function(	text,
 		}
 	} else {
 		if (simplify) {
-			R <- (wW*1) %*% (WR*1) %*% (RS*1)
+			R <- (wW) %*% (WR) %*% (RS)
 			rownames(R) <- lower
 			return(R)
 		} else {
@@ -322,7 +322,7 @@ splitWordlist <- function(	data,
 		# return results
 		if (simplify) {
 			
-			NW <- (S$NS*1) %*% (S$SW*1)
+			NW <- (S$NS) %*% (S$SW)
 			
 			# only use column names once because of size
 			rownames(DW) <- doculects

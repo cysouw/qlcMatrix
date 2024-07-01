@@ -81,92 +81,84 @@ splitTable <- function(	data,
 					))
 }
 
-# make unigram and bigram matrices from a vector of strings
+# make ngram matrices from a vector of strings
 
 splitStrings <- function(	strings,
 							sep = "",
 							n = 2,
 							boundary = TRUE,
-							bigram.binder = "",
-							gap.symbol = "\u2043",
+							ngram.binder = "",
 							left.boundary = "#",
 							right.boundary = "#",
 							simplify = FALSE
 							) {
-	if (n > 1) {
-		gap.length <- 1
-		originals <- strings
-		if (boundary) {
-			strings <- paste(left.boundary, strings, right.boundary, sep = sep)
-		} 
-	} else {
-		gap.length <- 0
+
+  # add boundary symbols
+	originals <- strings
+	if (n > 1 && boundary) {
+		strings <- paste(left.boundary, strings, right.boundary, sep = sep)
 	}
 
 	# SW: Segments x Strings ("Words")
-	tmp <- pwMatrix(strings, sep = sep, gap.length = gap.length, gap.symbol = gap.symbol)
+	tmp <- pwMatrix(strings, sep = sep, gap.length = n-1)
 	SW <- tmp$M
 	segments <- tmp$rownames
 
-	# US: unigrams x segments
+	# NS: ngrams x segments (starting with unigrams)
 	tmp <- ttMatrix(segments)
-	US <- tmp$M
-	unigrams <- tmp$rownames
+	NS <- tmp$M
+	ngrams <- tmp$rownames
 
-	# N-symbols x Segments
+	# larger ngrams
 	if (n > 1) {
-		
-		# remove gap character from US and symbols
-		if (length(strings) > 1) {
-			gap.char <- which(unigrams == gap.symbol)
-			unigrams <- unigrams[-gap.char]
-			US <- US[-gap.char,]
-		}
-		
-	  NS <- US
-	  ngrams <- unigrams
+	  
+  	# remove gap character from ngrams
+  	remove <- which(ngrams == getOption("qlcMatrix.gap"))
+  	if (length(remove) > 0) {
+    	ngrams <- ngrams[-remove]
+    	NS <- NS[-remove,]
+  	}
+  	
+  	# remember unigrams
+	  US <- NS
+	  unigrams <- ngrams
+	  
+	  # construct ngrams
 	  for (i in 2:n) {
-		  S <- bandSparse(n = dim(US)[2], k = -(i-1))
-		  tmp <- rKhatriRao(US %&% S, NS, unigrams, ngrams, binder = bigram.binder)
+		  S <- bandSparse(n = dim(NS)[2], k = i-1)
+		  tmp <- rKhatriRao(NS, US %&% S, ngrams, unigrams, binder = ngram.binder)
 		  NS <- tmp$M
 		  ngrams <- tmp$rownames
 	  }
-
-		# remove boundary from US and symbols
-		if (boundary) {
-			boundary.char <- which(unigrams == left.boundary | unigrams == right.boundary)
-			unigrams <- unigrams[-boundary.char]
-			US <- US[-boundary.char,]
-		}
-		
-	# various forms of output
-		if (simplify) {
-			result <- (NS*1) %*% (SW*1)
-			rownames(result) <- ngrams
-			colnames(result) <- originals
-			return(result)
-		} else {
-			return(list(	segments = segments,
-		 					unigrams = unigrams,
-							ngrams = ngrams,
-							SW = SW, # Segments x Words
-							US = US, # Unigrams x Segments
-							NS = NS # Ngrams x Segments
-							))
-		}
-	} else {
-		if (simplify) {
-			result <- (US*1) %*% (SW*1)
-			rownames(result) <- unigrams
-			colnames(result) <- strings
-			return(result)
-		}
-		return(list(	segments = segments,
-						unigrams = unigrams,
-						SW = SW, # Segments x Words
-						US = US # Unigrams x Segments
-						))
 	}
+	
+	# remove gap symbol
+	remove <- which(segments == getOption("qlcMatrix.gap"))
+	if (length(remove > 0)) {
+	  segments <- segments[-remove]
+	  SW <- SW[-remove, ]
+	  NS <- NS[, -remove]
+	}
+	
+	# order ngrams according to ttMatrix locale
+	NN <- ttMatrix(ngrams)
+	NS <- NN$M %&% NS
+	ngrams <- NN$rownames
+	
+	# prepare result
+	if (simplify) {
+		result <- NS %*% SW
+		rownames(result) <- ngrams
+		colnames(result) <- originals
+	} else {
+		result <- list(	
+		  segments = segments,
+			ngrams = ngrams,
+			SW = SW, # Segments x Words
+			NS = NS # Unigrams x Segments
+			)
+	}
+	return(result)
 }
 
 # =========================================================
@@ -281,7 +273,7 @@ splitWordlist <- function(	data,
 							counterparts = "COUNTERPART",
 							ngrams = 2,
 							sep =  "",
-							bigram.binder = "",
+							ngram.binder = "",
 							grapheme.binder = "_",
 							simplify = FALSE
 							) {
@@ -317,18 +309,18 @@ splitWordlist <- function(	data,
 	if (!is.null(ngrams)) {
 	
 		# split strings
-		S <- splitStrings(words, sep = sep, n = ngrams, bigram.binder = bigram.binder)
+		S <- splitStrings(words, sep = sep, n = ngrams, ngram.binder = ngram.binder)
 	
 		# return results
 		if (simplify) {
 			
-			NW <- (S$NS) %*% (S$SW)
+			NW <- S$NS %*% S$SW
 			
 			# only use column names once because of size
 			rownames(DW) <- doculects
 			rownames(CW) <- concepts
-			rownames(NW) <- S$ngrams
 			colnames(NW) <- words
+			rownames(NW) <- S$ngrams
 					
 			return(list(DW = DW, CW = CW, NW = NW))
 			
@@ -339,21 +331,13 @@ splitWordlist <- function(	data,
 			# link to segments to doculects
 			DS <- DW %&% t(S$SW)
 	
-			# Graphemes x Segments
-			tmp <- rKhatriRao(	DS, S$US, 
-								doculects, S$unigrams, 
-								binder = grapheme.binder
-								)
-			GS <- tmp$M
-			graphemes <- tmp$rownames
-	
-			# another KhatriRao to turn N-symbols into 
+			# KhatriRao to turn N-symbols into 
 			# language-specific N-graphs x Segments
 			tmp <- rKhatriRao(	DS, S$NS, 
 								doculects, S$ngrams, 
 								binder = grapheme.binder
 								)
-			TS <- tmp$M
+			GS <- tmp$M
 			ngraphs <- tmp$rownames
 	
 			return(list(	doculects = doculects,
@@ -361,19 +345,15 @@ splitWordlist <- function(	data,
 							words = words,
 						
 							segments = S$segments,
-							unigrams = S$unigrams,
 							ngrams = S$ngrams, 
-							graphemes = graphemes,
 							ngraphs = ngraphs,
 	
 							DW = DW, # Doculects x Words
 							CW = CW, # Concepts x Words
 
 							SW = S$SW,	# Segments x Words
-							US = S$US,	# Unigrams x Segments
-							NS = S$NS,	# Ngrams x Segments
-							GS = GS, 	# Graphemes x Segments
-							TS = TS 	# N-graphs x Segments	
+							NS = S$NS,	# N-grams x Segments
+							GS = GS 	# N-graphs x Segments	
 							))
 		}
 	} else {

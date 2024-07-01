@@ -65,7 +65,7 @@ From within R your can also use the following (again, optionally changing the li
 # ----- simple example -----
 
 example <- c("still","till","stable","stale","tale","tall","ill","all")
-( sim <- round( sim.strings(example, weight = "none"), digits = 3) )
+( sim <- round( sim.strings(example, weight = idf), digits = 3) )
 
 \donttest{
 
@@ -113,7 +113,7 @@ sim2 <- 1- ( tmp / nchar(attr(tmp, "trafos")) )
 # plotting relation between the two 'heatmap-style'
 # not identical, but usefully similar
 image( log(table(
-		round(as.dist(sim1) / 3, digits = 2) * 3,
+		round(as.dist(sim1) / 3, digits = 1) * 3,
 		round(as.dist(sim2) / 3, digits = 2) * 3 )),
 	xlab = "bigram similarity", ylab = "relative Levenshtein similarity")
 }

@@ -2,13 +2,7 @@
 title: 'Transforming data into sparse matrices'
 author: "Michael Cysouw"
 date: '`r Sys.Date()`'
-output:
-  rmarkdown::html_vignette:
-  md_document:
-    variant: markdown_github
-  pdf_document:
-    number_sections: yes
-    latex_engine: xelatex
+output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Transforming data into sparse matrices}
   %\VignetteEngine{knitr::rmarkdown}
@@ -17,6 +11,7 @@ vignette: >
 
 ```{r setup, include = FALSE}
 library(qlcMatrix)
+getOption("qlcMatrix.locale")
 ```
 
 # Transforming data into sparse matrices
@@ -34,19 +29,22 @@ ttMatrix(data)
 
 You can also include the row and column names into the matrix as output by using the option `simplify = TRUE`. Note that in many cases of large sparse matrices, the same row or column names will be repeated in different sparse matrices. In such situations it is preferable to store the row or column names separately. Simply duplicating them migth take a lot of space.
 
-Also note that the ordering of the rows (the "types") is crucial. This ordering is determined by the so-called `collation.locale` option, which defaults to "C"" (which means the numerical ordering of the Unicode Standard is used). This ordering is different from the default ordering on most systems, which might internally for example use the collation locale `en_US.UTF-8'. The difference can be discerned in the example below, as the capital letters are ordered after the lowercase letters in the US-english locale, but before in the "C" locale (compare with the output of the previous call).
+Also note that the ordering of the rows (the "types") is crucial. This ordering is determined by the so-called `collation.locale` option, which defaults to "C" in the qlcMatrix package (which means the numerical ordering of the Unicode Standard is used). This ordering is different from the default ordering on most systems, which might internally for example use the collation locale `en_US.UTF-8'. Changing the collation locale can be achieved by specifying `options(qlcMatrix.locale)`. The difference can be discerned in the example below, as the capital letters are ordered after the lowercase letters in the US-english locale, but before in the "C" locale.
 
 ```{r ttSimplify}
-ttMatrix(data, simplify = TRUE, collation.locale = "en_US.UTF-8")
+options(qlcMatrix.locale = "en_US.UTF-8")
+ttMatrix(data, simplify = TRUE)
+options(qlcMatrix.locale = "C")
+ttMatrix(data, simplify = TRUE)
 ```
 
 ### pwMatrix
 
-The principle of `pwMatrix` ("part-whole Matrix") is so simple that it seems almost trivial. However, in combination with a bit matrix algebra the utility of this simple sparse Matrix is very impressive. First consider a simple vector of strings. Basically, `pwMatrix` looks at all parts of the strings (split into parts as determined by the separator `sep`). In the example below, The row and column names are added to the matrix by `simplify = TRUE`, and a gap has been added between the strings (like treating them as a sentence with boundaries).
+The principle of `pwMatrix` ("part-whole Matrix") is so simple that it seems almost trivial. However, in combination with a bit matrix algebra the utility of this simple sparse Matrix is very impressive. First consider a simple vector of strings. Basically, `pwMatrix` looks at all parts of the strings (split into parts as determined by the separator `sep`). In the example below, The row and column names are added to the matrix by `simplify = TRUE`, and a gap has been added between the strings (like treating them as a sentence with boundaries). The symbol to be inserted can be changed by setting `options(qlcMatrix.gap)'
 
 ```{r pwIntro}
 strings <- c("this", "is", "that")
-(PW <- pwMatrix(strings, sep = "", simplify = TRUE, gap.length = 1, gap.symbol = "_") )
+(PW <- pwMatrix(strings, sep = "", simplify = TRUE, gap.length = 1) )
 ```
 
 By itself, this part-whole Matrix is not very interesting. It becomes more interesting when we also consider the type-token Matrix of the "parts" (i.e. rownames) of the part-whole Matrix. The matrix product of these two matrices gives a sparse way to count how often each "part" occurs in each "whole". This is a quick and sparse way to count parts.

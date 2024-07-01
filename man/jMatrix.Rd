@@ -10,7 +10,7 @@ Harmonize (`join') sparse matrices
 A utility function to make sparse matrices conformable semantically. Not only are the dimensions made conformable in size, but also the content of the dimensions. Formulated differently, this function harmonizes two matrices on a dimensions that have the same entities, but in a different order (and possibly with different subsets). Given two matrices with such (partly overlapping) dimensions, two new matrices are generated to reorder the original matrices via a matrix product to make them conformable. In an abstract sense, this is similar to an SQL `inner join' operation.
 }
 \usage{
-jMatrix(rownamesX, rownamesY, collation.locale = "C")
+jMatrix(rownamesX, rownamesY)
 
 jcrossprod(X, Y, rownamesX = rownames(X), rownamesY = rownames(Y))
 tjcrossprod(X, Y, colnamesX = colnames(X), colnamesY = colnames(Y))
@@ -24,9 +24,6 @@ sparse matrices to be made (semantically) conformable.
   }
   \item{colnamesX, colnamesY}{
 colnames to be joined from two matrices.
-  }
-  \item{collation.locale}{
-locale to be used for ordering of the joined dimension. Defaults to pure numerical unicode ordering "C". See \code{\link{ttMatrix}} for details.
   }
 }
 \details{

@@ -8,23 +8,22 @@ Construct a `type-token' (tt) Matrix from a vector
 A type-token matrix is a sparse matrix representation of a vector of entities. The rows of the matrix (`types') represent all different entities in the vector, and the columns of the matrix (`tokens') represent the entities themselves. The cells in the matrix represent which token belongs to which type. This is basically a convenience wrapper around \code{factor} and \code{sparseMatrix}, with an option to influence the ordering of the rows (`types') based on locale settings.
 }
 \usage{
-ttMatrix(vector, collation.locale = "C", simplify = FALSE)
+ttMatrix(vector, simplify = FALSE)
 }
 
 \arguments{
   \item{vector}{
-a vector of tokens to be represented as a sparse matrix. It will work without complaining just as well when given a factor, but be aware that the ordering of the levels in the factor depends on the locale, which is transparently handled by this function. So better let this function turn the vector into a factor.
+a vector of tokens to be represented as a sparse matrix. It will work without complaining just as well when given a factor, but be aware that the ordering of the levels in the factor depends on the locale, which is consistently set by \code{getOption("qlcMatrix.locale")}, see details. So better let this function turn the vector into a factor.
 }
    \item{simplify}{
 by default, the row and column names are not included into the matrix to keep the matrix as lean as possible. The row names (`types') are returned separately. Using \code{simplify = T} the row and columns names will be added into the matrix. Note that the column names are simply the vector that went into the function.
-}
-  \item{collation.locale}{
-locale determining the ordering (`collation') of the entities. By default R mostly uses `en_US.UTF-8', though this might depend on the installation. By default, this function sets the ordering to `C', which means that characters are ordered according to their Unicode-number. For more information about locale settings, see \code{\link{locales}}.
 }
 }
 
 \details{
 This function is a rather low-level preparation for later high level functions. A few simple uses are described in the examples.
+
+Ordering of the entities (`collation') is determined by a locale. By default R mostly uses `en_US.UTF-8', though this depends on the installation. By default, the qlcMatrix package sets the ordering to `C', which means that characters are always ordered according to their Unicode-number. For more information about locale settings, see \code{\link{locales}}. You can change the locale used in this package by changing the \code{qlcMatrix.locale} option, e.g. by the command \code{options(qlcMatrix.locale = "en_US.UTF-8")}
 }
 \value{
 By default (\code{simplify = F}), then the output is a list with two elements:

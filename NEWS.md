@@ -1,8 +1,8 @@
-# qlcMatrix 0.9.9 (upcoming)
+# qlcMatrix 0.10 (upcoming)
 
 ## changes
 
-* adding support for ngrmas for n > 2 in splitStrings. this opens up the possibility to use larger ngrams in sim.strings, sim.lang and sim.wordlist
+* adding support for ngrams for n > 2 in splitStrings. this opens up the possibility to use larger ngrams in sim.strings, sim.lang and sim.wordlist
 * splitStrings now only gives ngrams as output, not unigrams and bigrams as before
 * adding global options "qlcMatrix.gap" and "qlcMatrix.locale" for package defaults that might in some special cases be changed by a user.
 

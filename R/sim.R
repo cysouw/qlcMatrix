@@ -175,19 +175,28 @@ sim.words <- function(text1, text2 = NULL, method = res, weight = NULL,
 	}	
 }
 
-# quick string comparison based on cosine similarity between bigrams
+# quick string comparison based on cosine similarity between ngrams
 
-sim.strings <- function(strings1, strings2 = NULL, sep = "", boundary = TRUE, ...) {
+sim.strings <- function(strings1, strings2 = NULL, sep = "", ngrams = 2, assoc.method = res, weight = NULL, boundary = TRUE, ...) {
 
-	S1 <- splitStrings(strings1, sep = sep, boundary = boundary, simplify = TRUE, ...)
+	S1 <- splitStrings(strings1, sep = sep, n = ngrams, boundary = boundary, simplify = TRUE, ...)
 
 	if (is.null(strings2)) {
-		sim <- cosSparse(S1)
+	  if (is.null(weight)) {
+	    sim <- assocSparse( S1, method = assoc.method )
+	  } else {
+	    sim <- cosSparse( S1 , weight = weight )
+	  }
 	} else {
-		S2 <- splitStrings(strings2, sep = sep, boundary = boundary, simplify = TRUE, ...)
+		S2 <- splitStrings(strings2, sep = sep, n = ngrams, boundary = boundary, simplify = TRUE, ...)
 		M <- jMatrix( rownames(S1), rownames(S2) )
-		sim <- cosSparse( (M$M1*1) %*% S1, (M$M2*1) %*% S2 )
+		if (is.null(weight)) {
+		  sim <- assocSparse( M$M1 %*% S1, M$M2 %*% S2, method = assoc.method )
+		} else {
+		  sim <- cosSparse( M$M1 %*% S1, M$M2 %*% S2, weight = weight )
+		}
 	}
+	
 	return(drop(sim))
 }
 
@@ -200,57 +209,77 @@ sim.graph <- function(
 		method = "cooccurrence", assoc.method = poi, weight = NULL, sep = " "
 		) {	
 			
-	W <- splitWordlist(
-		wordlist, doculects =  doculects, concepts = concepts, counterparts = counterparts, sep = sep
+	W <- splitWordlist(wordlist, 
+	      doculects = doculects, concepts = concepts, counterparts = counterparts, 
+	      ngrams = 1, sep = sep
 		)
-	CG <- (W$CW*1) %*% t(W$SW*1) %*% t(W$GS*1)		
+	CG <- (W$CW) %*% t(W$SW) %*% t(W$GS)		
 	if (!is.null(weight)) {
 			sim <- cosSparse( CG, weight =  weight )
 		} else {
 			sim <- assocSparse( CG, method = assoc.method )
 		}
-	rownames(sim) <- W$graphemes
+	rownames(sim) <- W$ngraphs
 
 	# additional matrix to identify the graphemes per language
 	# without needing to parse the rownames...
-	GD <- W$GS %*% W$SW %*% t(W$DW)
+	GD <- W$GS %&% W$SW %&% t(W$DW)
 	colnames(GD) <- W$doculects
-	rownames(GD) <- W$graphemes
+	rownames(GD) <- W$ngraphs
 
 	return(list(GG = sim, GD = GD))
 }
 
 # sim.lang: similarity between languages
 
-sim.lang <- function(
-		wordlist, 
+sim.lang <- function(wordlist, 
 		doculects = "DOCULECT", concepts = "CONCEPT", counterparts = "COUNTERPART",
-		method = "parallel", assoc.method =  res, weight = NULL, sep = ""
+		method = "parallel", assoc.method = res, weight = NULL, ngrams = 2, sep = ""
 		) {	
-			
-	W <- splitWordlist(
-		wordlist, doculects = doculects, concepts = concepts, counterparts = counterparts, sep = sep
-		)	
+  
+  if (!is.na(pmatch(method, "parallel"))) {
 
-	if (!is.na(pmatch(method,"global"))) {
-		BD <- (W$BS*1) %*% (W$SW*1) %*% t(W$DW*1)
-		if (!is.null(weight)) {
-			sim <- cosSparse( BD, weight =  weight )
-		} else {
-			sim <- assocSparse( BD, method = assoc.method )
-		}
-	}	
-	if (!is.na(pmatch(method,"parallel"))) {
-		BW <- (W$BS*1) %*% (W$SW*1)
-		CBxW <- KhatriRao(BW, (W$CW*1))
-		CBxD <- CBxW %*% t(W$DW*1)
-		if (!is.null(weight)) {
-			sim <- cosSparse( CBxD, weight =  weight )
-		} else {
-			sim <- assocSparse( CBxD, method = assoc.method )
-		}
-	} 	
-	colnames(sim) <- rownames(sim) <- W$doculects
+	  W <- splitWordlist(wordlist, 
+	    doculects = doculects, concepts = concepts, counterparts = counterparts, 
+	    ngrams = ngrams, sep = sep
+	  )
+		NW <- (W$NS) %*% (W$SW)
+		CNxW <- KhatriRao(NW, (W$CW*1))
+		ND <- CNxW %*% t(W$DW)
+		names <- W$doculects
+	}
+  
+  if (!is.na(pmatch(method, "global"))) {
+    
+    W <- splitWordlist(wordlist,
+      doculects = doculects, concepts = concepts, counterparts = counterparts, 
+      ngrams = ngrams, sep = sep, simplify = T
+    )
+    ND <- W$NW %*% t(W$DW)
+    names <- colnames(ND)
+    
+    # paste all counterparts together
+    # note: ngrams >= 5 leads to ngram-overlap because of collapse setting
+  #  combined <- stats::aggregate(get(counterparts) ~ get(doculects), data = wordlist, 
+  #                               paste, collapse = "# #")
+  #  colnames(combined) <- c("doculects", "counterparts")
+    # order by ttMatrix locale
+  #  collation <- order(ttMatrix(combined$doculects)$rownames)
+  #  combined <- combined[collation,]
+    
+  #  W <- splitStrings(combined$counterparts, n = ngrams, sep = sep)
+  #  ND <- W$NS %*% W$SW
+  #  names <- combined$doculects
+    
+
+  }
+  
+  if (is.null(weight)) {
+    sim <- assocSparse( ND, method = assoc.method )
+  } else {
+    sim <- cosSparse( ND, weight = weight )
+  }
+	colnames(sim) <- rownames(sim) <- names
 	return(sim)
 }
 
@@ -262,34 +291,34 @@ sim.con <- function(
 		method = "bigrams", assoc.method = res, weight = NULL, sep = ""
 		) {
 	if (!is.na(pmatch(method,"colexification"))) {
-		W <- splitWordlist(
-			wordlist, doculects = doculects, concepts = concepts, counterparts = counterparts, 
-			splitstrings = FALSE, simplify = FALSE
+		W <- splitWordlist(wordlist, 
+		  doculects = doculects, concepts = concepts, counterparts = counterparts, 
+			ngrams = NULL, simplify = FALSE
 			)
 		sim <- tcrossprod(W$CW*1)
 	}
 	if (!is.na(pmatch(method,"global"))) {
-		W <- splitWordlist(
-			wordlist, doculects = doculects, concepts = concepts, counterparts = counterparts, 
+		W <- splitWordlist(wordlist, 
+		  doculects = doculects, concepts = concepts, counterparts = counterparts, 
 			sep = sep
 			)
-		BC <- (W$BS*1) %*% (W$SW*1) %*% t(W$CW*1)
-		if (!is.null(weight)) {
-			sim <- cosSparse( BC, weight =  weight )
-		} else {
+		BC <- W$NS %*% W$SW %*% t(W$CW)
+		if (is.null(weight)) {
 			sim <- assocSparse( BC, method = assoc.method )
+		} else {
+			sim <- cosSparse( BC, weight =  weight )
 		}		
 	}	
 	if (!is.na(pmatch(method,"bigrams"))) {
-		W <- splitWordlist(
-			wordlist, doculects = doculects, concepts = concepts, counterparts = counterparts, 
-			sep = sep
+		W <- splitWordlist(wordlist, 
+		  doculects = doculects, concepts = concepts, counterparts = counterparts, 
+			ngrams = 2, sep = sep
 			)
-		TC <- (W$TS*1) %*% (W$SW*1) %*% t(W$CW*1)
-		if (!is.null(weight)) {
-			sim <- cosSparse( TC, weight =  weight )
-		} else {
+		TC <- W$GS %*% W$SW %*% t(W$CW)
+		if (is.null(weight)) {
 			sim <- assocSparse( TC, method = assoc.method )
+		} else {
+			sim <- cosSparse( TC, weight = weight )
 		}		
 	}		
 	colnames(sim) <- rownames(sim) <- W$concepts

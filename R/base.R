@@ -2,10 +2,16 @@
 # Low level functions to make special kinds of sparse matrices
 # ============================================================
 
+# package-specific options
+.onAttach <- function(libname, pkgname) {
+  options(qlcMatrix.locale = "C")
+  options(qlcMatrix.gap = "\u2043")
+}
+
 # make type-token (tt) Matrix from vector
 # result: Types x Tokens, types are returned as separate rownames
 
-ttMatrix <- function(vector, collation.locale = "C", simplify = FALSE) {
+ttMatrix <- function(vector, simplify = FALSE) {
 
   # just is case the complete vector is NA, return NULL
   # which might occur in higher-level functions working on large datasets
@@ -16,9 +22,7 @@ ttMatrix <- function(vector, collation.locale = "C", simplify = FALSE) {
   	# change locale for collation, defaults to pure unicode locale "C"
   	# setting NULL takes current locale on system
   	Sys.getlocale("LC_COLLATE") -> current.locale
-  	if (!is.null(collation.locale)) {
-  		Sys.setlocale("LC_COLLATE", collation.locale)
-  	}
+  	Sys.setlocale("LC_COLLATE", getOption("qlcMatrix.locale"))
   
   	# factorization
   	factor <- factor(vector) # remove non-used levels
@@ -57,8 +61,11 @@ ttMatrix <- function(vector, collation.locale = "C", simplify = FALSE) {
 # gap is needed for not obtaining overlap for ngrams.
 # gap.length = 1 is sufficient for bigrams, gap.length = 2 for 3-grams, etc.
 
-pwMatrix <- function(strings, sep = "", gap.length = 0, gap.symbol = "\u2043", simplify = FALSE) {
+pwMatrix <- function(strings, sep = "", gap.length = 0, simplify = FALSE) {
 
+  # use gap symbol from global options, set onAttach
+  gap.symbol <- getOption("qlcMatrix.gap")
+  
 	# just to be sure that we are dealing with strings
 	strings <- as.character(strings)
 	
@@ -114,10 +121,10 @@ pwMatrix <- function(strings, sep = "", gap.length = 0, gap.symbol = "\u2043", s
 # in which the types (in the rows) are harmonized, and returned as rownames
 # The matrix t(M1) %*% M2 (with the harmonized rows in the middle) can be used to JOIN two tables.
 
-jMatrix <- function(rownamesX, rownamesY, collation.locale = "C") {
+jMatrix <- function(rownamesX, rownamesY) {
 
 	# joined matrix
-	J <- ttMatrix(c(rownamesX,rownamesY), collation.locale =  collation.locale)
+	J <- ttMatrix(c(rownamesX,rownamesY))
 	rownames <- J$rownames
 
 	# split the joined matrix
@@ -138,7 +145,7 @@ jcrossprod <- function(X, Y, rownamesX = rownames(X), rownamesY = rownames(Y)) {
 	if (is(X,"nMatrix") & is(Y,"nMatrix")) {
 		M <- crossprod( J$M1 %&% X, J$M2 %&% Y )
 	} else {
-		M <- crossprod( (J$M1*1) %*% X, (J$M2*1) %*% Y )
+		M <- crossprod( (J$M1) %*% X, (J$M2) %*% Y )
 	}
 	return(M)
 }
@@ -150,7 +157,7 @@ tjcrossprod <- function(X, Y, colnamesX = colnames(X), colnamesY = colnames(Y)) 
 	if (is(X,"nMatrix") & is(Y,"nMatrix")) {
 		M <- tcrossprod( X %&% t(J$M1), Y %&% t(J$M2) )
 	} else {
-		M <- tcrossprod( X %*% t(J$M1*1), Y %*% t(J$M2*1) )
+		M <- tcrossprod( X %*% t(J$M1), Y %*% t(J$M2) )
 	}
 	return(M)
 }

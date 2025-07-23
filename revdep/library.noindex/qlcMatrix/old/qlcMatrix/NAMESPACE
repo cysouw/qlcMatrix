@@ -1,0 +1,8 @@
+exportPattern("^[[:alpha:]]+")
+import(Matrix)
+import(slam)
+import(sparsesvd)
+importFrom("methods", "as", "is")
+importFrom("stats", "na.omit", "rnorm")
+importFrom("utils", "read.table")
+import(docopt)

@@ -1,0 +1,41 @@
+Array                   Sparse Arrays ("Tensors")
+assocSparse             Association between columns (sparse matrices)
+bibles                  A selection of bible-texts
+corSparse               Pearson correlation between columns (sparse
+                        matrices)
+cosNominal              Associations-measures for sparsely encoded
+                        nominal variables
+cosSparse               Cosine similarity between columns (sparse
+                        matrices)
+dimRed                  Dimensionality Reduction for sparse matrices,
+                        based on Cholesky decomposition
+distSparse              Sparse distance matrix calculations
+huber                   Comparative vocabulary for indigenous languages
+                        of Colombia (Huber & Reed 1992)
+jMatrix                 Harmonize ('join') sparse matrices
+pwMatrix                Construct 'part-whole' (pw) Matrices from
+                        tokenized strings
+qlcMatrix-package       Utility sparse matrix functions for
+                        Quantitative Language Comparison (QLC)
+rKhatriRao              'reduced' Khatri-Rao product (sparse matrices)
+rSparseMatrix           Construct a random sparse matrix
+rowMax                  Row and column extremes (sparse matrices)
+sim.nominal             Similarity-measures for nominal variables
+sim.strings             String similarity by cosine similarity between
+                        bigram vectors
+sim.wordlist            Similarity matrices from wordlists
+sim.words               Similarity-measures for words between two
+                        languages, based on co-occurrences in parallel
+                        text
+splitStrings            Construct unigram and bigram matrices from a
+                        vector of strings
+splitTable              Construct sparse matrices from a nominal
+                        matrix/dataframe
+splitText               Construct sparse matrices from parallel texts
+splitWordlist           Construct sparse matrices from comparative
+                        wordlists (aka 'Swadesh list')
+ttMatrix                Construct a 'type-token' (tt) Matrix from a
+                        vector
+unfold                  Unfolding of Arrays
+unfoldBlockMatrix       Unfolding of block matrices (sparse matrices)
+wals                    The World Atlas of Language Structures (WALS)

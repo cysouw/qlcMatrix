@@ -1,6 +1,6 @@
 Package: qlcMatrix
-Version: 0.9.8
-Date: 2024-05-06
+Version: 0.9.9
+Date: 2025-07-23
 Title: Utility Sparse Matrix Functions for Quantitative Language Comparison
 Description: Extension of the functionality of the 'Matrix' package for using sparse matrices. Some of the functions are very general, while other are highly specific for special data format as used for quantitative language comparison.
 Authors@R:

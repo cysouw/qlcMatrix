@@ -29,7 +29,7 @@ rKhatriRao(X, Y,
 }
 }
 \details{
-Up to 1e6 row names to be produced goes reasonably quick with the basic \code{\link{KhatriRao}} function. However, larger amounts of pasting of row names becomes very slow, and the row names take an enormous amount of RAM. This function solves that problem by only producing row names for the non-empty rows.
+Up to 1e6 row names to be produced goes reasonably quick with the basic \code{\link[Matrix]{KhatriRao}} function. However, larger amounts of pasting of row names becomes very slow, and the row names take an enormous amount of RAM. This function solves that problem by only producing row names for the non-empty rows.
 }
 \value{
 By default, the result is a list of two items:

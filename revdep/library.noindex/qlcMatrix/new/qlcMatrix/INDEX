@@ -21,14 +21,13 @@ rKhatriRao              'reduced' Khatri-Rao product (sparse matrices)
 rSparseMatrix           Construct a random sparse matrix
 rowMax                  Row and column extremes (sparse matrices)
 sim.nominal             Similarity-measures for nominal variables
-sim.strings             String similarity by cosine similarity between
-                        bigram vectors
+sim.strings             String similarity using ngram vectors
 sim.wordlist            Similarity matrices from wordlists
 sim.words               Similarity-measures for words between two
                         languages, based on co-occurrences in parallel
                         text
-splitStrings            Construct unigram and bigram matrices from a
-                        vector of strings
+splitStrings            Construct ngram matrices from a vector of
+                        strings
 splitTable              Construct sparse matrices from a nominal
                         matrix/dataframe
 splitText               Construct sparse matrices from parallel texts

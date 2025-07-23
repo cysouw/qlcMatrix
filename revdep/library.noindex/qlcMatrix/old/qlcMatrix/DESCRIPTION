@@ -1,0 +1,29 @@
+Package: qlcMatrix
+Version: 0.9.8
+Date: 2024-05-06
+Title: Utility Sparse Matrix Functions for Quantitative Language
+        Comparison
+Description: Extension of the functionality of the 'Matrix' package for using sparse matrices. Some of the functions are very general, while other are highly specific for special data format as used for quantitative language comparison.
+Authors@R: 
+  person(
+    "Michael", "Cysouw", 
+    email = "cysouw@mac.com", 
+    role = c("aut", "cre"),
+    comment = c(ORCID = "0000-0003-3168-4946")
+  )
+URL: https://github.com/cysouw/qlcMatrix
+BugReports: https://github.com/cysouw/qlcMatrix/issues
+License: GPL-3
+Encoding: UTF-8
+Depends: Matrix (>= 1.2), R (>= 3.2), slam (>= 0.1-32), sparsesvd
+Imports: methods, docopt
+Suggests: MASS, knitr, rmarkdown
+VignetteBuilder: knitr, rmarkdown
+RoxygenNote: 6.0.1
+NeedsCompilation: no
+Packaged: 2024-05-08 14:26:33 UTC; cysouw
+Author: Michael Cysouw [aut, cre] (<https://orcid.org/0000-0003-3168-4946>)
+Maintainer: Michael Cysouw <cysouw@mac.com>
+Repository: CRAN
+Date/Publication: 2024-05-08 21:20:03 UTC
+Built: R 4.5.0; ; 2025-04-01 10:41:47 UTC; unix

@@ -125,7 +125,6 @@ sim <- sim[rowSums(sim) > 0, colSums(sim) > 0]
 \dontrun{
 # this might lead to errors on some platforms because of non-ASCII symbols
 plot( hclust(as.dist(-sim), method = "average"), cex = .5)
-}
 
 # ----- investigate regular sound correspondences -----
 
@@ -147,7 +146,6 @@ GD <- H$GS \%&\% H$SW \%&\% t(H$DW)
 colnames(GD) <- H$doculects
 correspondences <- G[GD[,"bora"],GD[,"muinane"]]
 
-\dontrun{
 # this might lead to errors on some platforms because of non-ASCII symbols
 heatmap(as.matrix(correspondences))
 }

@@ -25,7 +25,7 @@ rKhatriRao(X, Y,
   symbol to include between the row names of X and Y for the resulting matrix
 }
   \item{FUN}{
-  function to be used in the KhatriRao product, passed internally to the workhorse \code{\link{KhatriRao}}
+  function to be used in the KhatriRao product, passed internally to the workhorse \code{\link[Matrix]{KhatriRao}}
 }
 }
 \details{
